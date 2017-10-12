@@ -74,7 +74,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -93,10 +93,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Entradas',
+            POSTS: 'Posts',
             PAGES: 'Pages',
-            CATEGORIES: 'Categorias',
-            TAGS: 'Etiquetas',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -127,7 +127,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
     </div>
 
                 </td>
@@ -147,16 +147,16 @@
             <h2 id="name">ruccsbingo</h2>
             <h3 id="title">Coder</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
-            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">SEGUIR</a>
+            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">FOLLOW</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 2
-                <span>Entradas</span>
+                <span>posts</span>
             </div>
             <div class="article-info-block">
                 0
-                <span>Etiqueta</span>
+                <span>tag</span>
             </div>
         </div>
         
@@ -254,13 +254,26 @@
 <h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><p>进入Dockerfile存放的目录，执行build命令</p>
 <blockquote>
 <p>docker build -t friendlyhello .</p>
-<p>构建成功之后，执行images命令验证效果。<br>$ docker images<br>REPOSITORY            TAG                 IMAGE ID<br>friendlyhello         latest              326387cea398</p>
+</blockquote>
+<p>构建成功之后，执行images命令验证效果。</p>
+<blockquote>
+<p>$ docker images<br>REPOSITORY            TAG                 IMAGE ID<br>friendlyhello         latest              326387cea398</p>
 </blockquote>
 <h2 id="运行应用程序"><a href="#运行应用程序" class="headerlink" title="运行应用程序"></a>运行应用程序</h2><p>将应用程序的80端口映射到宿主机的4000端口，使用如下命令映射并启动。</p>
 <blockquote>
 <p>docker run -p 4000:80 friendlyhello</p>
-<p>在浏览器中输入<em><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></em>验证。<br><img src="https://i.imgur.com/kETeUrY.png" alt=""><br>恭喜你，运行成功。<br>当前的容器运行在terminal中，可以使用ctrl+c终止容器的运行。<br>也可以让容器运行在后台，使用如下命令启动<br>docker run -d -p 4000:80 friendlyhello</p>
-<p>-d参数指示容器在后台运行，可以使用如下命令查看所有运行的容器。<br>$ docker container ls<br>CONTAINER ID        IMAGE               COMMAND             CREATED<br>1fa4ab2cf395        friendlyhello       “python app.py”     28 seconds ago<br>CONTAINER ID是容器的身份标识，可以使用stop命令配合CONTAINER ID停止在后台运行的容器。<br>docker container stop 1fa4ab2cf395</p>
+</blockquote>
+<p>在浏览器中输入<em><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></em>验证。<br><img src="https://i.imgur.com/kETeUrY.png" alt=""><br>恭喜你，运行成功。<br>当前的容器运行在terminal中，可以使用ctrl+c终止容器的运行。<br>也可以让容器运行在后台，使用如下命令启动</p>
+<blockquote>
+<p>docker run -d -p 4000:80 friendlyhello</p>
+</blockquote>
+<p>-d参数指示容器在后台运行，可以使用如下命令查看所有运行的容器。</p>
+<blockquote>
+<p>$ docker container ls<br>CONTAINER ID        IMAGE               COMMAND             CREATED<br>1fa4ab2cf395        friendlyhello       “python app.py”     28 seconds ago</p>
+</blockquote>
+<p>CONTAINER ID是容器的身份标识，可以使用stop命令配合CONTAINER ID停止在后台运行的容器。</p>
+<blockquote>
+<p>docker container stop 1fa4ab2cf395</p>
 </blockquote>
 
         
@@ -272,7 +285,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" data-id="cj8nwki5e000106fyq10s7bxb" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" data-id="cj8nwki5e000106fyq10s7bxb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -340,7 +353,7 @@
 
             
     
-        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Comentarios</a>
+        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Comments</a>
     
 
         </footer>
@@ -426,7 +439,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" data-id="cj8nwki5a000006fy5h6nqixn" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" data-id="cj8nwki5a000006fy5h6nqixn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -494,7 +507,7 @@
 
             
     
-        <a href="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Comentarios</a>
+        <a href="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Comments</a>
     
 
         </footer>
@@ -509,7 +522,7 @@
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Recientes</h3>
+        <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
                 
@@ -560,7 +573,7 @@
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Archivos</h3>
+        <h3 class="widget-title">archives</h3>
         <div class="widget">
             <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">2</span></li></ul>
         </div>
@@ -573,7 +586,7 @@
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">Links</h3>
+        <h3 class="widget-title">links</h3>
         <div class="widget">
             <ul>
                 
