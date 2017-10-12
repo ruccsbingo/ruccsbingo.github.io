@@ -3,14 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hexo</title>
+    <title>2017-10-12-docker-tutorial-2-first-docker-app.md | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+    <meta name="description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2017-10-12-docker-tutorial-2-first-docker-app.md">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
+<meta property="og:image" content="https://i.imgur.com/kETeUrY.png">
+<meta property="og:updated_time" content="2017-10-12T03:18:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="2017-10-12-docker-tutorial-2-first-docker-app.md">
+<meta name="twitter:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
+<meta name="twitter:image" content="https://i.imgur.com/kETeUrY.png">
     
 
     
@@ -203,16 +209,15 @@
 </aside>
 
             
-            <section id="main">
-    <article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
             <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">2017-10-12-docker-tutorial-2-first-docker-app.md</a>
+        <h1 class="article-title" itemprop="name">
+            2017-10-12-docker-tutorial-2-first-docker-app.md
         </h1>
     
 
@@ -346,162 +351,32 @@
         </footer>
     </div>
     
-</article>
-
-
-
-    <article id="post-2017-10-11-docker-tutorial-1-orientation-and-setup" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
         
-        
-            <header class="article-header">
-                
+<nav id="article-nav">
     
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Docker入门系列（一）：目标和安排</a>
-        </h1>
     
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
-            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
+        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Docker入门系列（一）：目标和安排</div>
         </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>这个系列的教程来源于docker的官方文档，此文档的目的在于一步一步学习docker的使用方法。<br>这一系列的教程有如下几篇文档：</p>
-<ol>
-<li>docker安装启动</li>
-<li>构建第一个docker应用</li>
-<li>让你的应用变为可扩展的服务</li>
-<li>让你的服务跨越多台机器</li>
-<li>增加一个可持久化的访问计数</li>
-<li>将swarm部署到生产环境</li>
-</ol>
-<p>Docker的价值在于，如何构建，传输以及运行你的应用程序。这是作为使用者最需要关注的方向。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在正式开始之前，最好先了解<a href="https://www.docker.com/what-docker" target="_blank" rel="external">Docker是什么</a>，<a href="https://www.docker.com/use-cases" target="_blank" rel="external">我们为什么需要Docker</a>。<br>最好准备以下计算机基础知识：</p>
-<ul>
-<li>IP地址和端口</li>
-<li>虚拟机</li>
-<li>系统配置文件</li>
-<li>代码依赖以及构建</li>
-<li>系统资源，比如cpu使用率，内存大小等<h2 id="容器的简单阐述"><a href="#容器的简单阐述" class="headerlink" title="容器的简单阐述"></a>容器的简单阐述</h2>镜像（<strong>image</strong>）是一个轻量的、独立的、可执行的软件包。这个软件包包含了程序代码、运行环境、库文件、环境变量、以及配置文件等程序执行所需要的所有部分。<br>容器（<strong>container</strong>）是镜像的一个运行实例。在默认情况下，容器和宿主机是完全隔离的，也可以配置访问宿主机的文件系统和网络端口。<br>容器在本地运行应用程序基于宿主机的内核（<strong>kernel</strong>）。和虚拟机相比，容器拥有更好的性能。容器能够直接访问机器资源，容器运行在独立的进程中，并不会比可执行程序消耗更多的内存。<br>容器 VS 虚拟机<br>虚拟机<img src="https://i.imgur.com/G8SGx08.png" alt=""><br>虚拟机运行在访客系统之上，这是一种资源竞争型的架构，会造成磁盘状态和应用在OS设置、系统安装依赖、系统安全层面相互干扰，还会有其他的<strong>easy-to-lose, hard-to-replicate</strong>的问题。<br>容器<img src="https://i.imgur.com/gtcMmXk.png" alt=""><br>容器可以共享内核，容器内部需要的配置，都会安装在容器的内部，各个容器之间是相互隔离的。因此，容器包含它运行所需要的所有环境，能真正的实现<strong>runs anywhere</strong>。<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><blockquote>
-<p><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">install</a></p>
-</blockquote>
-</li>
-</ul>
-<p>安装成功之后，运行<strong>hello-world</strong></p>
-<blockquote>
-<p>$ docker run hello-world</p>
-<p>Hello from Docker!<br>This message shows that your installation appears to be working correctly.</p>
-<p>To generate this message, Docker took the following steps:<br>…(snipped)…</p>
-</blockquote>
-<p>检查docker版本</p>
-<blockquote>
-<p>$ docker –version<br>Docker version 17.06.2-ce, build cec0b72</p>
-<p>看到如下输出信息，说明已经安装成功，可以享受docker之旅了。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>服务伸缩的最小单元是独立的、可移植的意义重大，它意味着CI/CD能够更新一个分布式应用的任何一部分，系统依赖不在是问题，并且资源使用率也大大提升。服务编排将紧紧围绕可执行程序，而非VM主机。<br>这将是一个巨大的进步，首先让我们学会如何快速行走吧。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" data-id="cj8nwapvg00011tfy1wisji12" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
     
-        <a href="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Comments</a>
-    
+</nav>
 
-        </footer>
-    </div>
+
     
 </article>
 
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
 
 </section>
             
@@ -604,11 +479,13 @@
     <script>
     var disqus_config = function () {
         
-        this.page.identifier = '';
+            this.page.url = 'http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/';
+        
+        this.page.identifier = '2017-10-12-docker-tutorial-2-first-docker-app-md';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/count.js';
+        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
