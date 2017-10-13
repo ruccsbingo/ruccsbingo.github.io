@@ -3,20 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Docker入门系列（二）：构建第一个docker应用 | Hexo</title>
+    <title>让你的应用变为可扩展的服务 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
+    <meta name="description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry，一会儿会使用到此镜像  介绍在这一节中，我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker入门系列（二）：构建第一个docker应用">
-<meta property="og:url" content="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/index.html">
+<meta property="og:title" content="让你的应用变为可扩展的服务">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
-<meta property="og:image" content="https://i.imgur.com/kETeUrY.png">
-<meta property="og:updated_time" content="2017-10-12T03:32:28.000Z">
+<meta property="og:description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry，一会儿会使用到此镜像  介绍在这一节中，我">
+<meta property="og:updated_time" content="2017-10-13T06:13:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker入门系列（二）：构建第一个docker应用">
-<meta name="twitter:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
-<meta name="twitter:image" content="https://i.imgur.com/kETeUrY.png">
+<meta name="twitter:title" content="让你的应用变为可扩展的服务">
+<meta name="twitter:description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry，一会儿会使用到此镜像  介绍在这一节中，我">
     
 
     
@@ -209,7 +207,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2017-10-12-docker-tutorial-3-scale-app" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -217,7 +215,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Docker入门系列（二）：构建第一个docker应用
+            让你的应用变为可扩展的服务
         </h1>
     
 
@@ -226,8 +224,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
+        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">
+            <time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time>
         </a>
     </div>
 
@@ -244,42 +242,81 @@
             
             <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
 <li>安装docker，版本最低1.13</li>
-<li>了解前一部分的内容<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">目标和安排</a></li>
-<li>验证docker环境可用<blockquote>
-<p>docker run hello-world</p>
-</blockquote>
-</li>
+<li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" target="_blank" rel="external">构建第一个docker应用</a></li>
+<li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong>，一会儿会使用到此镜像</li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。<br>Stack<br>Services<br>Container (&lt;– you are)</p>
-<h2 id="你的新开发环境"><a href="#你的新开发环境" class="headerlink" title="你的新开发环境"></a>你的新开发环境</h2><p>在过去，你想开发python应用，你首先需要在本机上安装python运行环境。经常会遇到你本机的运行环境和服务器的运行环境并不一致。环境不一致，会带来各种奇奇怪怪的问题，影响开发效率。<br>使用docker，你只需要获取一份可移植的python运行镜像，并不需要安装。然后，将code、运行环境、程序库文件、系统配置都安装到镜像中，确保程序可以run anywhere。</p>
-<h2 id="使用Dockerfile定义容器"><a href="#使用Dockerfile定义容器" class="headerlink" title="使用Dockerfile定义容器"></a>使用Dockerfile定义容器</h2><p>Dockerfile是容器最重要的组成部分，它定义了容器的总体框架。在容器内部，访问系统资源，比如网络接口、磁盘驱动，都是虚拟化的，和系统的其他部分都是隔离的。因此，你不得不向外部世界映射出口，明确哪些文件需要复制到容器内部。做完这些，你的应用程序的表现行为将和Dockerfile中定义的行为完全一致。</p>
-<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># Use an official Python runtime as a parent image</div><div class="line">FROM python:2.7-slim</div><div class="line"></div><div class="line"># Set the working directory to /app</div><div class="line">WORKDIR /app</div><div class="line"></div><div class="line"># Copy the current directory contents into the container at /app</div><div class="line">ADD . /app</div><div class="line"></div><div class="line"># Install any needed packages specified in requirements.txt</div><div class="line">RUN pip install -r requirements.txt</div><div class="line"></div><div class="line"># Make port 80 available to the world outside this container</div><div class="line">EXPOSE 80</div><div class="line"></div><div class="line"># Define environment variable</div><div class="line">ENV NAME World</div><div class="line"></div><div class="line"># Run app.py when the container launches</div><div class="line">CMD [&quot;python&quot;, &quot;app.py&quot;]</div></pre></td></tr></table></figure>
-<h3 id="准备应用程序"><a href="#准备应用程序" class="headerlink" title="准备应用程序"></a>准备应用程序</h3><p>创建<strong>requirements.txt</strong>和<strong>app.py</strong>。和<strong>Dockerfile</strong>放在同一个目录。<br><em>requirements.txt</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flask</div><div class="line">Redis</div></pre></td></tr></table></figure></p>
-<p><em>app.py</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">from redis import Redis, RedisError</div><div class="line">import os</div><div class="line">import socket</div><div class="line"></div><div class="line"># Connect to Redis</div><div class="line">redis = Redis(host=&quot;redis&quot;, db=0, socket_connect_timeout=2, socket_timeout=2)</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    try:</div><div class="line">        visits = redis.incr(&quot;counter&quot;)</div><div class="line">    except RedisError:</div><div class="line">        visits = &quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</div><div class="line"></div><div class="line">    html = &quot;&lt;h3&gt;Hello &#123;name&#125;!&lt;/h3&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Hostname:&lt;/b&gt; &#123;hostname&#125;&lt;br/&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Visits:&lt;/b&gt; &#123;visits&#125;&quot;</div><div class="line">    return html.format(name=os.getenv(&quot;NAME&quot;, &quot;world&quot;), hostname=socket.gethostname(), visits=visits)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run(host=&apos;0.0.0.0&apos;, port=80)</div></pre></td></tr></table></figure></p>
-<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><p>进入Dockerfile存放的目录，执行build命令</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在这一节中，我们将应用扩容，并支持负载均衡，这一节着重介绍<strong>service</strong>。</p>
+<ul>
+<li>Stack</li>
+<li><strong>Services</strong> (&lt;-you are)</li>
+<li>Container (<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">part 2</a>)</li>
+</ul>
+<h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>在分布式环境中，<strong>services</strong>有很多不同的应用实例构成。想象一下，你拥有一个大型的视频分享网站，这个网站比如包含一个服务用来处理数据存储，另一个服务在后台做视频编解码，还有一个服务作为<strong>API</strong>接入层等等。</p>
+<p>一个服务只运行一种镜像，但是它定义了镜像运行的方式，比如，使用什么端口，运行多少容器的副本，在Docker平台上，使用<code>docker-compose.yml</code> 可以非常方便的对服务进行定义、运行、扩容。</p>
+<h2 id="第一个docker-compose-yml"><a href="#第一个docker-compose-yml" class="headerlink" title="第一个docker-compose.yml"></a>第一个docker-compose.yml</h2><p><code>docker-compose.yml</code>是yaml格式的，它定义了Docker容器在生产环境的运行方式。</p>
+<p><strong>docker-compose.yml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: username/repo:tag</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">    ports:</div><div class="line">      - &quot;80:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
+<p>这个<code>docker-compose.yml</code> 定义了如下行为：</p>
+<ul>
+<li>从registry上Pull在第二节上传的<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" target="_blank" rel="external">镜像</a></li>
+<li>运行5个实例作为一个取名为web的service，限制每一个实例最多使用10%的cpu，50MB内存</li>
+<li>容器失败后立即重启</li>
+<li>将web的80端口映射到宿主机的80端口上</li>
+<li>通过<code>webnet</code>在容器间共享80端口，达到负载均衡的目的（在内部, 容器将映射80端口到一个临时端口上)</li>
+<li>对 <code>webnet</code> 的网络进行默认设置</li>
+</ul>
+<h2 id="启动负载均衡的应用"><a href="#启动负载均衡的应用" class="headerlink" title="启动负载均衡的应用"></a>启动负载均衡的应用</h2><p>启动<strong>swarm manager</strong></p>
 <blockquote>
-<p>docker build -t friendlyhello .</p>
+<p>docker swarm init</p>
 </blockquote>
-<p>构建成功之后，执行images命令验证效果。</p>
+<p>启动service，并命名为<code>getstartedlab</code></p>
 <blockquote>
-<p>$ docker images<br>REPOSITORY            TAG                 IMAGE ID<br>friendlyhello         latest              326387cea398</p>
+<p>docker stack deploy -c docker-compose.yml getstartedlab</p>
 </blockquote>
-<h2 id="运行应用程序"><a href="#运行应用程序" class="headerlink" title="运行应用程序"></a>运行应用程序</h2><p>将应用程序的80端口映射到宿主机的4000端口，使用如下命令映射并启动。</p>
+<p>运行以上的命令后，在一个宿主机上启动5个容器实例。</p>
+<p>查看service的Id</p>
 <blockquote>
-<p>docker run -p 4000:80 friendlyhello</p>
+<p>docker service ls</p>
+<p>ID                  NAME                MODE                REPLICAS            IMAGE                          PORTS</p>
+<p>pxfbw2lyo4bo        getstartedlab_web   replicated          5/5                 ruccsbingo/get-started:part2   *:80-&gt;80/tcp</p>
 </blockquote>
-<p>在浏览器中输入<em><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></em>验证。<br><img src="https://i.imgur.com/kETeUrY.png" alt=""><br>恭喜你，运行成功。<br>当前的容器运行在terminal中，可以使用ctrl+c终止容器的运行。<br>也可以让容器运行在后台，使用如下命令启动</p>
+<p>Docker swarms启动5个tasks来运行containers，可以使用ps命令查看这些tasks。</p>
 <blockquote>
-<p>docker run -d -p 4000:80 friendlyhello</p>
+<p>docker service ps </p>
+<p>ID                  NAME                      IMAGE                          NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS</p>
+<p>ly162fal310t        getstartedlab_web.1       ruccsbingo/get-started:part2   moby                Running             Running 27 seconds ago                           </p>
+<p>ghrcp7fzjaub         _ getstartedlab_web.1   ruccsbingo/get-started:part2   moby                Shutdown            Shutdown 30 seconds ago                          </p>
+<p>t1jh0d1jsbj8        getstartedlab_web.2       ruccsbingo/get-started:part2   moby                Running             Running about a minute ago                       </p>
+<p>qdl4t4izqsza        getstartedlab_web.3       ruccsbingo/get-started:part2   moby                Ready               Ready 10 seconds ago                             </p>
+<p>nttsh0krytde         _ getstartedlab_web.3   ruccsbingo/get-started:part2   moby                Shutdown            Running 10 seconds ago                           </p>
+<p>wc9xqpqehwvx        getstartedlab_web.4       ruccsbingo/get-started:part2   moby                Running             Running 10 seconds ago                           </p>
+<p>m8xjlizio550         _ getstartedlab_web.4   ruccsbingo/get-started:part2   moby                Shutdown            Shutdown 13 seconds ago                          </p>
+<p>t37arxf436d5        getstartedlab_web.5       ruccsbingo/get-started:part2   moby                Running             Running about a minute ago                       </p>
 </blockquote>
-<p>-d参数指示容器在后台运行，可以使用如下命令查看所有运行的容器。</p>
+<p>使用如下命令列出containers</p>
 <blockquote>
-<p>$ docker container ls<br>CONTAINER ID        IMAGE               COMMAND             CREATED<br>1fa4ab2cf395        friendlyhello       “python app.py”     28 seconds ago</p>
+<p>docker container ls -q</p>
 </blockquote>
-<p>CONTAINER ID是容器的身份标识，可以使用stop命令配合CONTAINER ID停止在后台运行的容器。</p>
+<p>使用curl验证</p>
 <blockquote>
-<p>docker container stop 1fa4ab2cf395</p>
+<p></p><h3>Hello World!</h3><b>Hostname:</b> a8ee4747d8d7<br><b>Visits:</b> <i>cannot connect to Redis, counter disabled</i><strong>%</strong>  <p></p>
 </blockquote>
+<h2 id="服务扩容"><a href="#服务扩容" class="headerlink" title="服务扩容"></a>服务扩容</h2><p>更改<code>docker-compose.yml</code>文件中<code>replicas</code>的数量，重启整个服务。</p>
+<blockquote>
+<p>docker stack deploy -c docker-compose.yml getstartedlab</p>
+</blockquote>
+<p>Docker将会做<strong>in-place</strong>替换，不用先停服务，或者<strong>kill</strong>容器。</p>
+<h2 id="停止service和swarm"><a href="#停止service和swarm" class="headerlink" title="停止service和swarm"></a>停止service和swarm</h2><p>停止service的命令</p>
+<blockquote>
+<p>docker stack rm getstartedlab</p>
+</blockquote>
+<p>停止swarm manager</p>
+<blockquote>
+<p>docker swarm leave –force</p>
+</blockquote>
+<p>到目前为止，你已经学会了如何使用swarm进行服务的上线，扩容，下线操作。在一下节中，会介绍在集群上执行上线，扩容，下线操作。</p>
 
         
         </div>
@@ -290,7 +327,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" data-id="cj8phzky40001cvfy9gzd8y2i" class="article-share-link"><i class="fa fa-share"></i>Bagikan</a>
+    <a data-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" data-id="cj8phzky70002cvfy1b846pm1" class="article-share-link"><i class="fa fa-share"></i>Bagikan</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -358,7 +395,7 @@
 
             
     
-        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Komentar</a>
+        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">Komentar</a>
     
 
         </footer>
@@ -367,19 +404,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Lebih baru</strong>
-            <div class="article-nav-title">
-                
-                    让你的应用变为可扩展的服务
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Lebih Tua</strong>
-            <div class="article-nav-title">Docker入门系列（一）：目标和安排</div>
+            <div class="article-nav-title">Docker入门系列（二）：构建第一个docker应用</div>
         </a>
     
 </nav>
@@ -520,9 +548,9 @@
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/';
+            this.page.url = 'http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/';
         
-        this.page.identifier = '2017-10-12-docker-tutorial-2-first-docker-app-md';
+        this.page.identifier = '2017-10-12-docker-tutorial-3-scale-app';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
