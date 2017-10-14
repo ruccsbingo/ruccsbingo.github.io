@@ -3,14 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive: 2017/10 | Hexo</title>
+    <title>Docker入门系列（四）:让你的服务跨越多台机器 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://ruccsbingo.github.io/archives/2017/10/index.html">
+    <meta name="description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry 确保friendlyhello可以被pul">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker入门系列（四）:让你的服务跨越多台机器">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-4-cluster-md/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry 确保friendlyhello可以被pul">
+<meta property="og:updated_time" content="2017-10-14T02:21:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Docker入门系列（四）:让你的服务跨越多台机器">
+<meta name="twitter:description" content="准备工作 安装docker，版本最低1.13 准备 Docker Compose，Docker for Mac 以及 Docker for Windows 都已经预装了compose。linux系统需要自己安装，官方安装教程。 了解docker安装启动 了解构建第一个docker应用 确保在上一节创建的friendlyhello已经发布到registry 确保friendlyhello可以被pul">
     
 
     
@@ -225,25 +229,21 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-2017-10-13-tutorial-4-cluster-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/13/2017-10-13-tutorial-4-cluster-md/">Docker入门系列（四）:让你的服务跨越多台机器</a>
+        <h1 class="article-title" itemprop="name">
+            Docker入门系列（四）:让你的服务跨越多台机器
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2017/10/13/2017-10-13-tutorial-4-cluster-md/">
@@ -252,91 +252,123 @@ var _hmt = _hmt || [];
     </div>
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                        
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">Docker入门系列（三）:让你的应用变为可扩展的服务</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">
-            <time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker，版本最低1.13</li>
+<li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">构建第一个docker应用</a></li>
+<li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong></li>
+<li>确保<strong>friendlyhello</strong>可以被pull，并能正常使用</li>
+<li>复制第三部分的<code>docker-compose.yml</code></li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">第三节</a>中，我们使用了<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">第二节</a>写的应用，并定义了它在线上的运行方式，然后启动了5个实例。</p>
+<p>在这一节中，我们将这个应用部署到多机集群中，正式步入swarm模式，多机、多容器的应用。</p>
+<h2 id="理解-Swarm-clusters"><a href="#理解-Swarm-clusters" class="headerlink" title="理解 Swarm clusters"></a>理解 Swarm clusters</h2><p><strong>Swarm</strong>是什么？<strong>Swarm</strong>就是一组运行docker的机器，并联合成为一个集群。当启动<strong>Swarm</strong>集群之后，docker命令会通过<strong>Swarm manager</strong>执行在整个集群之上。<strong>Swarm</strong>集群的机器可以是物理机，也可以是虚拟机，当加入<strong>Swarm</strong>集群之后，被称为<strong>nodes</strong>。</p>
+<p>Swarm managers有两种不同的方式运行container：第一种<em>emptiest node</em>，尽量使用少的机器部署容器；第二种<em>global</em>，确保每一台机器上都会运行一个容器的实例。可以在<code>docker-compose.yml</code>中指定运行的模式。</p>
+<p>Swarm managers是集群的核心控制节点，它负责执行命令，授权新机器加入集群。Worker节点只负责提供资源。</p>
+<p>到目前为止，你已经学会在单机使用docker容器。docker可以很方便的切换为 <strong>swarm mode</strong>，切换的命令是<code>docker swarm init</code>，一旦切换为 <strong>swarm mode</strong>后，当前的机器角色就变为Swarm managers。</p>
+<h2 id="设置你的swarm集群"><a href="#设置你的swarm集群" class="headerlink" title="设置你的swarm集群"></a>设置你的swarm集群</h2><h3 id="创建cluster"><a href="#创建cluster" class="headerlink" title="创建cluster"></a>创建cluster</h3><p>在本机上使用VM创建集群，我使用的Mac操作系统，接下来演示在Mac上创建swarm集群。</p>
+<p>首先，需要安装虚拟机，在Mac上需要下载 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">Oracle VirtualBox</a>。</p>
+<p>使用<code>docker-machine</code>创建多个虚拟机</p>
+<blockquote>
+<p>docker-machine create –driver virtualbox myvm1<br>docker-machine create –driver virtualbox myvm2</p>
+</blockquote>
+<p>使用<code>docker-machine ls</code>列出所有的虚拟机</p>
+<blockquote>
+<p>$ docker-machine ls</p>
+<p>NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS</p>
+<p>myvm1   -        virtualbox   Running   tcp://192.168.99.100:2376           v17.09.0-ce   </p>
+<p>myvm2   -        virtualbox   Running   tcp://192.168.99.101:2376           v17.09.0-ce   </p>
+</blockquote>
+<p>接下来，开始初始化swarm，并向集群中加入节点。</p>
+<h2 id="部署service到swarm-cluster"><a href="#部署service到swarm-cluster" class="headerlink" title="部署service到swarm cluster"></a>部署service到swarm cluster</h2><h2 id="服务扩容"><a href="#服务扩容" class="headerlink" title="服务扩容"></a>服务扩容</h2><h2 id="清理重启"><a href="#清理重启" class="headerlink" title="清理重启"></a>清理重启</h2>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Docker入门系列（二）：构建第一个docker应用</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Docker入门系列（一）：目标和安排</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
-            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
 </div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-4-cluster-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Docker入门系列（三）:让你的应用变为可扩展的服务</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
