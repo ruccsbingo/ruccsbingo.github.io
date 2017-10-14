@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://ruccsbingo.github.io/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
@@ -31,6 +31,17 @@
         <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
     
     
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-108098597-1', 'auto');
+ga('send', 'pageview');
+
+</script>
     
     
     
@@ -251,15 +262,15 @@ var _hmt = _hmt || [];
             <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
 <li>安装docker，版本最低1.13</li>
 <li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
-<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">docker安装启动</a></li>
-<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" target="_blank" rel="external">构建第一个docker应用</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">构建第一个docker应用</a></li>
 <li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong>，一会儿会使用到此镜像</li>
 </ul>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在这一节中，我们将应用扩容，并支持负载均衡，这一节着重介绍<strong>service</strong>。</p>
 <ul>
 <li>Stack</li>
 <li><strong>Services</strong> (&lt;-you are)</li>
-<li>Container (<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">part 2</a>)</li>
+<li>Container (<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">part 2</a>)</li>
 </ul>
 <h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>在分布式环境中，<strong>services</strong>有很多不同的应用实例构成。想象一下，你拥有一个大型的视频分享网站，这个网站比如包含一个服务用来处理数据存储，另一个服务在后台做视频编解码，还有一个服务作为<strong>API</strong>接入层等等。</p>
 <p>一个服务只运行一种镜像，但是它定义了镜像运行的方式，比如，使用什么端口，运行多少容器的副本，在Docker平台上，使用<code>docker-compose.yml</code> 可以非常方便的对服务进行定义、运行、扩容。</p>
@@ -268,7 +279,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: username/repo:tag</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">    ports:</div><div class="line">      - &quot;80:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
 <p>这个<code>docker-compose.yml</code> 定义了如下行为：</p>
 <ul>
-<li>从registry上Pull在第二节上传的<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" target="_blank" rel="external">镜像</a></li>
+<li>从registry上Pull在第二节上传的<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">镜像</a></li>
 <li>运行5个实例作为一个取名为web的service，限制每一个实例最多使用10%的cpu，50MB内存</li>
 <li>容器失败后立即重启</li>
 <li>将web的80端口映射到宿主机的80端口上</li>
@@ -372,7 +383,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/#comments" class="article-comment-link">Comentarios</a>
+        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/#comments" class="article-comment-link">Comentarios</a>
     
 
         </footer>
@@ -417,7 +428,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
             
             <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
 <li>安装docker，版本最低1.13</li>
-<li>了解前一部分的内容<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" target="_blank" rel="external">目标和安排</a></li>
+<li>了解前一部分的内容<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">目标和安排</a></li>
 <li>验证docker环境可用<blockquote>
 <p>docker run hello-world</p>
 </blockquote>
@@ -500,7 +511,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://yoursite.com/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Comentarios</a>
+        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Comentarios</a>
     
 
         </footer>
@@ -623,7 +634,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://yoursite.com/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link">Comentarios</a>
+        <a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link">Comentarios</a>
     
 
         </footer>
