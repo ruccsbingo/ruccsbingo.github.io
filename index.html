@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                6
+                7
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -229,6 +229,109 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2017-10-15-docker-tutorial-6-conclusion-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">Docker入门系列（六）：最后的总结</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">
+            <time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>经过一段时间的思考，终于下定决心好好的学习一下docker。找到官网的教程，前前后后花了一周的时间，按照教程一步一步的敲命令，完整的搭建了一个完整的swarm集群。</p>
+<p>在做的过程中，遇到很多的问题，</p>
+<ul>
+<li>第一个最让人头疼的问题，就是国内网络访问docker hub速度感人，经常出现各种各样的莫名其妙的问题，刚开始的时候，也不懂在哪里找error log。明明很简单的一个命令，就是没有预定的结果，后来发现，所有的奇怪问题，基本都和网络有关，一般都是想要下载的image没有下载下来。</li>
+<li>第二个就需要仔细阅读官方教程，仔细理解docker各个组件的概念，区别docker client， docker deamon，swarm manager，worker。</li>
+<li>第三个端口的问题，区别docker deamon的端口，和swarm manager的端口。</li>
+<li>最后，要好好理解docker repository，了解docker pull的执行流程。</li>
+</ul>
+<p>针对上面提到的第一个和第三个问题，都在文档中做了记载，已备后来者。</p>
+<p>第一个问题的解决方案，<a href="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">设置阿里云镜像</a>。</p>
+<p>第三个问题，关于2377和2376的区别，在<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">docker入门系列（四）</a>中有提到。。</p>
+<p><strong>最后的总结</strong></p>
+<p>看介绍文章，和一步一步实践，一行一行敲命令，还是有很大的区别。以前总是看一些技术性的介绍文章，觉得自己什么都懂了，什么概念都清楚了，开口闭口都是容器化，服务编排。等到一个任务交给你去做的时候，总是无从下手，这次动手实践，真真实实的感受到了，docker给编程，或者说是软件流程的革命性的变化，一件搭建编程环境，一键部署应用，几代工程师的梦想，看来越来越接近现实了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2017-10-16-manual-aliyun-docker-mirror-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1082,6 +1185,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="title">Docker入门系列（六）：最后的总结</a></p>
+                            <p class="item-date"><time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/" class="thumbnail">
     
     
@@ -1155,25 +1277,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" class="title">Docker入门系列（二）：构建第一个docker应用</a></p>
-                            <p class="item-date"><time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1192,7 +1295,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">6</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">7</span></li></ul>
         </div>
     </div>
 
