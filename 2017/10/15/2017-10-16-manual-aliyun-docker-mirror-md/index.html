@@ -3,21 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Docker入门系列（一）：目标和安排 | zhang bing</title>
+    <title>Mac上配置阿里云的docker镜像 | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="这个系列的教程来源于docker的官方文档，此文档的目的在于一步一步学习docker的使用方法。这一系列的教程有如下几篇文档：  docker安装启动 构建第一个docker应用 让你的应用变为可扩展的服务 让你的服务跨越多台机器 增加一个可持久化的访问计数 将swarm部署到生产环境  Docker的价值在于，如何构建，传输以及运行你的应用程序。这是作为使用者最需要关注的方向。 准备工作在正式开">
+    <meta name="description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker入门系列（一）：目标和安排">
-<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/index.html">
+<meta property="og:title" content="Mac上配置阿里云的docker镜像">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="这个系列的教程来源于docker的官方文档，此文档的目的在于一步一步学习docker的使用方法。这一系列的教程有如下几篇文档：  docker安装启动 构建第一个docker应用 让你的应用变为可扩展的服务 让你的服务跨越多台机器 增加一个可持久化的访问计数 将swarm部署到生产环境  Docker的价值在于，如何构建，传输以及运行你的应用程序。这是作为使用者最需要关注的方向。 准备工作在正式开">
-<meta property="og:image" content="https://i.imgur.com/G8SGx08.png">
-<meta property="og:image" content="https://i.imgur.com/gtcMmXk.png">
-<meta property="og:updated_time" content="2017-10-11T12:09:36.000Z">
+<meta property="og:description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
+<meta property="og:updated_time" content="2017-10-15T09:00:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker入门系列（一）：目标和安排">
-<meta name="twitter:description" content="这个系列的教程来源于docker的官方文档，此文档的目的在于一步一步学习docker的使用方法。这一系列的教程有如下几篇文档：  docker安装启动 构建第一个docker应用 让你的应用变为可扩展的服务 让你的服务跨越多台机器 增加一个可持久化的访问计数 将swarm部署到生产环境  Docker的价值在于，如何构建，传输以及运行你的应用程序。这是作为使用者最需要关注的方向。 准备工作在正式开">
-<meta name="twitter:image" content="https://i.imgur.com/G8SGx08.png">
+<meta name="twitter:title" content="Mac上配置阿里云的docker镜像">
+<meta name="twitter:description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
     
 
     
@@ -232,7 +229,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-2017-10-11-docker-tutorial-1-orientation-and-setup" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2017-10-16-manual-aliyun-docker-mirror-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -240,7 +237,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            Docker入门系列（一）：目标和安排
+            Mac上配置阿里云的docker镜像
         </h1>
     
 
@@ -249,8 +246,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
-            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
+        <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">
+            <time datetime="2017-10-15T08:43:18.000Z" itemprop="datePublished">2017-10-15</time>
         </a>
     </div>
 
@@ -265,39 +262,35 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>这个系列的教程来源于docker的官方文档，此文档的目的在于一步一步学习docker的使用方法。<br>这一系列的教程有如下几篇文档：</p>
-<ol>
-<li>docker安装启动</li>
-<li>构建第一个docker应用</li>
-<li>让你的应用变为可扩展的服务</li>
-<li>让你的服务跨越多台机器</li>
-<li>增加一个可持久化的访问计数</li>
-<li>将swarm部署到生产环境</li>
-</ol>
-<p>Docker的价值在于，如何构建，传输以及运行你的应用程序。这是作为使用者最需要关注的方向。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在正式开始之前，最好先了解<a href="https://www.docker.com/what-docker" target="_blank" rel="external">Docker是什么</a>，<a href="https://www.docker.com/use-cases" target="_blank" rel="external">我们为什么需要Docker</a>。<br>最好准备以下计算机基础知识：</p>
+            <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。</p>
+<h3 id="安装／升级你的Docker客户端"><a href="#安装／升级你的Docker客户端" class="headerlink" title="安装／升级你的Docker客户端"></a>安装／升级你的Docker客户端</h3><ul>
+<li>对于10.10.3以下的用户 推荐使用</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker Toolbox</div></pre></td></tr></table></figure>
 <ul>
-<li>IP地址和端口</li>
-<li>虚拟机</li>
-<li>系统配置文件</li>
-<li>代码依赖以及构建</li>
-<li>系统资源，比如cpu使用率，内存大小等<h2 id="容器的简单阐述"><a href="#容器的简单阐述" class="headerlink" title="容器的简单阐述"></a>容器的简单阐述</h2>镜像（<strong>image</strong>）是一个轻量的、独立的、可执行的软件包。这个软件包包含了程序代码、运行环境、库文件、环境变量、以及配置文件等程序执行所需要的所有部分。<br>容器（<strong>container</strong>）是镜像的一个运行实例。在默认情况下，容器和宿主机是完全隔离的，也可以配置访问宿主机的文件系统和网络端口。<br>容器在本地运行应用程序基于宿主机的内核（<strong>kernel</strong>）。和虚拟机相比，容器拥有更好的性能。容器能够直接访问机器资源，容器运行在独立的进程中，并不会比可执行程序消耗更多的内存。<br>容器 VS 虚拟机<br>虚拟机<img src="https://i.imgur.com/G8SGx08.png" alt=""><br>虚拟机运行在访客系统之上，这是一种资源竞争型的架构，会造成磁盘状态和应用在OS设置、系统安装依赖、系统安全层面相互干扰，还会有其他的<strong>easy-to-lose, hard-to-replicate</strong>的问题。<br>容器<img src="https://i.imgur.com/gtcMmXk.png" alt=""><br>容器可以共享内核，容器内部需要的配置，都会安装在容器的内部，各个容器之间是相互隔离的。因此，容器包含它运行所需要的所有环境，能真正的实现<strong>runs anywhere</strong>。<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><blockquote>
-<p><a href="https://docs.docker.com/engine/installation/" target="_blank" rel="external">install</a></p>
-</blockquote>
+<li>Toolbox的介绍和帮助：<a href="http://mirrors.aliyun.com/help/docker-toolbox" target="_blank" rel="external">mirrors.aliyun.com/help/docker-toolbox</a></li>
+<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/</a></li>
+</ul>
+<ul>
+<li><p>对于10.10.3以上的用户 推荐使用 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker for Mac</div></pre></td></tr></table></figure>
+<ul>
+<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/</a></li>
+</ul>
 </li>
 </ul>
-<p>安装成功之后，运行<strong>hello-world</strong></p>
-<blockquote>
-<p>$ docker run hello-world</p>
-<p>Hello from Docker!<br>This message shows that your installation appears to be working correctly.</p>
-<p>To generate this message, Docker took the following steps:<br>…(snipped)…</p>
-</blockquote>
-<p>检查docker版本</p>
-<blockquote>
-<p>$ docker –version<br>Docker version 17.06.2-ce, build cec0b72</p>
-<p>看到如下输出信息，说明已经安装成功，可以享受docker之旅了。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>服务伸缩的最小单元是独立的、可移植的意义重大，它意味着CI/CD能够更新一个分布式应用的任何一部分，系统依赖不在是问题，并且资源使用率也大大提升。服务编排将紧紧围绕可执行程序，而非VM主机。<br>这将是一个巨大的进步，首先让我们学会如何快速行走吧。</p>
+<h3 id="如何使用Docker加速器"><a href="#如何使用Docker加速器" class="headerlink" title="如何使用Docker加速器"></a>如何使用Docker加速器</h3><ol>
+<li><p>创建一台安装有Docker环境的Linux虚拟机，指定机器名称为default，同时配置Docker加速器地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-machine create --engine-registry-mirror=https://ykf2xy9h.mirror.aliyuncs.com -d virtualbox default</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看机器的环境配置，并配置到本地，并通过Docker客户端访问Docker服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker-machine env default</div><div class="line">eval &quot;$(docker-machine env default)&quot;</div><div class="line">docker info</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行<code>hello-world</code>,验证是否配置成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ docker run hello-world</div><div class="line"></div><div class="line">Hello from Docker!</div><div class="line">This message shows that your installation appears to be working correctly.</div><div class="line"></div><div class="line">To generate this message, Docker took the following steps:</div><div class="line"> 1. The Docker client contacted the Docker daemon.</div><div class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</div><div class="line"> 3. The Docker daemon created a new container from that image which runs the</div><div class="line">    executable that produces the output you are currently reading.</div><div class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</div><div class="line">    to your terminal.</div><div class="line"></div><div class="line">To try something more ambitious, you can run an Ubuntu container with:</div><div class="line"> $ docker run -it ubuntu bash</div><div class="line"></div><div class="line">Share images, automate workflows, and more with a free Docker ID:</div><div class="line"> https://cloud.docker.com/</div><div class="line"></div><div class="line">For more examples and ideas, visit:</div><div class="line"> https://docs.docker.com/engine/userguide/</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>恭喜你，可以愉快使用docker镜像了。</p>
 
         
         </div>
@@ -345,7 +338,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link">Comentarios</a>
+        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/#comments" class="article-comment-link">Comentarios</a>
     
 
         </footer>
@@ -354,15 +347,11 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         
 <nav id="article-nav">
     
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Más nuevo</strong>
-            <div class="article-nav-title">
-                
-                    Docker入门系列（二）：构建第一个docker应用
-                
-            </div>
-        </a>
     
+        <a href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Más viejo</strong>
+            <div class="article-nav-title">增加一个可持久化的访问计数</div>
+        </a>
     
 </nav>
 
