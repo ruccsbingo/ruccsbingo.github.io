@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Mac上配置阿里云的docker镜像 | zhang bing</title>
+    <title>使用docker构建hexo风格的个人主页 | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
+    <meta name="description" content="准备工作 docker环境 nginx hexo  编写Dockerfile1FROM nginx 构建应用程序生成image部署容器应用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac上配置阿里云的docker镜像">
-<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/index.html">
+<meta property="og:title" content="使用docker构建hexo风格的个人主页">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
-<meta property="og:updated_time" content="2017-10-15T09:01:57.000Z">
+<meta property="og:description" content="准备工作 docker环境 nginx hexo  编写Dockerfile1FROM nginx 构建应用程序生成image部署容器应用">
+<meta property="og:updated_time" content="2017-10-18T06:47:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac上配置阿里云的docker镜像">
-<meta name="twitter:description" content="需求由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。 安装／升级你的Docker客户端 对于10.10.3以下的用户 推荐使用    1Docker Toolbox  Toolbox的介绍和帮助：mirrors.aliyun.com/help/docker-toolbox Mac系统的安装文件目录">
+<meta name="twitter:title" content="使用docker构建hexo风格的个人主页">
+<meta name="twitter:description" content="准备工作 docker环境 nginx hexo  编写Dockerfile1FROM nginx 构建应用程序生成image部署容器应用">
     
 
     
@@ -229,7 +229,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-2017-10-16-manual-aliyun-docker-mirror-md" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2017-10-16-docker-practice-hexo-personal-site-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -237,7 +237,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            Mac上配置阿里云的docker镜像
+            使用docker构建hexo风格的个人主页
         </h1>
     
 
@@ -246,18 +246,13 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">
-            <time datetime="2017-10-15T08:43:18.000Z" itemprop="datePublished">2017-10-15</time>
+        <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">
+            <time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time>
         </a>
     </div>
 
 
                         
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/docker/">docker</a>
-    </div>
-
                         
                     </div>
                 
@@ -267,36 +262,13 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。</p>
-<h3 id="安装／升级你的Docker客户端"><a href="#安装／升级你的Docker客户端" class="headerlink" title="安装／升级你的Docker客户端"></a>安装／升级你的Docker客户端</h3><ul>
-<li>对于10.10.3以下的用户 推荐使用</li>
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>docker环境</li>
+<li>nginx</li>
+<li>hexo</li>
 </ul>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker Toolbox</div></pre></td></tr></table></figure>
-<ul>
-<li>Toolbox的介绍和帮助：<a href="http://mirrors.aliyun.com/help/docker-toolbox" target="_blank" rel="external">mirrors.aliyun.com/help/docker-toolbox</a></li>
-<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/</a></li>
-</ul>
-<ul>
-<li><p>对于10.10.3以上的用户 推荐使用 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker for Mac</div></pre></td></tr></table></figure>
-<ul>
-<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="如何使用Docker加速器"><a href="#如何使用Docker加速器" class="headerlink" title="如何使用Docker加速器"></a>如何使用Docker加速器</h3><ol>
-<li><p>创建一台安装有Docker环境的Linux虚拟机，指定机器名称为default，同时配置Docker加速器地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-machine create --engine-registry-mirror=https://ykf2xy9h.mirror.aliyuncs.com -d virtualbox default</div></pre></td></tr></table></figure>
-</li>
-<li><p>查看机器的环境配置，并配置到本地，并通过Docker客户端访问Docker服务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker-machine env default</div><div class="line">eval &quot;$(docker-machine env default)&quot;</div><div class="line">docker info</div></pre></td></tr></table></figure>
-</li>
-<li><p>执行<code>hello-world</code>,验证是否配置成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ docker run hello-world</div><div class="line"></div><div class="line">Hello from Docker!</div><div class="line">This message shows that your installation appears to be working correctly.</div><div class="line"></div><div class="line">To generate this message, Docker took the following steps:</div><div class="line"> 1. The Docker client contacted the Docker daemon.</div><div class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</div><div class="line"> 3. The Docker daemon created a new container from that image which runs the</div><div class="line">    executable that produces the output you are currently reading.</div><div class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</div><div class="line">    to your terminal.</div><div class="line"></div><div class="line">To try something more ambitious, you can run an Ubuntu container with:</div><div class="line"> $ docker run -it ubuntu bash</div><div class="line"></div><div class="line">Share images, automate workflows, and more with a free Docker ID:</div><div class="line"> https://cloud.docker.com/</div><div class="line"></div><div class="line">For more examples and ideas, visit:</div><div class="line"> https://docs.docker.com/engine/userguide/</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>恭喜你，可以愉快使用docker镜像了。</p>
-
+<h2 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FROM nginx</div></pre></td></tr></table></figure>
+<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><h2 id="生成image"><a href="#生成image" class="headerlink" title="生成image"></a>生成image</h2><h2 id="部署容器应用"><a href="#部署容器应用" class="headerlink" title="部署容器应用"></a>部署容器应用</h2>
         
         </div>
         <footer class="article-footer">
@@ -343,7 +315,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/#comments" class="article-comment-link">Comments</a>
+        <a href="http://ruccsbingo.github.io/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/#comments" class="article-comment-link">Comments</a>
     
 
         </footer>
@@ -352,19 +324,19 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         
 <nav id="article-nav">
     
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Docker入门系列（六）：最后的总结
+                    学习dockerfile（一）：创建一个基础镜像
                 
             </div>
         </a>
     
     
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Docker入门系列（五）:增加一个可持久化的访问计数</div>
+            <div class="article-nav-title">Docker入门系列（六）：最后的总结</div>
         </a>
     
 </nav>

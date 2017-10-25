@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                7
+                9
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -229,6 +229,210 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2017-10-22-dockerfile-tutorial-1-first-dockerfile-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/">学习dockerfile（一）：创建一个基础镜像</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/">
+            <time datetime="2017-10-22T04:03:11.000Z" itemprop="datePublished">2017-10-22</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>前两周看完了docker tutorial官方系列教程，了解了docker是什么，docker的使用场景，为什么要使用docker以及如何使用docker。接下来的一周，需要深入一点，修炼一些docker的基本功，比如，如何写好dockerfile。<br>这一系列的教程有如下几篇文档：</p>
+<ol>
+<li>创建一个基础镜像</li>
+<li>多阶段构建</li>
+<li>管理镜像</li>
+<li>编写Dockerfile最佳实践</li>
+</ol>
+<p>绝大多数的Dockerfile都会基于已有的基础镜像进行构建，如果你需要完全控制镜像的内容，从空白的镜像创建，需要使用<code>FROM scratch</code>，或者不使用<code>FROM</code>指令。</p>
+<h2 id="使用FROM-scratch创建镜像"><a href="#使用FROM-scratch创建镜像" class="headerlink" title="使用FROM scratch创建镜像"></a>使用FROM scratch创建镜像</h2><p><code>scratch</code>镜像是Docker保留的最小镜像。使用<code>scratch</code>开始创建，<code>scratch</code>的下一条命令，将会是镜像的第一层。</p>
+<ul>
+<li>创建一个linux环境</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker run --rm -it -v $PWD:/build ubuntu:16.04</div><div class="line">container# apt-get update &amp;&amp; apt-get install build-essential</div><div class="line">container# cd /build</div><div class="line">container# gcc -o hello -static -nostartfiles hello.c</div></pre></td></tr></table></figure>
+<ul>
+<li>创建一个hello-world镜像</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">FROM scratch</div><div class="line">ADD hello /</div><div class="line">CMD [&quot;/hello&quot;]</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章介绍了如何使用docker创建一个简单的linux的编译环境，编译一个简单的hello-world二进制文件，并将这个二进制文件加入到空白的镜像中执行。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-16-docker-practice-hexo-personal-site-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">使用docker构建hexo风格的个人主页</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">
+            <time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>docker环境</li>
+<li>nginx</li>
+<li>hexo</li>
+</ul>
+<h2 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FROM nginx</div></pre></td></tr></table></figure>
+<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><h2 id="生成image"><a href="#生成image" class="headerlink" title="生成image"></a>生成image</h2><h2 id="部署容器应用"><a href="#部署容器应用" class="headerlink" title="部署容器应用"></a>部署容器应用</h2>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2017-10-15-docker-tutorial-6-conclusion-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1185,6 +1389,44 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="title">学习dockerfile（一）：创建一个基础镜像</a></p>
+                            <p class="item-date"><time datetime="2017-10-22T04:03:11.000Z" itemprop="datePublished">2017-10-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="title">使用docker构建hexo风格的个人主页</a></p>
+                            <p class="item-date"><time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="thumbnail">
     
     
@@ -1239,44 +1481,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/" class="title">Docker入门系列（四）:让你的服务跨越多台机器</a></p>
-                            <p class="item-date"><time datetime="2017-10-13T09:04:12.000Z" itemprop="datePublished">2017-10-13</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" class="title">Docker入门系列（三）:让你的应用变为可扩展的服务</a></p>
-                            <p class="item-date"><time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1295,7 +1499,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">7</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">9</span></li></ul>
         </div>
     </div>
 
