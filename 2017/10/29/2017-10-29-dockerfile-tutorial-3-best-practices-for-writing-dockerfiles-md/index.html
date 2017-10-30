@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>编写dockerfile的一些建议 | zhang bing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="准备工作 了解如何创建一个基础镜像 了解多阶段构建  常用的原则 原则一：容器的生命周期越短越好  所谓的生命周期越短越好，是要强调，通过dockerfile定义的镜像，可以使用最少的步骤和配置，很方便的停止、销毁、构建、部署，达到无状态的模式。  原则二：使用.dockerignore文件  docker build指令运行的上下文环境有两种，其一，docker build运行的当前目录以及所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编写dockerfile的一些建议">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/index.html">
+<meta property="og:site_name" content="zhang bing">
+<meta property="og:description" content="准备工作 了解如何创建一个基础镜像 了解多阶段构建  常用的原则 原则一：容器的生命周期越短越好  所谓的生命周期越短越好，是要强调，通过dockerfile定义的镜像，可以使用最少的步骤和配置，很方便的停止、销毁、构建、部署，达到无状态的模式。  原则二：使用.dockerignore文件  docker build指令运行的上下文环境有两种，其一，docker build运行的当前目录以及所有">
+<meta property="og:updated_time" content="2017-10-30T12:59:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编写dockerfile的一些建议">
+<meta name="twitter:description" content="准备工作 了解如何创建一个基础镜像 了解多阶段构建  常用的原则 原则一：容器的生命周期越短越好  所谓的生命周期越短越好，是要强调，通过dockerfile定义的镜像，可以使用最少的步骤和配置，很方便的停止、销毁、构建、部署，达到无状态的模式。  原则二：使用.dockerignore文件  docker build指令运行的上下文环境有两种，其一，docker build运行的当前目录以及所有">
+    
+
+    
+        <link rel="alternate" href="/" title="zhang bing" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-108098597-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?854305eb25760f3acc2c9557dfbd951b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">zhang bing</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">ruccsbingo</h2>
+            <h3 id="title">Coder</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                11
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            编写dockerfile的一些建议
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/">
+            <time datetime="2017-10-29T05:42:32.000Z" itemprop="datePublished">2017-10-29</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>了解如何<a href="http://ruccsbingo.github.io/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/">创建一个基础镜像</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/">多阶段构建</a></li>
+</ul>
+<h2 id="常用的原则"><a href="#常用的原则" class="headerlink" title="常用的原则"></a>常用的原则</h2><ul>
+<li>原则一：容器的生命周期越短越好</li>
+</ul>
+<p>所谓的生命周期越短越好，是要强调，通过<code>dockerfile</code>定义的镜像，可以使用最少的步骤和配置，很方便的停止、销毁、构建、部署，达到无状态的模式。</p>
+<ul>
+<li>原则二：使用<code>.dockerignore</code>文件</li>
+</ul>
+<p><code>docker build</code>指令运行的上下文环境有两种，其一，<code>docker build</code>运行的当前目录以及所有的子目录；其二，<code>-f</code>命令指定的目录及所有的子目录。当运行<code>docker build</code>命令时，上下文环境中的所有文件及其目录都会被送到<code>docker deamon</code>中，被认为是编译的上下文环境。上下文中的文件越多越大，编译所需要的时间，以及最终编译出来的image就会越大。也会直接的导致，pull、push以及run这个image的时间会越长。下面的这条信息告知了docker build上下文环境的大小，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sending build context to Docker daemon  187.8MB</div></pre></td></tr></table></figure>
+<p>一些编译环境的文件也不能被删除，为了优化这个问题，docker提供了<code>.dockerginore</code>文件，它如同<code>.gitignore</code>文件一样，支持排除模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># comment</div><div class="line">*/temp*</div><div class="line">*/*/temp*</div><div class="line">temp?</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code># comment</code></td>
+<td>忽略</td>
+</tr>
+<tr>
+<td><code>*/temp*</code></td>
+<td>根目录的二级子目录中，以temp开头的文件或者文件夹，都会被忽略。例如，<code>/somedir/temporary.txt</code> 将会被忽略。</td>
+</tr>
+<tr>
+<td><code>*/*/temp*</code></td>
+<td>根目录的三级子目录中，以temp开头的文件或者文件夹，都会被忽略。例如，<code>/somedir/subdir／temporary.txt</code> 将会被忽略。</td>
+</tr>
+<tr>
+<td><code>temp?</code></td>
+<td>根目录下的以 <code>/tempa</code> 开头的文件或者文件夹，都会被忽略。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>原则三：使用<code>muitl-stage</code>多阶段构建</li>
+</ul>
+<p>使用<code>muitl-stage</code>多阶段构建，可以有效的减少了image的大小，增加了dockerfile，部署的简洁性和可维护性。</p>
+<ul>
+<li>原则四：避免安装不必要的包</li>
+</ul>
+<p>为了减少复杂性、依赖、文件大小以及构建时间，最好避免安装不必要的包。例如，数据库的image中没有必要安装文件编辑工具。</p>
+<ul>
+<li>原则五：每个容器应该只做一件事情</li>
+</ul>
+<p>将一个大的应用解耦分拆到不同的容器中，使其更好的水平扩展、重用。例如，一个web应用栈可以分为三个独立的容器，一个容器用做web界面，一个用做数据库存储，一个用于in-memory的缓存。</p>
+<p>你可能听说过“一个容器就是一个进程”，这句话虽有夸张的成分，但是很好的解释了，使用容器的范式。尽量让容器功能单一，如果容器之间存在依赖，可以使用docker container networks相互通信。</p>
+<ul>
+<li>原则六：容器的文件层越少越好，减少到不能再少</li>
+</ul>
+<p>docker 17.05以及1.10以前，减少文件层非常的重要。比较高版本的docker优化了这些问题；</p>
+<p>docker 1.10 以及高版本，只有<code>RUN</code>, <code>COPY</code>以及 <code>ADD</code>指令 会增加文件层，其它指令会创建临时的中间镜像，不会增加最终的image的大小。</p>
+<p>Docker 17.05 以及高版本，增加了multi-stage特性，允许只拷贝想要的文件到最终的镜像。</p>
+<ul>
+<li>原则七：将多参数的命令行排序</li>
+</ul>
+<p>只要有可能，将多参数的命令行安装字母顺序排序，保证格式清楚，可阅读性高。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">RUN apt-get update &amp;&amp; apt-get install -y \</div><div class="line">  bzr \</div><div class="line">  cvs \</div><div class="line">  git \</div><div class="line">  mercurial \</div><div class="line">  subversion</div></pre></td></tr></table></figure>
+<ul>
+<li>原则八：使用缓存</li>
+</ul>
+<p>image的构建过程，就是一步一步按照指定的顺序执行dockerfile中的命令。每执行一条命令，docker会先在cache中查找，是否有以及存在可复用的缓存，如果没有，则会创建新的image。如果不想使用缓存功能，可以在运行<code>docker build</code>命令是指定<code>--no-cache=true</code>参数。</p>
+<p>缓存的查找规则如下，</p>
+<ol>
+<li>使用一个已经存在在缓存中的镜像最为父镜像，紧接着的一条命令，将会和此父镜像衍生的子镜像做对比，如果命令不同，则cache失效。</li>
+<li>在大多数情况下，只需要简单的比较dockerfile文件是否相同。在特殊的情况下，需要更复杂的对比。</li>
+<li>对于<code>ADD</code>和<code>COPY</code>命令来说，需要对比文件的内容，并会给每一个文件计算一个hash值，最近修改时间，以及访问次数，不参与hash值的计算。查找的过程，就是对比hash值是否相同，如果不同，则cache失效。</li>
+<li>除去 <code>ADD</code>和<code>COPY</code>命令，其它的命令只会对比命令字符串本身。</li>
+</ol>
+<h2 id="常用的指令"><a href="#常用的指令" class="headerlink" title="常用的指令"></a>常用的指令</h2><h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>尽可能使用官方仓库最为自己的基础镜像，推荐使用<a href="https://hub.docker.com/_/debian/" target="_blank" rel="external">Debian image</a>。</p>
+<h3 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h3><p>仅可能给自己的镜像加上标签，方面管理，添加版权信息等。如下提供了一个标准的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Set one or more individual labels</div><div class="line">LABEL com.example.version=&quot;0.0.1-beta&quot;</div><div class="line">LABEL vendor=&quot;ACME Incorporated&quot;</div><div class="line">LABEL com.example.release-date=&quot;2015-02-12&quot;</div><div class="line">LABEL com.example.version.is-production=&quot;&quot;</div></pre></td></tr></table></figure>
+<p>在dockr 1.10版本之前，推荐所有的标签写入一行，以便减少镜像的文件层。新版本无需特殊的考虑，以前版本的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Set multiple labels on one line</div><div class="line">LABEL com.example.version=&quot;0.0.1-beta&quot; com.example.release-date=&quot;2015-02-12&quot;</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Set multiple labels at once, using line-continuation characters to break long lines</div><div class="line">LABEL vendor=ACME\ Incorporated \</div><div class="line">      com.example.is-beta= \</div><div class="line">      com.example.is-production=&quot;&quot; \</div><div class="line">      com.example.version=&quot;0.0.1-beta&quot; \</div><div class="line">      com.example.release-date=&quot;2015-02-12&quot;</div></pre></td></tr></table></figure>
+<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>尽可能将命令写入一行，对于多行命令，使用<code>/</code>连接成一行。例如，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">RUN apt-get update &amp;&amp; apt-get install -y \</div><div class="line">    aufs-tools \</div><div class="line">    automake \</div><div class="line">    build-essential \</div><div class="line">    curl \</div><div class="line">    dpkg-sig \</div><div class="line">    libcap-dev \</div><div class="line">    libsqlite3-dev \</div><div class="line">    mercurial \</div><div class="line">    reprepro \</div><div class="line">    ruby1.9.1 \</div><div class="line">    ruby1.9.1-dev \</div><div class="line">    s3cmd=1.1.* \</div><div class="line"> &amp;&amp; rm -rf /var/lib/apt/lists/*</div></pre></td></tr></table></figure>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>CMD</code>命令用来启动容器中的应用程序，并且可以传人一些参数。一般的使用格式<code>CMD [“executable”, “param1”, “param2”…]</code>，对于service类型的应用，比如apache和rails，使用方式 <code>CMD [&quot;apache2&quot;,&quot;-DFOREGROUND&quot;]</code>。</p>
+<p>对于其他类型的应用， <code>CMD</code>应该启动一个常用的交互shell，就像bash，python以及perl。例如<code>CMD [&quot;perl&quot;, &quot;-de0&quot;]</code>, <code>CMD [&quot;python&quot;]</code>, 或者 <code>CMD [“php”, “-a”]</code>。这样就能保证，当你运行<code>docker run -it python</code>就能进入一个可用的shell环境。除非你对 <a href="https://docs.docker.com/engine/reference/builder/#entrypoint" target="_blank" rel="external"><code>ENTRYPOINT</code></a>命令非常的熟悉，最好不要用如下的格式<code>CMD [“param”, “param”]</code>配合 <a href="https://docs.docker.com/engine/reference/builder/#entrypoint" target="_blank" rel="external"><code>ENTRYPOINT</code></a>使用。</p>
+<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p><code>EXPOSE</code>命令指定了容器中应用程序监听的端口号，最好使用应用程序常用的端口号，比如 Apache web server一般使用<code>EXPOSE 80</code>，MongoDB使用<code>EXPOSE 27017</code>。</p>
+<p>对于外部访问来说，可以使用<code>docker run -p 8080:80</code>映射到宿主机上的端口，对于容器的互连，docker也提供了环境变量的方式，比如<code>MYSQL_PORT_3306_TCP</code>。</p>
+<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><p>为了使新的软件更容易运行，可以使用<code>ENV</code>命令设置容器的环境变量，比如，<code>ENV PATH /usr/local/nginx/bin:$PATH</code> 将nginx设置到环境变量中， <code>CMD [“nginx”]</code> 可以直接运行。</p>
+<p>也可以设置环境变量，给应用程序使用，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ENV PG_MAJOR 9.3</div><div class="line">ENV PG_VERSION 9.3.4</div><div class="line">RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …</div><div class="line">ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH</div></pre></td></tr></table></figure>
+<h3 id="ADD／COPY"><a href="#ADD／COPY" class="headerlink" title="ADD／COPY"></a>ADD／COPY</h3><p>尽管<code>ADD</code>和<code>COPY</code>命令功能基本相同，仍然推荐优先使用<code>COPY</code>命令。<code>COPY</code>命令只支持基本的拷贝功能，<code>ADD</code>有一些隐式的特性，支持打包文件的解压，指定网络路径等等。</p>
+<p>如果你需要拷贝一些文件到容器中，最好单独的拷贝，不要一次性全拷贝，比如下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">COPY requirements.txt /tmp/</div><div class="line">RUN pip install --requirement /tmp/requirements.txt</div><div class="line">COPY . /tmp/</div></pre></td></tr></table></figure>
+<p>如果<code>COPY . /tmp/</code>放在<code>run</code>之前，会大大的增加cache失效的可能性。</p>
+<p>从镜像大小的角度考虑，尽量避免使用<code>ADD</code>命令获取远程的资源，可以使用<code>curl</code>或者<code>wget</code>代替。看看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ADD http://example.com/big.tar.xz /usr/src/things/</div><div class="line">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</div><div class="line">RUN make -C /usr/src/things all</div></pre></td></tr></table></figure>
+<p>替换为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">RUN mkdir -p /usr/src/things \</div><div class="line">    &amp;&amp; curl -SL http://example.com/big.tar.xz \</div><div class="line">    | tar -xJC /usr/src/things \</div><div class="line">    &amp;&amp; make -C /usr/src/things all</div></pre></td></tr></table></figure>
+<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><h3 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h3><p> <code>VOLUME</code> 指令用来将需要持久化的数据容器暴露到容器外，比如数据库的数据文件，配置文件或者其它的用户创建的文件或者目录。强烈推荐使用 <code>VOLUME</code> 命令保存有状态的数据。</p>
+<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><p>如果一个服务并不需要一些root权限，可以使用<code>USER</code>命令切换到非root用户。比如接下来的命令：<code>RUN groupadd -r postgres &amp;&amp; useradd --no-log-init -r -g postgres postgres</code>。</p>
+<p>应该避免使用<code>sudo</code>命令，<code>sudo</code>命令会带来TTY以及信号方面的问题。如果确实需要<code>sudo</code>的功能，推荐使用“gosu”。</p>
+<p>最后一点，为了避免文件层以及复杂性，避免来回切换账号。</p>
+<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>为了明确和清晰，尽量为工作目录指定绝对路径，不要使用相对路径。</p>
+<h3 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h3><p><code>ONBUILD</code>命令会在当前的 <code>Dockerfile</code>构建完成之后执行。所有的子镜像都会执行父镜像的<code>ONBUILD</code>，然后才会构建自己的 <code>Dockerfile</code>。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">学习dockerfile（二）：多阶段构建</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="title">编写dockerfile的一些建议</a></p>
+                            <p class="item-date"><time datetime="2017-10-29T05:42:32.000Z" itemprop="datePublished">2017-10-29</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="title">学习dockerfile（二）：多阶段构建</a></p>
+                            <p class="item-date"><time datetime="2017-10-25T14:33:01.000Z" itemprop="datePublished">2017-10-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="title">学习dockerfile（一）：创建一个基础镜像</a></p>
+                            <p class="item-date"><time datetime="2017-10-22T04:03:11.000Z" itemprop="datePublished">2017-10-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="title">使用docker构建hexo风格的个人主页</a></p>
+                            <p class="item-date"><time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="title">Docker入门系列（六）：最后的总结</a></p>
+                            <p class="item-date"><time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 bing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2146399"></script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

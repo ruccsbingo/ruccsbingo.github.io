@@ -3,20 +3,17 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Docker入门系列（二）：构建第一个docker应用 | zhang bing</title>
+    <title>Archive: 2017/10 | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Docker入门系列（二）：构建第一个docker应用">
-<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/index.html">
+    <meta name="description" content="a common coder love coding.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="zhang bing">
+<meta property="og:url" content="http://ruccsbingo.github.io/archives/2017/10/page/2/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
-<meta property="og:image" content="https://i.imgur.com/kETeUrY.png">
-<meta property="og:updated_time" content="2017-10-12T03:32:28.000Z">
+<meta property="og:description" content="a common coder love coding.">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker入门系列（二）：构建第一个docker应用">
-<meta name="twitter:description" content="准备工作 安装docker，版本最低1.13 了解前一部分的内容目标和安排 验证docker环境可用 docker run hello-world    介绍现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。StackServic">
-<meta name="twitter:image" content="https://i.imgur.com/kETeUrY.png">
+<meta name="twitter:title" content="zhang bing">
+<meta name="twitter:description" content="a common coder love coding.">
     
 
     
@@ -231,164 +228,44 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+            <section id="main"><div class="timeline timeline-wrap">
+    
+            <div class="timeline-row timeline-row-major">
+                <span class="node"><i class="fa fa-calendar"></i></span>
+                <h1 class="title">2017</h1>
+            </div>
         
-        
-            <header class="article-header">
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            Docker入门系列（二）：构建第一个docker应用
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Docker入门系列（一）：目标和安排</a>
         </h1>
     
 
-                
-                    <div class="article-meta">
-                        
+                <div class="article-meta">
+                    
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
+        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
+            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
         </a>
     </div>
 
 
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>安装docker，版本最低1.13</li>
-<li>了解前一部分的内容<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">目标和安排</a></li>
-<li>验证docker环境可用<blockquote>
-<p>docker run hello-world</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。<br>Stack<br>Services<br>Container (&lt;– you are)</p>
-<h2 id="你的新开发环境"><a href="#你的新开发环境" class="headerlink" title="你的新开发环境"></a>你的新开发环境</h2><p>在过去，你想开发python应用，你首先需要在本机上安装python运行环境。经常会遇到你本机的运行环境和服务器的运行环境并不一致。环境不一致，会带来各种奇奇怪怪的问题，影响开发效率。<br>使用docker，你只需要获取一份可移植的python运行镜像，并不需要安装。然后，将code、运行环境、程序库文件、系统配置都安装到镜像中，确保程序可以run anywhere。</p>
-<h2 id="使用Dockerfile定义容器"><a href="#使用Dockerfile定义容器" class="headerlink" title="使用Dockerfile定义容器"></a>使用Dockerfile定义容器</h2><p>Dockerfile是容器最重要的组成部分，它定义了容器的总体框架。在容器内部，访问系统资源，比如网络接口、磁盘驱动，都是虚拟化的，和系统的其他部分都是隔离的。因此，你不得不向外部世界映射出口，明确哪些文件需要复制到容器内部。做完这些，你的应用程序的表现行为将和Dockerfile中定义的行为完全一致。</p>
-<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># Use an official Python runtime as a parent image</div><div class="line">FROM python:2.7-slim</div><div class="line"></div><div class="line"># Set the working directory to /app</div><div class="line">WORKDIR /app</div><div class="line"></div><div class="line"># Copy the current directory contents into the container at /app</div><div class="line">ADD . /app</div><div class="line"></div><div class="line"># Install any needed packages specified in requirements.txt</div><div class="line">RUN pip install -r requirements.txt</div><div class="line"></div><div class="line"># Make port 80 available to the world outside this container</div><div class="line">EXPOSE 80</div><div class="line"></div><div class="line"># Define environment variable</div><div class="line">ENV NAME World</div><div class="line"></div><div class="line"># Run app.py when the container launches</div><div class="line">CMD [&quot;python&quot;, &quot;app.py&quot;]</div></pre></td></tr></table></figure>
-<h3 id="准备应用程序"><a href="#准备应用程序" class="headerlink" title="准备应用程序"></a>准备应用程序</h3><p>创建<strong>requirements.txt</strong>和<strong>app.py</strong>。和<strong>Dockerfile</strong>放在同一个目录。<br><em>requirements.txt</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flask</div><div class="line">Redis</div></pre></td></tr></table></figure></p>
-<p><em>app.py</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">from redis import Redis, RedisError</div><div class="line">import os</div><div class="line">import socket</div><div class="line"></div><div class="line"># Connect to Redis</div><div class="line">redis = Redis(host=&quot;redis&quot;, db=0, socket_connect_timeout=2, socket_timeout=2)</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    try:</div><div class="line">        visits = redis.incr(&quot;counter&quot;)</div><div class="line">    except RedisError:</div><div class="line">        visits = &quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</div><div class="line"></div><div class="line">    html = &quot;&lt;h3&gt;Hello &#123;name&#125;!&lt;/h3&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Hostname:&lt;/b&gt; &#123;hostname&#125;&lt;br/&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Visits:&lt;/b&gt; &#123;visits&#125;&quot;</div><div class="line">    return html.format(name=os.getenv(&quot;NAME&quot;, &quot;world&quot;), hostname=socket.gethostname(), visits=visits)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run(host=&apos;0.0.0.0&apos;, port=80)</div></pre></td></tr></table></figure></p>
-<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><p>进入Dockerfile存放的目录，执行build命令</p>
-<blockquote>
-<p>docker build -t friendlyhello .</p>
-</blockquote>
-<p>构建成功之后，执行images命令验证效果。</p>
-<blockquote>
-<p>$ docker images<br>REPOSITORY            TAG                 IMAGE ID<br>friendlyhello         latest              326387cea398</p>
-</blockquote>
-<h2 id="运行应用程序"><a href="#运行应用程序" class="headerlink" title="运行应用程序"></a>运行应用程序</h2><p>将应用程序的80端口映射到宿主机的4000端口，使用如下命令映射并启动。</p>
-<blockquote>
-<p>docker run -p 4000:80 friendlyhello</p>
-</blockquote>
-<p>在浏览器中输入<em><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></em>验证。<br><img src="https://i.imgur.com/kETeUrY.png" alt=""><br>恭喜你，运行成功。<br>当前的容器运行在terminal中，可以使用ctrl+c终止容器的运行。<br>也可以让容器运行在后台，使用如下命令启动</p>
-<blockquote>
-<p>docker run -d -p 4000:80 friendlyhello</p>
-</blockquote>
-<p>-d参数指示容器在后台运行，可以使用如下命令查看所有运行的容器。</p>
-<blockquote>
-<p>$ docker container ls<br>CONTAINER ID        IMAGE               COMMAND             CREATED<br>1fa4ab2cf395        friendlyhello       “python app.py”     28 seconds ago</p>
-</blockquote>
-<p>CONTAINER ID是容器的身份标识，可以使用stop命令配合CONTAINER ID停止在后台运行的容器。</p>
-<blockquote>
-<p>docker container stop 1fa4ab2cf395</p>
-</blockquote>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
-    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
-    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
-</div>
-<script>
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-<style>
-    .bdshare_popup_box {
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .bdshare-button-style0-16 a,
-    .bdshare-button-style0-16 .bds_more {
-        padding-left: 20px;
-        margin: 6px 10px 6px 0;
-    }
-    .bdshare_dialog_list a,
-    .bdshare_popup_list a,
-    .bdshare_popup_bottom a {
-        font-family: 'Microsoft Yahei';
-    }
-    .bdshare_popup_top {
-        display: none;
-    }
-    .bdshare_popup_bottom {
-        height: auto;
-        padding: 5px;
-    }
-</style>
-
-
-</div>
-
-            
-    
-        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Docker入门系列（三）:让你的应用变为可扩展的服务
-                
+                    
+                    
+                </div>
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Docker入门系列（一）：目标和安排</div>
-        </a>
-    
-</nav>
+</div>
 
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="uyan_frame"></div>
-
-    
-    </section>
-
+    <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/archives/2017/10/">&laquo; Prev</a><a class="page-number" href="/archives/2017/10/">1</a><span class="page-number current">2</span>
+    </nav>
 </section>
             
                 <aside id="sidebar">
