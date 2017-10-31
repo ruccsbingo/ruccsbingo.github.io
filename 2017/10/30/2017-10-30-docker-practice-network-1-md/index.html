@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>docker容器的网络 | zhang bing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="准备工作 安装docker  使用默认的网络启动一个容器Docker通过 network drivers支持容器的网络环境。默认情况下，Docker支持bridge 和 overlay两种网络驱动。也可以支持自定义的网络驱动。 每一个Docker Engine都会自动支持三种默认的网络，可以使用docker network ls列出所有的网络驱动： 123456$ docker network l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker容器的网络">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/30/2017-10-30-docker-practice-network-1-md/index.html">
+<meta property="og:site_name" content="zhang bing">
+<meta property="og:description" content="准备工作 安装docker  使用默认的网络启动一个容器Docker通过 network drivers支持容器的网络环境。默认情况下，Docker支持bridge 和 overlay两种网络驱动。也可以支持自定义的网络驱动。 每一个Docker Engine都会自动支持三种默认的网络，可以使用docker network ls列出所有的网络驱动： 123456$ docker network l">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/6a8f9c5bly1fl1qddzvppj208c0a7q3h.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1qvgdp25j20k00cggm6.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1r09aaoij20jy0cgjs7.jpg">
+<meta property="og:updated_time" content="2017-10-31T13:32:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker容器的网络">
+<meta name="twitter:description" content="准备工作 安装docker  使用默认的网络启动一个容器Docker通过 network drivers支持容器的网络环境。默认情况下，Docker支持bridge 和 overlay两种网络驱动。也可以支持自定义的网络驱动。 每一个Docker Engine都会自动支持三种默认的网络，可以使用docker network ls列出所有的网络驱动： 123456$ docker network l">
+<meta name="twitter:image" content="http://wx3.sinaimg.cn/mw690/6a8f9c5bly1fl1qddzvppj208c0a7q3h.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="zhang bing" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-108098597-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?854305eb25760f3acc2c9557dfbd951b";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">zhang bing</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">ruccsbingo</h2>
+            <h3 id="title">Coder</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                12
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                0
+                <span>tag</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="/" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="facebook" class=tooltip>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="dribbble" class=tooltip>
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2017-10-30-docker-practice-network-1-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            docker容器的网络
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/">
+            <time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker</li>
+</ul>
+<h2 id="使用默认的网络启动一个容器"><a href="#使用默认的网络启动一个容器" class="headerlink" title="使用默认的网络启动一个容器"></a>使用默认的网络启动一个容器</h2><p>Docker通过 <strong>network drivers</strong>支持容器的网络环境。默认情况下，Docker支持<code>bridge</code> 和 <code>overlay</code>两种网络驱动。也可以支持自定义的网络驱动。</p>
+<p>每一个Docker Engine都会自动支持三种默认的网络，可以使用<code>docker network ls</code>列出所有的网络驱动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div><div class="line">7b369448dccb        bridge              bridge</div></pre></td></tr></table></figure>
+<p><code>bridge</code>是一个特殊的网络驱动，如果不做特别指定，所有的容器都会在<code>bridge</code>下启动。尝试一下如下的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker run -itd --name=networktest ubuntu</div><div class="line">74695c9cea6d9810718fddadc01a727a5dd3ce6a69d09752239736c030599741</div></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/6a8f9c5bly1fl1qddzvppj208c0a7q3h.jpg" alt=""></p>
+<p>通过<code>docker network inspect bridge</code>命令可以查看一下容器的网络信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect bridge</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;f7ab26d71dbd6f557852c7156ae0574bbf62c42f539b50c8ebde0f728a253b6f&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;EnableIPv6&quot;: false,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Options&quot;: null,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;172.17.0.1/16&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;172.17.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Internal&quot;: false,</div><div class="line">        &quot;Containers&quot;: &#123;</div><div class="line">            &quot;3386a527aa08b37ea9232cbcace2d2458d49f44bb05a6b775fba7ddd40d8f92c&quot;: &#123;</div><div class="line">                &quot;Name&quot;: &quot;networktest&quot;,</div><div class="line">                &quot;EndpointID&quot;: &quot;647c12443e91faf0fd508b6edfe59c30b642abb60dfab890b4bdccee38750bc1&quot;,</div><div class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,</div><div class="line">                &quot;IPv4Address&quot;: &quot;172.17.0.2/16&quot;,</div><div class="line">                &quot;IPv6Address&quot;: &quot;&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;Options&quot;: &#123;</div><div class="line">            &quot;com.docker.network.bridge.default_bridge&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_icc&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_ip_masquerade&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.host_binding_ipv4&quot;: &quot;0.0.0.0&quot;,</div><div class="line">            &quot;com.docker.network.bridge.name&quot;: &quot;docker0&quot;,</div><div class="line">            &quot;com.docker.network.driver.mtu&quot;: &quot;9001&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>从一个网络中移除一个容器，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network disconnect bridge networktest</div></pre></td></tr></table></figure>
+<p>以上的命令将networktest容器从bridge网络中移除。使用网络可以方便的将容器隔离。</p>
+<h2 id="创建自定义网桥"><a href="#创建自定义网桥" class="headerlink" title="创建自定义网桥"></a>创建自定义网桥</h2><p>Docker Engine支持<code>bridge</code>和<code>overlay</code>模式的网络，<code>bridge</code>模式只能在单机上使用，<code>overlay</code>支持多机使用。接下来，使用<code>bridge</code>创建自定义的网络，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network create -d bridge my_bridge</div></pre></td></tr></table></figure>
+<p><code>-d</code>参数指定网络的模式，如果不加<code>-d</code>参数，默认也使用<code>bridge</code>模式。检查一下是否创建成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">7b369448dccb        bridge              bridge</div><div class="line">615d565d498c        my_bridge           bridge</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div></pre></td></tr></table></figure>
+<p>使用<code>inspect</code>命令检查新建网络的信息，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect my_bridge</div><div class="line"></div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;my_bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;5a8afc6364bccb199540e133e63adb76a557906dd9ff82b94183fc48c40857ac&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;10.0.0.0/24&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;10.0.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Containers&quot;: &#123;&#125;,</div><div class="line">        &quot;Options&quot;: &#123;&#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+<h2 id="隔离的网络让应用更加安全"><a href="#隔离的网络让应用更加安全" class="headerlink" title="隔离的网络让应用更加安全"></a>隔离的网络让应用更加安全</h2><p>接下来，用一个简单的web应用展示如何安全的使用容器的网络。</p>
+<p>第一步，在自定义的网络上创建数据库容器，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --net=my_bridge --name db training/postgres</div></pre></td></tr></table></figure>
+<p><code>--net</code>参数指定使用的网络，检查是否创建成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  db</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;my_bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;10.0.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.254&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>第二步，在默认的网络下创建web应用，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --name web training/webapp python app.py</div></pre></td></tr></table></figure>
+<p>检查网络信息，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  web</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7ea29fc1412292a2d7bba362f9253545fecdfa8ce9a6e37dd10ba8bee7129812&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;172.17.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.2&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>查看web的地址，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</div><div class="line"></div><div class="line"></div><div class="line">172.17.0.2</div></pre></td></tr></table></figure>
+<p>当前的网络拓扑图如下，</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1qvgdp25j20k00cggm6.jpg" alt=""></p>
+<p>第三步，查看网络的连通性，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping 172.17.0.2</div><div class="line">ping 172.17.0.2</div><div class="line">PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.</div><div class="line">^C</div><div class="line">--- 172.17.0.2 ping statistics ---</div><div class="line">44 packets transmitted, 0 received, 100% packet loss, time 43185ms</div></pre></td></tr></table></figure>
+<p>会发现在db上，无法连通到web上。</p>
+<p>第四步，将web连接到my_bridge上，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network connect my_bridge web</div></pre></td></tr></table></figure>
+<p>当前的网络拓扑，</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1r09aaoij20jy0cgjs7.jpg" alt=""></p>
+<p>第五步，再一次验证网络的连通性，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping web</div><div class="line">PING web (10.0.0.2) 56(84) bytes of data.</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=1 ttl=64 time=0.095 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=2 ttl=64 time=0.060 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=3 ttl=64 time=0.066 ms</div><div class="line">^C</div><div class="line">--- web ping statistics ---</div><div class="line">3 packets transmitted, 3 received, 0% packet loss, time 2000ms</div><div class="line">rtt min/avg/max/mdev = 0.060/0.073/0.095/0.018 ms</div></pre></td></tr></table></figure>
+<p>会发现db和web已经能够正常的连通。其它不在my_bridge上的容器不能连接到该网络环境中</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过自定义网络环境，可以将安全性要求较高的服务，放入单独的自定义的网络环境中，以此保证服务的安全行。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/30/2017-10-30-docker-practice-network-1-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">学习DOCKERFILE（三）：编写dockerfile的一些建议</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="title">docker容器的网络</a></p>
+                            <p class="item-date"><time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="title">学习DOCKERFILE（三）：编写dockerfile的一些建议</a></p>
+                            <p class="item-date"><time datetime="2017-10-29T05:42:32.000Z" itemprop="datePublished">2017-10-29</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="title">学习dockerfile（二）：多阶段构建</a></p>
+                            <p class="item-date"><time datetime="2017-10-25T14:33:01.000Z" itemprop="datePublished">2017-10-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="title">学习dockerfile（一）：创建一个基础镜像</a></p>
+                            <p class="item-date"><time datetime="2017-10-22T04:03:11.000Z" itemprop="datePublished">2017-10-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="title">使用docker构建hexo风格的个人主页</a></p>
+                            <p class="item-date"><time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">12</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 bing<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2146399"></script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

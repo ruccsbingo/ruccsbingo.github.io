@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                11
+                12
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -229,6 +229,140 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2017-10-30-docker-practice-network-1-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/30/2017-10-30-docker-practice-network-1-md/">docker容器的网络</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/">
+            <time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker</li>
+</ul>
+<h2 id="使用默认的网络启动一个容器"><a href="#使用默认的网络启动一个容器" class="headerlink" title="使用默认的网络启动一个容器"></a>使用默认的网络启动一个容器</h2><p>Docker通过 <strong>network drivers</strong>支持容器的网络环境。默认情况下，Docker支持<code>bridge</code> 和 <code>overlay</code>两种网络驱动。也可以支持自定义的网络驱动。</p>
+<p>每一个Docker Engine都会自动支持三种默认的网络，可以使用<code>docker network ls</code>列出所有的网络驱动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div><div class="line">7b369448dccb        bridge              bridge</div></pre></td></tr></table></figure>
+<p><code>bridge</code>是一个特殊的网络驱动，如果不做特别指定，所有的容器都会在<code>bridge</code>下启动。尝试一下如下的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker run -itd --name=networktest ubuntu</div><div class="line">74695c9cea6d9810718fddadc01a727a5dd3ce6a69d09752239736c030599741</div></pre></td></tr></table></figure>
+<p><img src="http://wx3.sinaimg.cn/mw690/6a8f9c5bly1fl1qddzvppj208c0a7q3h.jpg" alt=""></p>
+<p>通过<code>docker network inspect bridge</code>命令可以查看一下容器的网络信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect bridge</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;f7ab26d71dbd6f557852c7156ae0574bbf62c42f539b50c8ebde0f728a253b6f&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;EnableIPv6&quot;: false,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Options&quot;: null,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;172.17.0.1/16&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;172.17.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Internal&quot;: false,</div><div class="line">        &quot;Containers&quot;: &#123;</div><div class="line">            &quot;3386a527aa08b37ea9232cbcace2d2458d49f44bb05a6b775fba7ddd40d8f92c&quot;: &#123;</div><div class="line">                &quot;Name&quot;: &quot;networktest&quot;,</div><div class="line">                &quot;EndpointID&quot;: &quot;647c12443e91faf0fd508b6edfe59c30b642abb60dfab890b4bdccee38750bc1&quot;,</div><div class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,</div><div class="line">                &quot;IPv4Address&quot;: &quot;172.17.0.2/16&quot;,</div><div class="line">                &quot;IPv6Address&quot;: &quot;&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;Options&quot;: &#123;</div><div class="line">            &quot;com.docker.network.bridge.default_bridge&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_icc&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_ip_masquerade&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.host_binding_ipv4&quot;: &quot;0.0.0.0&quot;,</div><div class="line">            &quot;com.docker.network.bridge.name&quot;: &quot;docker0&quot;,</div><div class="line">            &quot;com.docker.network.driver.mtu&quot;: &quot;9001&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>从一个网络中移除一个容器，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network disconnect bridge networktest</div></pre></td></tr></table></figure>
+<p>以上的命令将networktest容器从bridge网络中移除。使用网络可以方便的将容器隔离。</p>
+<h2 id="创建自定义网桥"><a href="#创建自定义网桥" class="headerlink" title="创建自定义网桥"></a>创建自定义网桥</h2><p>Docker Engine支持<code>bridge</code>和<code>overlay</code>模式的网络，<code>bridge</code>模式只能在单机上使用，<code>overlay</code>支持多机使用。接下来，使用<code>bridge</code>创建自定义的网络，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network create -d bridge my_bridge</div></pre></td></tr></table></figure>
+<p><code>-d</code>参数指定网络的模式，如果不加<code>-d</code>参数，默认也使用<code>bridge</code>模式。检查一下是否创建成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">7b369448dccb        bridge              bridge</div><div class="line">615d565d498c        my_bridge           bridge</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div></pre></td></tr></table></figure>
+<p>使用<code>inspect</code>命令检查新建网络的信息，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect my_bridge</div><div class="line"></div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;my_bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;5a8afc6364bccb199540e133e63adb76a557906dd9ff82b94183fc48c40857ac&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;10.0.0.0/24&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;10.0.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Containers&quot;: &#123;&#125;,</div><div class="line">        &quot;Options&quot;: &#123;&#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
+<h2 id="隔离的网络让应用更加安全"><a href="#隔离的网络让应用更加安全" class="headerlink" title="隔离的网络让应用更加安全"></a>隔离的网络让应用更加安全</h2><p>接下来，用一个简单的web应用展示如何安全的使用容器的网络。</p>
+<p>第一步，在自定义的网络上创建数据库容器，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --net=my_bridge --name db training/postgres</div></pre></td></tr></table></figure>
+<p><code>--net</code>参数指定使用的网络，检查是否创建成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  db</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;my_bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;10.0.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.254&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>第二步，在默认的网络下创建web应用，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --name web training/webapp python app.py</div></pre></td></tr></table></figure>
+<p>检查网络信息，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  web</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7ea29fc1412292a2d7bba362f9253545fecdfa8ce9a6e37dd10ba8bee7129812&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;172.17.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.2&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>查看web的地址，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</div><div class="line"></div><div class="line"></div><div class="line">172.17.0.2</div></pre></td></tr></table></figure>
+<p>当前的网络拓扑图如下，</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1qvgdp25j20k00cggm6.jpg" alt=""></p>
+<p>第三步，查看网络的连通性，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping 172.17.0.2</div><div class="line">ping 172.17.0.2</div><div class="line">PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.</div><div class="line">^C</div><div class="line">--- 172.17.0.2 ping statistics ---</div><div class="line">44 packets transmitted, 0 received, 100% packet loss, time 43185ms</div></pre></td></tr></table></figure>
+<p>会发现在db上，无法连通到web上。</p>
+<p>第四步，将web连接到my_bridge上，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network connect my_bridge web</div></pre></td></tr></table></figure>
+<p>当前的网络拓扑，</p>
+<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1r09aaoij20jy0cgjs7.jpg" alt=""></p>
+<p>第五步，再一次验证网络的连通性，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping web</div><div class="line">PING web (10.0.0.2) 56(84) bytes of data.</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=1 ttl=64 time=0.095 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=2 ttl=64 time=0.060 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=3 ttl=64 time=0.066 ms</div><div class="line">^C</div><div class="line">--- web ping statistics ---</div><div class="line">3 packets transmitted, 3 received, 0% packet loss, time 2000ms</div><div class="line">rtt min/avg/max/mdev = 0.060/0.073/0.095/0.018 ms</div></pre></td></tr></table></figure>
+<p>会发现db和web已经能够正常的连通。其它不在my_bridge上的容器不能连接到该网络环境中</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过自定义网络环境，可以将安全性要求较高的服务，放入单独的自定义的网络环境中，以此保证服务的安全行。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/30/2017-10-30-docker-practice-network-1-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1446,134 +1580,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
 
 
-    <article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Docker入门系列（二）：构建第一个docker应用</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>安装docker，版本最低1.13</li>
-<li>了解前一部分的内容<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">目标和安排</a></li>
-<li>验证docker环境可用<blockquote>
-<p>docker run hello-world</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现在，可以使用docker的方式构建一个应用。首先，我们从最基础、最底层的部分开始。在这篇文章中，将介绍容器的使用。在下一篇文章中，我们将介绍service。最后，会介绍整个容器栈的顶层，service在容器中如何交互。<br>Stack<br>Services<br>Container (&lt;– you are)</p>
-<h2 id="你的新开发环境"><a href="#你的新开发环境" class="headerlink" title="你的新开发环境"></a>你的新开发环境</h2><p>在过去，你想开发python应用，你首先需要在本机上安装python运行环境。经常会遇到你本机的运行环境和服务器的运行环境并不一致。环境不一致，会带来各种奇奇怪怪的问题，影响开发效率。<br>使用docker，你只需要获取一份可移植的python运行镜像，并不需要安装。然后，将code、运行环境、程序库文件、系统配置都安装到镜像中，确保程序可以run anywhere。</p>
-<h2 id="使用Dockerfile定义容器"><a href="#使用Dockerfile定义容器" class="headerlink" title="使用Dockerfile定义容器"></a>使用Dockerfile定义容器</h2><p>Dockerfile是容器最重要的组成部分，它定义了容器的总体框架。在容器内部，访问系统资源，比如网络接口、磁盘驱动，都是虚拟化的，和系统的其他部分都是隔离的。因此，你不得不向外部世界映射出口，明确哪些文件需要复制到容器内部。做完这些，你的应用程序的表现行为将和Dockerfile中定义的行为完全一致。</p>
-<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># Use an official Python runtime as a parent image</div><div class="line">FROM python:2.7-slim</div><div class="line"></div><div class="line"># Set the working directory to /app</div><div class="line">WORKDIR /app</div><div class="line"></div><div class="line"># Copy the current directory contents into the container at /app</div><div class="line">ADD . /app</div><div class="line"></div><div class="line"># Install any needed packages specified in requirements.txt</div><div class="line">RUN pip install -r requirements.txt</div><div class="line"></div><div class="line"># Make port 80 available to the world outside this container</div><div class="line">EXPOSE 80</div><div class="line"></div><div class="line"># Define environment variable</div><div class="line">ENV NAME World</div><div class="line"></div><div class="line"># Run app.py when the container launches</div><div class="line">CMD [&quot;python&quot;, &quot;app.py&quot;]</div></pre></td></tr></table></figure>
-<h3 id="准备应用程序"><a href="#准备应用程序" class="headerlink" title="准备应用程序"></a>准备应用程序</h3><p>创建<strong>requirements.txt</strong>和<strong>app.py</strong>。和<strong>Dockerfile</strong>放在同一个目录。<br><em>requirements.txt</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Flask</div><div class="line">Redis</div></pre></td></tr></table></figure></p>
-<p><em>app.py</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">from redis import Redis, RedisError</div><div class="line">import os</div><div class="line">import socket</div><div class="line"></div><div class="line"># Connect to Redis</div><div class="line">redis = Redis(host=&quot;redis&quot;, db=0, socket_connect_timeout=2, socket_timeout=2)</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    try:</div><div class="line">        visits = redis.incr(&quot;counter&quot;)</div><div class="line">    except RedisError:</div><div class="line">        visits = &quot;&lt;i&gt;cannot connect to Redis, counter disabled&lt;/i&gt;&quot;</div><div class="line"></div><div class="line">    html = &quot;&lt;h3&gt;Hello &#123;name&#125;!&lt;/h3&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Hostname:&lt;/b&gt; &#123;hostname&#125;&lt;br/&gt;&quot; \</div><div class="line">           &quot;&lt;b&gt;Visits:&lt;/b&gt; &#123;visits&#125;&quot;</div><div class="line">    return html.format(name=os.getenv(&quot;NAME&quot;, &quot;world&quot;), hostname=socket.gethostname(), visits=visits)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run(host=&apos;0.0.0.0&apos;, port=80)</div></pre></td></tr></table></figure></p>
-<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><p>进入Dockerfile存放的目录，执行build命令</p>
-<blockquote>
-<p>docker build -t friendlyhello .</p>
-</blockquote>
-<p>构建成功之后，执行images命令验证效果。</p>
-<blockquote>
-<p>$ docker images<br>REPOSITORY            TAG                 IMAGE ID<br>friendlyhello         latest              326387cea398</p>
-</blockquote>
-<h2 id="运行应用程序"><a href="#运行应用程序" class="headerlink" title="运行应用程序"></a>运行应用程序</h2><p>将应用程序的80端口映射到宿主机的4000端口，使用如下命令映射并启动。</p>
-<blockquote>
-<p>docker run -p 4000:80 friendlyhello</p>
-</blockquote>
-<p>在浏览器中输入<em><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></em>验证。<br><img src="https://i.imgur.com/kETeUrY.png" alt=""><br>恭喜你，运行成功。<br>当前的容器运行在terminal中，可以使用ctrl+c终止容器的运行。<br>也可以让容器运行在后台，使用如下命令启动</p>
-<blockquote>
-<p>docker run -d -p 4000:80 friendlyhello</p>
-</blockquote>
-<p>-d参数指示容器在后台运行，可以使用如下命令查看所有运行的容器。</p>
-<blockquote>
-<p>$ docker container ls<br>CONTAINER ID        IMAGE               COMMAND             CREATED<br>1fa4ab2cf395        friendlyhello       “python app.py”     28 seconds ago</p>
-</blockquote>
-<p>CONTAINER ID是容器的身份标识，可以使用stop命令配合CONTAINER ID停止在后台运行的容器。</p>
-<blockquote>
-<p>docker container stop 1fa4ab2cf395</p>
-</blockquote>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
-    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
-    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
-</div>
-<script>
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-<style>
-    .bdshare_popup_box {
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .bdshare-button-style0-16 a,
-    .bdshare-button-style0-16 .bds_more {
-        padding-left: 20px;
-        margin: 6px 10px 6px 0;
-    }
-    .bdshare_dialog_list a,
-    .bdshare_popup_list a,
-    .bdshare_popup_bottom a {
-        font-family: 'Microsoft Yahei';
-    }
-    .bdshare_popup_top {
-        display: none;
-    }
-    .bdshare_popup_bottom {
-        height: auto;
-        padding: 5px;
-    }
-</style>
-
-
-</div>
-
-            
-    
-        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
@@ -1586,6 +1592,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="title">docker容器的网络</a></p>
+                            <p class="item-date"><time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1663,25 +1688,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/" class="title">Docker入门系列（六）：最后的总结</a></p>
-                            <p class="item-date"><time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1700,7 +1706,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">11</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">12</span></li></ul>
         </div>
     </div>
 
