@@ -99,7 +99,7 @@ var _hmt = _hmt || [];
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -118,10 +118,10 @@ var _hmt = _hmt || [];
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'pos',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            CATEGORIES: 'kategori',
+            TAGS: 'tag',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -152,7 +152,7 @@ var _hmt = _hmt || [];
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cari" />
     </div>
 
                 </td>
@@ -172,15 +172,15 @@ var _hmt = _hmt || [];
             <h2 id="name">ruccsbingo</h2>
             <h3 id="title">Coder</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
-            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/ruccsbingo/">IKUTI</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                12
-                <span>posts</span>
+                18
+                <span>pos</span>
             </div>
             <div class="article-info-block">
-                0
+                1
                 <span>tag</span>
             </div>
         </div>
@@ -229,6 +229,795 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2017-10-16-docker-practice-hexo-personal-site-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">使用docker构建hexo风格的个人主页</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">
+            <time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>docker环境</li>
+<li>nginx</li>
+<li>hexo</li>
+</ul>
+<h2 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">FROM nginx</div></pre></td></tr></table></figure>
+<h2 id="构建应用程序"><a href="#构建应用程序" class="headerlink" title="构建应用程序"></a>构建应用程序</h2><h2 id="生成image"><a href="#生成image" class="headerlink" title="生成image"></a>生成image</h2><h2 id="部署容器应用"><a href="#部署容器应用" class="headerlink" title="部署容器应用"></a>部署容器应用</h2>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-15-docker-tutorial-6-conclusion-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">Docker入门系列（六）：最后的总结</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">
+            <time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>经过一段时间的思考，终于下定决心好好的学习一下docker。找到官网的教程，前前后后花了一周的时间，按照教程一步一步的敲命令，完整的搭建了一个完整的swarm集群。</p>
+<p>在做的过程中，遇到很多的问题，</p>
+<ul>
+<li>第一个最让人头疼的问题，就是国内网络访问docker hub速度感人，经常出现各种各样的莫名其妙的问题，刚开始的时候，也不懂在哪里找error log。明明很简单的一个命令，就是没有预定的结果，后来发现，所有的奇怪问题，基本都和网络有关，一般都是想要下载的image没有下载下来。</li>
+<li>第二个就需要仔细阅读官方教程，仔细理解docker各个组件的概念，区别docker client， docker deamon，swarm manager，worker。</li>
+<li>第三个端口的问题，区别docker deamon的端口，和swarm manager的端口。</li>
+<li>最后，要好好理解docker repository，了解docker pull的执行流程。</li>
+</ul>
+<p>针对上面提到的第一个和第三个问题，都在文档中做了记载，已备后来者。</p>
+<p>第一个问题的解决方案，<a href="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">设置阿里云镜像</a>。</p>
+<p>第三个问题，关于2377和2376的区别，在<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">docker入门系列（四）</a>中有提到。。</p>
+<p><strong>最后的总结</strong></p>
+<p>看介绍文章，和一步一步实践，一行一行敲命令，还是有很大的区别。以前总是看一些技术性的介绍文章，觉得自己什么都懂了，什么概念都清楚了，开口闭口都是容器化，服务编排。等到一个任务交给你去做的时候，总是无从下手，这次动手实践，真真实实的感受到了，docker给编程，或者说是软件流程的革命性的变化，一件搭建编程环境，一键部署应用，几代工程师的梦想，看来越来越接近现实了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-16-manual-aliyun-docker-mirror-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">Mac上配置阿里云的docker镜像</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">
+            <time datetime="2017-10-15T08:43:18.000Z" itemprop="datePublished">2017-10-15</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/docker/">docker</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>由于众所周知的原因，在国内使用docker hub的体验让人奔溃，网速太慢，代理不稳定。好在可以使用国内镜像，接下来，记录一下，使用阿里云镜像的步骤。</p>
+<h3 id="安装／升级你的Docker客户端"><a href="#安装／升级你的Docker客户端" class="headerlink" title="安装／升级你的Docker客户端"></a>安装／升级你的Docker客户端</h3><ul>
+<li>对于10.10.3以下的用户 推荐使用</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker Toolbox</div></pre></td></tr></table></figure>
+<ul>
+<li>Toolbox的介绍和帮助：<a href="http://mirrors.aliyun.com/help/docker-toolbox" target="_blank" rel="external">mirrors.aliyun.com/help/docker-toolbox</a></li>
+<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-toolbox/</a></li>
+</ul>
+<ul>
+<li><p>对于10.10.3以上的用户 推荐使用 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Docker for Mac</div></pre></td></tr></table></figure>
+<ul>
+<li>Mac系统的安装文件目录：<a href="http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/" target="_blank" rel="external">http://mirrors.aliyun.com/docker-toolbox/mac/docker-for-mac/</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="如何使用Docker加速器"><a href="#如何使用Docker加速器" class="headerlink" title="如何使用Docker加速器"></a>如何使用Docker加速器</h3><ol>
+<li><p>创建一台安装有Docker环境的Linux虚拟机，指定机器名称为default，同时配置Docker加速器地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-machine create --engine-registry-mirror=https://ykf2xy9h.mirror.aliyuncs.com -d virtualbox default</div></pre></td></tr></table></figure>
+</li>
+<li><p>查看机器的环境配置，并配置到本地，并通过Docker客户端访问Docker服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker-machine env default</div><div class="line">eval &quot;$(docker-machine env default)&quot;</div><div class="line">docker info</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行<code>hello-world</code>,验证是否配置成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ docker run hello-world</div><div class="line"></div><div class="line">Hello from Docker!</div><div class="line">This message shows that your installation appears to be working correctly.</div><div class="line"></div><div class="line">To generate this message, Docker took the following steps:</div><div class="line"> 1. The Docker client contacted the Docker daemon.</div><div class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</div><div class="line"> 3. The Docker daemon created a new container from that image which runs the</div><div class="line">    executable that produces the output you are currently reading.</div><div class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</div><div class="line">    to your terminal.</div><div class="line"></div><div class="line">To try something more ambitious, you can run an Ubuntu container with:</div><div class="line"> $ docker run -it ubuntu bash</div><div class="line"></div><div class="line">Share images, automate workflows, and more with a free Docker ID:</div><div class="line"> https://cloud.docker.com/</div><div class="line"></div><div class="line">For more examples and ideas, visit:</div><div class="line"> https://docs.docker.com/engine/userguide/</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>恭喜你，可以愉快使用docker镜像了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-15-docker-tutorial-5-starck-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">Docker入门系列（五）:增加一个可持久化的访问计数</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">
+            <time datetime="2017-10-15T02:49:59.000Z" itemprop="datePublished">2017-10-15</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker，版本最低1.13</li>
+<li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">构建第一个docker应用</a></li>
+<li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong></li>
+<li>确保<strong>friendlyhello</strong>可以被pull，并能正常使用</li>
+<li>复制<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">第三节</a>的<code>docker-compose.yml</code></li>
+<li>确保<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-4-cluster-md/">第四节</a>中设置的机器环境都正常运行</li>
+<li>运行<code>docker-machine ssh myvm1 &quot;docker node ls&quot;</code>确保服务是<code>ready</code>状态</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-4-cluster-md/">第四节</a>中，介绍了如何启动swarm，如何将服务部署到多台机器之上。在<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-5-stack-md/">这一节</a>中,将着重介绍<code>stack</code>，所谓的<code>stack</code>就是一组相互关联的服务，它们能够共享一些依赖，能够并一起编排和扩容。在<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">第三节</a>中，介绍了一个单服务的<code>stack</code>，这个<code>stack</code>中只有一个服务，只运行在一台宿主机上。在<a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-tutorial-5-stack-md/">这一节</a>中，将介绍多服务的stack，并运行在多台机器之上。</p>
+<h2 id="添加一个新的服务并部署"><a href="#添加一个新的服务并部署" class="headerlink" title="添加一个新的服务并部署"></a>添加一个新的服务并部署</h2><p>添加服务非常的简单，只需要编辑<code>docker-compose.yml</code>，添加相关的服务信息。比如，给swarm机器添加一个可视化的服务，展示swarm集群的机器和服务信息。</p>
+<ol>
+<li>编辑<code>docker-compose.yml</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: ruccsbingo/get-started:part2</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">    ports:</div><div class="line">      - &quot;4000:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  visualizer:</div><div class="line">    image: dockersamples/visualizer:stable</div><div class="line">    ports:</div><div class="line">      - &quot;8080:8080&quot;</div><div class="line">    volumes:</div><div class="line">      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
+<p>在<code>docker-compose.yml</code>中增加了visualizer的相关配置项。</p>
+<ol>
+<li>配置shell，连接上myvm1的docker环境</li>
+<li>在swarm manager上执行<code>docker stack deploy</code>重新部署服务</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker stack deploy -c docker-compose.yml getstartedlab</div><div class="line">Creating network getstartedlab_webnet</div><div class="line">Creating service getstartedlab_web</div><div class="line">Creating service getstartedlab_visualizer</div></pre></td></tr></table></figure>
+<ol>
+<li>在浏览器中验证visualizer是否安装成功</li>
+</ol>
+<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bgy1fkj2a8cedwj20z8108q8w.jpg" alt="B5308526-E53E-411C-9D85-86272C1B38D9"></p>
+<h2 id="持久化数据"><a href="#持久化数据" class="headerlink" title="持久化数据"></a>持久化数据</h2><p>重复上面的过程，在给我们的<code>stack</code>中添加redis服务。</p>
+<ol>
+<li>编辑<code>docker-compose.yml</code>添加redis的依赖</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: ruccsbingo/get-started:part2</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">    ports:</div><div class="line">      - &quot;4000:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  visualizer:</div><div class="line">    image: dockersamples/visualizer:stable</div><div class="line">    ports:</div><div class="line">      - &quot;8080:8080&quot;</div><div class="line">    volumes:</div><div class="line">      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">  redis:</div><div class="line">    image: redis</div><div class="line">    ports:</div><div class="line">      - &quot;6379:6379&quot;</div><div class="line">    volumes:</div><div class="line">      - /home/docker/data:/data</div><div class="line">    deploy:</div><div class="line">      placement:</div><div class="line">        constraints: [node.role == manager]</div><div class="line">    command: redis-server --appendonly yes</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
+<p>Note:</p>
+<ul>
+<li>image: redis，在Docker library中有redis的官方镜像，因此，此处可以使用简称</li>
+</ul>
+<ol>
+<li>在manager上创建data目录，用于持久化redis中的数据</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker-machine ssh myvm1 &quot;mkdir ./data&quot;</div></pre></td></tr></table></figure>
+<ol>
+<li>确保当前shell环境连上manager，接下来的命令都需要在manager上执行</li>
+<li>在manager上执行<code>docker stack deploy</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker stack deploy -c docker-compose.yml getstartedlab</div></pre></td></tr></table></figure>
+<ol>
+<li>执行<code>docker service ls</code>验证服务启动情况</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker@myvm1:~$ docker service ls</div><div class="line">ID                  NAME                       MODE                REPLICAS            IMAGE                             PORTS</div><div class="line">nylj70biukz0        getstartedlab_redis        replicated          1/1                 redis:latest                      *:6379-&gt;6379/tcp</div><div class="line">mval7ra97snr        getstartedlab_visualizer   replicated          1/1                 dockersamples/visualizer:stable   *:8080-&gt;8080/tcp</div><div class="line">3qutabj1gipx        getstartedlab_web          replicated          5/5                 ruccsbingo/get-started:part2      *:4000-&gt;80/tcp</div></pre></td></tr></table></figure>
+<ol>
+<li>在浏览器中验证redis中的计数情况</li>
+</ol>
+<p><img src="http://wx3.sinaimg.cn/mw690/6a8f9c5bgy1fkj2ysrl93j21kw0wddjg.jpg" alt=""></p>
+<ol>
+<li>查看visualizer，观察机器中的服务</li>
+</ol>
+<p><img src="http://wx3.sinaimg.cn/mw690/6a8f9c5bgy1fkj32ct9vmj20t8102afv.jpg" alt=""></p>
+<p>恭喜你，一个完成的stack配置完成了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-13-docker-tutorial-4-cluster-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">Docker入门系列（四）:让你的服务跨越多台机器</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">
+            <time datetime="2017-10-13T09:04:12.000Z" itemprop="datePublished">2017-10-13</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker，版本最低1.13</li>
+<li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">构建第一个docker应用</a></li>
+<li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong></li>
+<li>确保<strong>friendlyhello</strong>可以被pull，并能正常使用</li>
+<li>复制第三部分的<code>docker-compose.yml</code></li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">第三节</a>中，我们使用了<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">第二节</a>写的应用，并定义了它在线上的运行方式，然后启动了5个实例。</p>
+<p>在这一节中，我们将这个应用部署到多机集群中，正式步入swarm模式，多机、多容器的应用。</p>
+<h2 id="理解-Swarm-clusters"><a href="#理解-Swarm-clusters" class="headerlink" title="理解 Swarm clusters"></a>理解 Swarm clusters</h2><p><strong>Swarm</strong>是什么？<strong>Swarm</strong>就是一组运行docker的机器，并联合成为一个集群。当启动<strong>Swarm</strong>集群之后，docker命令会通过<strong>Swarm manager</strong>执行在整个集群之上。<strong>Swarm</strong>集群的机器可以是物理机，也可以是虚拟机，当加入<strong>Swarm</strong>集群之后，被称为<strong>nodes</strong>。</p>
+<p>Swarm managers有两种不同的方式运行container：第一种<em>emptiest node</em>，尽量使用少的机器部署容器；第二种<em>global</em>，确保每一台机器上都会运行一个容器的实例。可以在<code>docker-compose.yml</code>中指定运行的模式。</p>
+<p>Swarm managers是集群的核心控制节点，它负责执行命令，授权新机器加入集群。Worker节点只负责提供资源。</p>
+<p>到目前为止，你已经学会在单机使用docker容器。docker可以很方便的切换为 <strong>swarm mode</strong>，切换的命令是<code>docker swarm init</code>，一旦切换为 <strong>swarm mode</strong>后，当前的机器角色就变为Swarm managers。</p>
+<h2 id="设置你的swarm集群"><a href="#设置你的swarm集群" class="headerlink" title="设置你的swarm集群"></a>设置你的swarm集群</h2><h3 id="创建cluster"><a href="#创建cluster" class="headerlink" title="创建cluster"></a>创建cluster</h3><p>在本机上使用VM创建集群，我使用的Mac操作系统，接下来演示在Mac上创建swarm集群。</p>
+<p>首先，需要安装虚拟机，在Mac上需要下载 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">Oracle VirtualBox</a>。</p>
+<p>使用<code>docker-machine</code>创建多个虚拟机</p>
+<blockquote>
+<p>docker-machine create –driver virtualbox myvm1<br>docker-machine create –driver virtualbox myvm2</p>
+</blockquote>
+<p>使用<code>docker-machine ls</code>列出所有的虚拟机</p>
+<blockquote>
+<p>$ docker-machine ls</p>
+<p>NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS</p>
+<p>myvm1   -        virtualbox   Running   tcp://192.168.99.100:2376           v17.09.0-ce   </p>
+<p>myvm2   -        virtualbox   Running   tcp://192.168.99.101:2376           v17.09.0-ce   </p>
+</blockquote>
+<p>接下来，开始初始化swarm，将myvm1设置为manager，并向集群中加入节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ssh myvm1 &quot;docker swarm init --advertise-addr 192.168.99.100:2376&quot;</div><div class="line">Swarm initialized: current node (gxhg37symzvlve65jgg9ya984) is now a manager.</div><div class="line"></div><div class="line">To add a worker to this swarm, run the following command:</div><div class="line"></div><div class="line">    docker swarm join --token SWMTKN-1-07zo0vcw3uch6r47b3b8rpcqcqz00sa9679s3jil660cimyb72-8t8nfbynnphl2zw8str5efm47 192.168.99.100:2376</div><div class="line"></div><div class="line">To add a manager to this swarm, run &apos;docker swarm join-token manager&apos; and follow the instructions.</div></pre></td></tr></table></figure>
+<p>添加worker节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ssh myvm2 &quot;docker swarm join --token SWMTKN-1-07zo0vcw3uch6r47b3b8rpcqcqz00sa9679</div><div class="line"></div><div class="line">s3jil660cimyb72-8t8nfbynnphl2zw8str5efm47 192.168.99.100:2377&quot;`</div></pre></td></tr></table></figure>
+<p><strong>2377 vs 2376</strong></p>
+<p>注意<code>docker swarm init</code>和<code>docker swarm join</code>运行的端口号是<code>2377</code>，或者不指定端口，使用默认端口。<code>docker-machine ls</code>返回的端口是<code>2376</code>，这个端口是<code>docker deamon</code>的端口。</p>
+<p>在<code>swarm manager</code>上执行<code>docker node ls</code>检查集群运行情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ssh myvm1 &quot;docker node ls&quot;</div><div class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</div><div class="line">gxhg37symzvlve65jgg9ya984 *   myvm1               Ready               Active              Leader</div><div class="line">qcbxu2hop7nf13ktzxfg36ein     myvm2               Ready               Active</div></pre></td></tr></table></figure>
+<p>如果看到以上输出信息，恭喜你，你已经启动成功。</p>
+<p>使用<code>docker swarm leave</code>推出swarm集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ssh myvm2 &quot;docker swarm leave&quot;</div><div class="line">Node left the swarm.</div></pre></td></tr></table></figure>
+<h2 id="部署service到swarm-cluster"><a href="#部署service到swarm-cluster" class="headerlink" title="部署service到swarm cluster"></a>部署service到swarm cluster</h2><p>当此最复杂的部分已经学习完，接下来重复在<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">第三节</a>的操纵，把service部署到集群中。记住，只有swarm manager也就是myvm1可以执行docker命令。每一次连上swarm manager都需要执行<code>docker-machine ssh</code>比较麻烦，我们一个使用另外一种替代方案。使用<code>docker-machine env &lt;machine&gt;</code>配置当前shell连接到在虚拟机上的<code>Docker daemon</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker-machine env myvm1</div><div class="line">export DOCKER_TLS_VERIFY=&quot;1&quot;</div><div class="line">export DOCKER_HOST=&quot;tcp://192.168.99.100:2376&quot;</div><div class="line">export DOCKER_CERT_PATH=&quot;/Users/zhangbing/.docker/machine/machines/myvm1&quot;</div><div class="line">export DOCKER_MACHINE_NAME=&quot;myvm1&quot;</div><div class="line"># Run this command to configure your shell: </div><div class="line"># eval $(docker-machine env myvm1)</div></pre></td></tr></table></figure>
+<p>执行<code>eval $(docker-machine env myvm1)</code>配置当前的shell连接myvm1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eval $(docker-machine env myvm1)</div></pre></td></tr></table></figure>
+<p>执行<code>docker-machine ls</code>验证myvm1生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ls</div><div class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER        ERRORS</div><div class="line">myvm1   *        virtualbox   Running   tcp://192.168.99.100:2376           v17.09.0-ce   </div><div class="line">myvm2   -        virtualbox   Running   tcp://192.168.99.101:2376           v17.09.0-ce</div></pre></td></tr></table></figure>
+<p>可以看到myvm1是active。</p>
+<p>接下来，通过swarm manager将服务部署到集群上，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker stack deploy -c docker-compose.yml getstartedlab</div><div class="line">Creating network getstartedlab_webnet</div><div class="line">Creating service getstartedlab_web</div></pre></td></tr></table></figure>
+<p>检查服务的启动情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker stack ps getstartedlab</div><div class="line">ID                  NAME                  IMAGE               NODE                DESIRED STATE       CURRENT STATE              ERROR               PORTS</div><div class="line">j18ii2ij6daf        getstartedlab_web.1   username/repo:tag   myvm2               Running             Preparing 30 seconds ago                       </div><div class="line">oss51cyvy2n0        getstartedlab_web.2   username/repo:tag   myvm2               Running             Preparing 30 seconds ago                       </div><div class="line">rfvqjkhwxtif        getstartedlab_web.3   username/repo:tag   myvm1               Running             Preparing 30 seconds ago                       </div><div class="line">y0xapfhxopum        getstartedlab_web.4   username/repo:tag   myvm2               Running             Preparing 30 seconds ago                       </div><div class="line">8a4q8rq4jcxs        getstartedlab_web.5   username/repo:tag   myvm1               Running             Preparing 30 seconds ago</div></pre></td></tr></table></figure>
+<h2 id="清理工作"><a href="#清理工作" class="headerlink" title="清理工作"></a>清理工作</h2><p>停止service的命令</p>
+<blockquote>
+<p>docker stack rm getstartedlab</p>
+</blockquote>
+<p>停止swarm manager</p>
+<blockquote>
+<p>docker swarm leave –force</p>
+</blockquote>
+<p>Ok,你已经在生产环境上操作swarm进行服务的上线，扩容，下线的整个过程。</p>
+<p>清理宿主机的shell环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">eval $(docker-machine env -u)</div></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2017-10-12-docker-tutorial-3-scale-app" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">Docker入门系列（三）:让你的应用变为可扩展的服务</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">
+            <time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker，版本最低1.13</li>
+<li>准备 <a href="https://docs.docker.com/compose/overview/" target="_blank" rel="external">Docker Compose</a>，<a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Docker for Mac</a> 以及 <a href="https://docs.docker.com/docker-for-windows/" target="_blank" rel="external">Docker for Windows</a> 都已经预装了compose。linux系统需要自己安装，<a href="https://github.com/docker/compose/releases" target="_blank" rel="external">官方安装教程</a>。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">docker安装启动</a></li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">构建第一个docker应用</a></li>
+<li>确保在上一节创建的<strong>friendlyhello</strong>已经发布到<strong>registry</strong>，一会儿会使用到此镜像</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在这一节中，我们将应用扩容，并支持负载均衡，这一节着重介绍<strong>service</strong>。</p>
+<ul>
+<li>Stack</li>
+<li><strong>Services</strong> (&lt;-you are)</li>
+<li>Container (<a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">part 2</a>)</li>
+</ul>
+<h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><p>在分布式环境中，<strong>services</strong>有很多不同的应用实例构成。想象一下，你拥有一个大型的视频分享网站，这个网站比如包含一个服务用来处理数据存储，另一个服务在后台做视频编解码，还有一个服务作为<strong>API</strong>接入层等等。</p>
+<p>一个服务只运行一种镜像，但是它定义了镜像运行的方式，比如，使用什么端口，运行多少容器的副本，在Docker平台上，使用<code>docker-compose.yml</code> 可以非常方便的对服务进行定义、运行、扩容。</p>
+<h2 id="第一个docker-compose-yml"><a href="#第一个docker-compose-yml" class="headerlink" title="第一个docker-compose.yml"></a>第一个docker-compose.yml</h2><p><code>docker-compose.yml</code>是yaml格式的，它定义了Docker容器在生产环境的运行方式。</p>
+<p><strong>docker-compose.yml</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">version: &quot;3&quot;</div><div class="line">services:</div><div class="line">  web:</div><div class="line">    # replace username/repo:tag with your name and image details</div><div class="line">    image: username/repo:tag</div><div class="line">    deploy:</div><div class="line">      replicas: 5</div><div class="line">      resources:</div><div class="line">        limits:</div><div class="line">          cpus: &quot;0.1&quot;</div><div class="line">          memory: 50M</div><div class="line">      restart_policy:</div><div class="line">        condition: on-failure</div><div class="line">    ports:</div><div class="line">      - &quot;80:80&quot;</div><div class="line">    networks:</div><div class="line">      - webnet</div><div class="line">networks:</div><div class="line">  webnet:</div></pre></td></tr></table></figure>
+<p>这个<code>docker-compose.yml</code> 定义了如下行为：</p>
+<ul>
+<li>从registry上Pull在第二节上传的<a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">镜像</a></li>
+<li>运行5个实例作为一个取名为web的service，限制每一个实例最多使用10%的cpu，50MB内存</li>
+<li>容器失败后立即重启</li>
+<li>将web的80端口映射到宿主机的80端口上</li>
+<li>通过<code>webnet</code>在容器间共享80端口，达到负载均衡的目的（在内部, 容器将映射80端口到一个临时端口上)</li>
+<li>对 <code>webnet</code> 的网络进行默认设置</li>
+</ul>
+<h2 id="启动负载均衡的应用"><a href="#启动负载均衡的应用" class="headerlink" title="启动负载均衡的应用"></a>启动负载均衡的应用</h2><p>启动<strong>swarm manager</strong></p>
+<blockquote>
+<p>docker swarm init</p>
+</blockquote>
+<p>启动service，并命名为<code>getstartedlab</code></p>
+<blockquote>
+<p>docker stack deploy -c docker-compose.yml getstartedlab</p>
+</blockquote>
+<p>运行以上的命令后，在一个宿主机上启动5个容器实例。</p>
+<p>查看service的Id</p>
+<blockquote>
+<p>docker service ls</p>
+<p>ID                  NAME                MODE                REPLICAS            IMAGE                          PORTS</p>
+<p>pxfbw2lyo4bo        getstartedlab_web   replicated          5/5                 ruccsbingo/get-started:part2   *:80-&gt;80/tcp</p>
+</blockquote>
+<p>Docker swarms启动5个tasks来运行containers，可以使用ps命令查看这些tasks。</p>
+<blockquote>
+<p>docker service ps </p>
+<p>ID                  NAME                      IMAGE                          NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS</p>
+<p>ly162fal310t        getstartedlab_web.1       ruccsbingo/get-started:part2   moby                Running             Running 27 seconds ago                           </p>
+<p>ghrcp7fzjaub         _ getstartedlab_web.1   ruccsbingo/get-started:part2   moby                Shutdown            Shutdown 30 seconds ago                          </p>
+<p>t1jh0d1jsbj8        getstartedlab_web.2       ruccsbingo/get-started:part2   moby                Running             Running about a minute ago                       </p>
+<p>qdl4t4izqsza        getstartedlab_web.3       ruccsbingo/get-started:part2   moby                Ready               Ready 10 seconds ago                             </p>
+<p>nttsh0krytde         _ getstartedlab_web.3   ruccsbingo/get-started:part2   moby                Shutdown            Running 10 seconds ago                           </p>
+<p>wc9xqpqehwvx        getstartedlab_web.4       ruccsbingo/get-started:part2   moby                Running             Running 10 seconds ago                           </p>
+<p>m8xjlizio550         _ getstartedlab_web.4   ruccsbingo/get-started:part2   moby                Shutdown            Shutdown 13 seconds ago                          </p>
+<p>t37arxf436d5        getstartedlab_web.5       ruccsbingo/get-started:part2   moby                Running             Running about a minute ago                       </p>
+</blockquote>
+<p>使用如下命令列出containers</p>
+<blockquote>
+<p>docker container ls -q</p>
+</blockquote>
+<p>使用curl验证</p>
+<blockquote>
+<p></p><h3>Hello World!</h3><b>Hostname:</b> a8ee4747d8d7<br><b>Visits:</b> <i>cannot connect to Redis, counter disabled</i><strong>%</strong>  <p></p>
+</blockquote>
+<h2 id="服务扩容"><a href="#服务扩容" class="headerlink" title="服务扩容"></a>服务扩容</h2><p>更改<code>docker-compose.yml</code>文件中<code>replicas</code>的数量，重启整个服务。</p>
+<blockquote>
+<p>docker stack deploy -c docker-compose.yml getstartedlab</p>
+</blockquote>
+<p>Docker将会做<strong>in-place</strong>替换，不用先停服务，或者<strong>kill</strong>容器。</p>
+<h2 id="停止service和swarm"><a href="#停止service和swarm" class="headerlink" title="停止service和swarm"></a>停止service和swarm</h2><p>停止service的命令</p>
+<blockquote>
+<p>docker stack rm getstartedlab</p>
+</blockquote>
+<p>停止swarm manager</p>
+<blockquote>
+<p>docker swarm leave –force</p>
+</blockquote>
+<p>到目前为止，你已经学会了如何使用swarm进行服务的上线，扩容，下线操作。在一下节中，会介绍在集群上执行上线，扩容，下线操作。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2017-10-12-docker-tutorial-2-first-docker-app-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -347,7 +1136,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Comments</a>
+        <a href="http://ruccsbingo.github.io/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/#comments" class="article-comment-link">Komentar</a>
     
 
         </footer>
@@ -470,7 +1259,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
             
     
-        <a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link">Comments</a>
+        <a href="http://ruccsbingo.github.io/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/#comments" class="article-comment-link">Komentar</a>
     
 
         </footer>
@@ -481,7 +1270,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+        <a class="extend prev" rel="prev" href="/">&laquo; Sebelumnya</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
 </section>
             
@@ -489,14 +1278,14 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">terbaru</h3>
         <div class="widget">
             <ul id="recent-post" class="">
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="thumbnail">
+                            <a href="/2017/11/17/2017-11-17-tools-network-tcpflow-md/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -507,15 +1296,15 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" class="title">docker容器的网络</a></p>
-                            <p class="item-date"><time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time></p>
+                            <p class="item-title"><a href="/2017/11/17/2017-11-17-tools-network-tcpflow-md/" class="title">tcpflow的简单用法</a></p>
+                            <p class="item-date"><time datetime="2017-11-17T09:34:49.000Z" itemprop="datePublished">2017-11-17</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="thumbnail">
+                            <a href="/2017/11/01/2017-11-01-minikube-tutorial-1-hello-minikube-md/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -526,15 +1315,15 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/" class="title">学习DOCKERFILE（三）：编写dockerfile的一些建议</a></p>
-                            <p class="item-date"><time datetime="2017-10-29T05:42:32.000Z" itemprop="datePublished">2017-10-29</time></p>
+                            <p class="item-title"><a href="/2017/11/01/2017-11-01-minikube-tutorial-1-hello-minikube-md/" class="title">minikube系列（一）：hello minikube</a></p>
+                            <p class="item-date"><time datetime="2017-11-01T11:13:55.000Z" itemprop="datePublished">2017-11-01</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="thumbnail">
+                            <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-4-tmpfs-md/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -545,15 +1334,15 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/" class="title">学习dockerfile（二）：多阶段构建</a></p>
-                            <p class="item-date"><time datetime="2017-10-25T14:33:01.000Z" itemprop="datePublished">2017-10-25</time></p>
+                            <p class="item-title"><a href="/2017/10/31/2017-10-31-docker-practice-manage-data-4-tmpfs-md/" class="title">2017-10-31-docker-practice-manage-data-4-tmpfs.md</a></p>
+                            <p class="item-date"><time datetime="2017-10-31T13:41:42.000Z" itemprop="datePublished">2017-10-31</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="thumbnail">
+                            <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-3-mounts-md/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -564,15 +1353,15 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/" class="title">学习dockerfile（一）：创建一个基础镜像</a></p>
-                            <p class="item-date"><time datetime="2017-10-22T04:03:11.000Z" itemprop="datePublished">2017-10-22</time></p>
+                            <p class="item-title"><a href="/2017/10/31/2017-10-31-docker-practice-manage-data-3-mounts-md/" class="title">docker管理数据（三）：mounts</a></p>
+                            <p class="item-date"><time datetime="2017-10-31T13:37:17.000Z" itemprop="datePublished">2017-10-31</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="thumbnail">
+                            <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-2-volumes-md/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -583,8 +1372,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/" class="title">使用docker构建hexo风格的个人主页</a></p>
-                            <p class="item-date"><time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time></p>
+                            <p class="item-title"><a href="/2017/10/31/2017-10-31-docker-practice-manage-data-2-volumes-md/" class="title">docker管理数据（二）：volumes</a></p>
+                            <p class="item-date"><time datetime="2017-10-31T13:37:02.000Z" itemprop="datePublished">2017-10-31</time></p>
                         </div>
                     </li>
                 
@@ -595,7 +1384,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">categories</h3>
+        <h3 class="widget-title">kategori</h3>
         <div class="widget">
             <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/docker/">docker</a><span class="category-list-count">1</span></li></ul>
         </div>
@@ -604,20 +1393,34 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
+        <h3 class="widget-title">arsip</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">12</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">16</span></li></ul>
         </div>
     </div>
 
     
         
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
     
         
+    <div class="widget-wrap">
+        <h3 class="widget-title">awan tag</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/tools/" style="font-size: 10px;">tools</a>
+        </div>
+    </div>
+
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">tautan</h3>
         <div class="widget">
             <ul>
                 

@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Arsip: 2017 | zhang bing</title>
+    <title>docker管理数据（一）：如何管理数据 | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="a common coder love coding.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhang bing">
-<meta property="og:url" content="http://ruccsbingo.github.io/archives/2017/page/2/index.html">
+    <meta name="description" content="介绍为什么需要着重讲一讲docker中的数据管理，在实际的运行过程中，经常需要存储一些配置信息，程序运行中产生的信息，这些都是需要持久化的数据。可以将这些数据写入容器的文件层中，这样的方式有很多的缺点：  当容器生命周期结束之后，这些数据也会同步丢失；对于存储在容器文件层中的数据，从容器外获取非常的不方便。 容器的可写层和宿主机的耦合非常的严重，很难一致到别的地方执行。 将数据写入可写层需要sto">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker管理数据（一）：如何管理数据">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="a common coder love coding.">
+<meta property="og:description" content="介绍为什么需要着重讲一讲docker中的数据管理，在实际的运行过程中，经常需要存储一些配置信息，程序运行中产生的信息，这些都是需要持久化的数据。可以将这些数据写入容器的文件层中，这样的方式有很多的缺点：  当容器生命周期结束之后，这些数据也会同步丢失；对于存储在容器文件层中的数据，从容器外获取非常的不方便。 容器的可写层和宿主机的耦合非常的严重，很难一致到别的地方执行。 将数据写入可写层需要sto">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/6a8f9c5bly1fl1s274te8j20dx073q3a.jpg">
+<meta property="og:updated_time" content="2017-11-01T13:55:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhang bing">
-<meta name="twitter:description" content="a common coder love coding.">
+<meta name="twitter:title" content="docker管理数据（一）：如何管理数据">
+<meta name="twitter:description" content="介绍为什么需要着重讲一讲docker中的数据管理，在实际的运行过程中，经常需要存储一些配置信息，程序运行中产生的信息，这些都是需要持久化的数据。可以将这些数据写入容器的文件层中，这样的方式有很多的缺点：  当容器生命周期结束之后，这些数据也会同步丢失；对于存储在容器文件层中的数据，从容器外获取非常的不方便。 容器的可写层和宿主机的耦合非常的严重，很难一致到别的地方执行。 将数据写入可写层需要sto">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/6a8f9c5bly1fl1s274te8j20dx073q3a.jpg">
     
 
     
@@ -228,231 +231,165 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-2017-10-31-docker-practice-manage-data-1-overview-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">使用docker构建hexo风格的个人主页</a>
+        <h1 class="article-title" itemprop="name">
+            docker管理数据（一）：如何管理数据
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">
-            <time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time>
+        <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/">
+            <time datetime="2017-10-31T13:36:18.000Z" itemprop="datePublished">2017-10-31</time>
         </a>
     </div>
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                        
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">Docker入门系列（六）：最后的总结</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为什么需要着重讲一讲docker中的数据管理，在实际的运行过程中，经常需要存储一些配置信息，程序运行中产生的信息，这些都是需要持久化的数据。可以将这些数据写入容器的文件层中，这样的方式有很多的缺点：</p>
+<ul>
+<li>当容器生命周期结束之后，这些数据也会同步丢失；对于存储在容器文件层中的数据，从容器外获取非常的不方便。</li>
+<li>容器的可写层和宿主机的耦合非常的严重，很难一致到别的地方执行。</li>
+<li>将数据写入可写层需要<a href="https://docs.docker.com/engine/userguide/storagedriver/" target="_blank" rel="external">storage driver</a>的支持，这种方式和使用<code>volumes</code>相比，会有极大的性能损失。</li>
+</ul>
+<p>Docker提供三种不同的方式将宿主机的文件映射到容器内部，用于读写数据：</p>
+<ul>
+<li><em>volumes</em></li>
+<li><em>bind mounts</em></li>
+<li><em>tmpfs</em></li>
+</ul>
+<p>当你不确定使用那一种方式的时候，<code>volumes</code>总会是一种不错的选择。</p>
+<h2 id="选择合适的存储"><a href="#选择合适的存储" class="headerlink" title="选择合适的存储"></a>选择合适的存储</h2><p>不管选择哪一种数据存储方式，在容器内部，这些数据的使用方式是一致的。要么以文件夹的方式，要么以文件的方式在容器内部展现。</p>
+<p>下面这幅图清楚的展示了三种方式存储数据的不同：</p>
+<p><img src="http://wx2.sinaimg.cn/mw690/6a8f9c5bly1fl1s274te8j20dx073q3a.jpg" alt=""></p>
+<ul>
+<li><strong>Volumes</strong>：数据存储在由Docker管理的宿主机的文件系统上（ <code>/var/lib/docker/volumes/</code>），非Docker进程不能修改这一部分的内容。<code>Volumes</code>是最好的管理数据的方式。</li>
+<li><strong>Bind mounts</strong>：数据存储在宿主机的任何地方，非Docker进程也可以修改这些区域的数据。</li>
+<li><strong>tmpfs</strong>：数据存储在宿主机的内存中，并不会持久化到磁盘上。</li>
+</ul>
+<h2 id="什么时候选择volumes"><a href="#什么时候选择volumes" class="headerlink" title="什么时候选择volumes"></a>什么时候选择volumes</h2><p>Volumes始终是推荐的管理数据的方式，一些典型的应用场景如下：</p>
+<ul>
+<li>在多个运行的容器之间共享数据。如果你没有显示的创建它，volume会在第一次被mounted到一个容器的时候自动创建。当容器停止甚至被删除，volume仍然会被保存。多个容器可以同时mounted到同一个volume，可以分配读写或者只读权限。volume只会被显示的删除。</li>
+<li>当容器的宿主机无法保证一个存在的文件或者文件目录。volumes帮助宿主机的配置和容器运行时的解耦。</li>
+<li>当数据不想保存在本地，需要保存到一个远程机器或者是云上。</li>
+<li>当需要从一台宿主机备份、恢复、迁移数据到另外一台宿主机时，volumes是一个很好的选择。</li>
+</ul>
+<h2 id="什么时候选择bind-mounts"><a href="#什么时候选择bind-mounts" class="headerlink" title="什么时候选择bind mounts"></a>什么时候选择bind mounts</h2><p>一般情况下请选择使用volumes，在如下情况可以选择bind mounts：</p>
+<ul>
+<li>从宿主机共享配置文件到容器。Docker使用这种方式向各个容器共享DNS配置文件<code>/etc/resolv.conf</code>。</li>
+<li>将开发环境的源码以及编译的文件共享给容器。例如，可以将maven的<code>target/</code>目录共享给容器，每一次编译工程之后，容器内部就可以从新构建服务。如果这种开发步骤，<code>production Dockerfile</code>需要直接拷贝<code>production-ready artifacts</code>。</li>
+</ul>
+<h2 id="什么时候选择tmpfs"><a href="#什么时候选择tmpfs" class="headerlink" title="什么时候选择tmpfs"></a>什么时候选择tmpfs</h2><p>当既不想持久化数据到宿主机，也不想持久化到容器内部可以使用tmpfs。例如，当你的应用程序需要输出大量的状态数据，为了性能或者安全性考虑并不想持久化这些数据时，可以使用tmpfs。</p>
+<h2 id="一点小建议"><a href="#一点小建议" class="headerlink" title="一点小建议"></a>一点小建议</h2><p>无论使用volume或者mounts，记住以下几点：</p>
+<ul>
+<li>如果你映射一个空的volume到容器内部某一个已存在的文件或者文件夹，这些文件或者文件夹会被拷贝到volume中。相似的，如果你启动一个容器，指定一个不存在的volume，会为你创建一个空的volume。这是一种很好的为容器初始化数据的方式。</li>
+<li>如果你映射一个非空的volume，或者<strong>bind mount</strong>到容器内部某一个已存在的文件或者文件夹，这些文件或者文件夹会变成暂时不可访问，直到解除mount关系，这些文件或者文件夹是不会被删除的。</li>
+</ul>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">
-            <time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">Mac上配置阿里云的docker镜像</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">
-            <time datetime="2017-10-15T08:43:18.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/docker/">docker</a>
-    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">Docker入门系列（五）:增加一个可持久化的访问计数</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">
-            <time datetime="2017-10-15T02:49:59.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">Docker入门系列（四）:让你的服务跨越多台机器</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">
-            <time datetime="2017-10-13T09:04:12.000Z" itemprop="datePublished">2017-10-13</time>
-        </a>
-    </div>
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">Docker入门系列（三）:让你的应用变为可扩展的服务</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">
-            <time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Docker入门系列（二）：构建第一个docker应用</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Docker入门系列（一）：目标和安排</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
-            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
 </div>
 
-    <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2017/">&laquo; Sebelumnya</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-    </nav>
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-2-volumes-md/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih baru</strong>
+            <div class="article-nav-title">
+                
+                    docker管理数据（二）：volumes
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih Tua</strong>
+            <div class="article-nav-title">docker容器的网络</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">

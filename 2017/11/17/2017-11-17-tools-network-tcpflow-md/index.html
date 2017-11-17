@@ -3,17 +3,19 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Arsip: 2017 | zhang bing</title>
+    <title>tcpflow的简单用法 | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="a common coder love coding.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhang bing">
-<meta property="og:url" content="http://ruccsbingo.github.io/archives/2017/page/2/index.html">
+    <meta name="description" content="问题作为一个基层的后端工程师，经常会被各式各样的人丢各种各样的bug，但是，他们通常只会说相同的一句话，怎么又出错了，快去查一下。然后，就把一口大锅摔到你的头上，拍拍手就走了。这时你的心里肯定有一万只草泥马呼啸而过，难道不能再多提供一些信息嘛。但是，你面对的可能是老板，可能是屁也不懂的产品，他们唯一能告诉你的就是他们自己的帐号信息。 这个时候，你只能登录上服务器，查看日志信息。但是，你惊奇的发现，">
+<meta name="keywords" content="tools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tcpflow的简单用法">
+<meta property="og:url" content="http://ruccsbingo.github.io/2017/11/17/2017-11-17-tools-network-tcpflow-md/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="a common coder love coding.">
+<meta property="og:description" content="问题作为一个基层的后端工程师，经常会被各式各样的人丢各种各样的bug，但是，他们通常只会说相同的一句话，怎么又出错了，快去查一下。然后，就把一口大锅摔到你的头上，拍拍手就走了。这时你的心里肯定有一万只草泥马呼啸而过，难道不能再多提供一些信息嘛。但是，你面对的可能是老板，可能是屁也不懂的产品，他们唯一能告诉你的就是他们自己的帐号信息。 这个时候，你只能登录上服务器，查看日志信息。但是，你惊奇的发现，">
+<meta property="og:updated_time" content="2017-11-17T11:40:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhang bing">
-<meta name="twitter:description" content="a common coder love coding.">
+<meta name="twitter:title" content="tcpflow的简单用法">
+<meta name="twitter:description" content="问题作为一个基层的后端工程师，经常会被各式各样的人丢各种各样的bug，但是，他们通常只会说相同的一句话，怎么又出错了，快去查一下。然后，就把一口大锅摔到你的头上，拍拍手就走了。这时你的心里肯定有一万只草泥马呼啸而过，难道不能再多提供一些信息嘛。但是，你面对的可能是老板，可能是屁也不懂的产品，他们唯一能告诉你的就是他们自己的帐号信息。 这个时候，你只能登录上服务器，查看日志信息。但是，你惊奇的发现，">
     
 
     
@@ -228,231 +230,149 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-2017-11-17-tools-network-tcpflow-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">使用docker构建hexo风格的个人主页</a>
+        <h1 class="article-title" itemprop="name">
+            tcpflow的简单用法
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/10/16/2017-10-16-docker-practice-hexo-personal-site-md/">
-            <time datetime="2017-10-16T10:58:52.000Z" itemprop="datePublished">2017-10-16</time>
+        <a href="/2017/11/17/2017-11-17-tools-network-tcpflow-md/">
+            <time datetime="2017-11-17T09:34:49.000Z" itemprop="datePublished">2017-11-17</time>
         </a>
     </div>
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/tools/">tools</a>
+    </div>
+
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">Docker入门系列（六）：最后的总结</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>作为一个基层的后端工程师，经常会被各式各样的人丢各种各样的bug，但是，他们通常只会说相同的一句话，怎么又出错了，快去查一下。然后，就把一口大锅摔到你的头上，拍拍手就走了。这时你的心里肯定有一万只草泥马呼啸而过，难道不能再多提供一些信息嘛。但是，你面对的可能是老板，可能是屁也不懂的产品，他们唯一能告诉你的就是他们自己的帐号信息。</p>
+<p>这个时候，你只能登录上服务器，查看日志信息。但是，你惊奇的发现，写这个服务的码农，竟然从未输出过任何日志。真是晴天霹雳呀，幸好还有tcpflow，tcpdump这两大法宝，这次介绍如何使用tcpflow抓包查看请求的数据，以及返回的结果。</p>
+<h2 id="tcpflow"><a href="#tcpflow" class="headerlink" title="tcpflow"></a>tcpflow</h2><p>tcpflow是服务器上经常使用的一个小程序，它能够捕获tcp的数据流，并将其存储为方便分析和调试的格式。每一条tcp流都会被存储到独立的文件中，因此，典型的tcp流将会被分别存储为进、出两个文件。</p>
+<p>tcpflow和tcpdump比较相似，它们都能处理来自实时或者存储到文件中的数据包。不同点是，tcpflow会重新构建真实的数据流，并且会分开存储。</p>
+<p>虽然tcp数据包存在重传和乱序的情况，tcpflow能够按照正常的顺序重建数据流。1.0版本支持VLAN多路复用，但是，当前不支持<a href="https://en.wikipedia.org/wiki/IP_fragmentation" target="_blank" rel="external">IP fragmentation</a>，数据流中如果存在IP fragments，不能被正常的处理。</p>
+<p>tcpflow基于LBL Packet Capture Library，支持丰富的过滤条件。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>centos上使用yum安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install tcpflow</div></pre></td></tr></table></figure>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><ul>
+<li>一个简单的例子</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpflow -cp -i eth0  port 18223</div></pre></td></tr></table></figure>
+<p>-c：将数据流打印到控制台，不要存储到文件中。</p>
+<p>-p：非杂乱模式</p>
+<p>-i：指定网络接口</p>
+<p>port：指定监听的端口号</p>
+<p>简单的说，将端口号18223的tcp流打印到控制台输出。</p>
+<ul>
+<li>只关心输入数据流</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpflow -cp -i eth0 dst port 18223</div></pre></td></tr></table></figure>
+<p>dst：18223是tcp数据流的目的端口</p>
+<ul>
+<li>只关心输出流量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tcpflow -cp -i eth0 src port 18223</div></pre></td></tr></table></figure>
+<p>src：18223是tcp数据流的源端口</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-6-conclusion-md/">
-            <time datetime="2017-10-15T10:08:14.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">Mac上配置阿里云的docker镜像</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-16-manual-aliyun-docker-mirror-md/">
-            <time datetime="2017-10-15T08:43:18.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/docker/">docker</a>
-    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">Docker入门系列（五）:增加一个可持久化的访问计数</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/15/2017-10-15-docker-tutorial-5-starck-md/">
-            <time datetime="2017-10-15T02:49:59.000Z" itemprop="datePublished">2017-10-15</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">Docker入门系列（四）:让你的服务跨越多台机器</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/13/2017-10-13-docker-tutorial-4-cluster-md/">
-            <time datetime="2017-10-13T09:04:12.000Z" itemprop="datePublished">2017-10-13</time>
-        </a>
-    </div>
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
 
 
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">Docker入门系列（三）:让你的应用变为可扩展的服务</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-3-scale-app/">
-            <time datetime="2017-10-12T10:39:33.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">Docker入门系列（二）：构建第一个docker应用</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/12/2017-10-12-docker-tutorial-2-first-docker-app-md/">
-            <time datetime="2017-10-12T03:18:05.000Z" itemprop="datePublished">2017-10-12</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">Docker入门系列（一）：目标和安排</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/11/2017-10-11-docker-tutorial-1-orientation-and-setup/">
-            <time datetime="2017-10-11T06:32:00.000Z" itemprop="datePublished">2017-10-11</time>
-        </a>
-    </div>
-
-
-                    
-                    
-                </div>
-            </div>
-        </div>
-    
 </div>
 
-    <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2017/">&laquo; Sebelumnya</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-    </nav>
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/11/17/2017-11-17-tools-network-tcpflow-md/#comments" class="article-comment-link">Komentar</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/11/01/2017-11-01-minikube-tutorial-1-hello-minikube-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Lebih Tua</strong>
+            <div class="article-nav-title">minikube系列（一）：hello minikube</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
