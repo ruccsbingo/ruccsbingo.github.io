@@ -176,7 +176,7 @@ var _hmt = _hmt || [];
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                19
+                20
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -229,6 +229,130 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/">学习dockerfile（二）：多阶段构建</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/">
+            <time datetime="2017-10-25T14:33:01.000Z" itemprop="datePublished">2017-10-25</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>安装docker，multi-stage功能的最低版本17.05。</li>
+<li>了解<a href="http://ruccsbingo.github.io/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/">创建一个基础镜像</a></li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>multi-stage功能有什么功效？接下来将通过一个go程序例子进行讲解。开发go应用程序需要如下几个必备条件；</p>
+<ul>
+<li>一台用于开发的机器（linux、window）</li>
+<li>go开发环境，设置goroot、gopath，gobin等环境变量</li>
+<li>额外的lib库</li>
+<li>运行binary环境</li>
+</ul>
+<p>如果不使用multi-stage，为了尽量保证image比较小，可能会使用如下的方式构建docker image。</p>
+<ul>
+<li>第一步，创建用于编译环境的<code>Dockerfile.build</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.7.3</div><div class="line">WORKDIR /go/src/github.com/alexellis/href-counter/</div><div class="line">RUN go get -d -v golang.org/x/net/html  </div><div class="line">COPY app.go .</div><div class="line">RUN go get -d -v golang.org/x/net/html \</div><div class="line">  &amp;&amp; CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</div></pre></td></tr></table></figure>
+<ul>
+<li>第二步，创建用于运行环境的<code>Dockerfile</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FROM alpine:latest  </div><div class="line">RUN apk --no-cache add ca-certificates</div><div class="line">WORKDIR /root/</div><div class="line">COPY app .</div><div class="line">CMD [&quot;./app&quot;]</div></pre></td></tr></table></figure>
+<ul>
+<li>第三步，创建运行脚步<code>build.sh</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">echo Building alexellis2/href-counter:build</div><div class="line"></div><div class="line">docker build --build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_proxy \  </div><div class="line">    -t alexellis2/href-counter:build . -f Dockerfile.build</div><div class="line"></div><div class="line">docker create --name extract alexellis2/href-counter:build  </div><div class="line">docker cp extract:/go/src/github.com/alexellis/href-counter/app ./app  </div><div class="line">docker rm -f extract</div><div class="line"></div><div class="line">echo Building alexellis2/href-counter:latest</div><div class="line"></div><div class="line">docker build --no-cache -t alexellis2/href-counter:latest .</div><div class="line">rm ./app</div></pre></td></tr></table></figure>
+<p>以上的构建过程，运行<code>build.sh</code>，会先构建编译环境用于构建可运行的应用程序，然后，将可执行应用程序app拷贝到local，用于构建最终的运行环境，最后，清理local的app临时文件。</p>
+<p>整个构建过程，需要编写额外的<code>build.sh</code>脚步，执行冗长的命令，最后还需要做一些清理工作。不管是用于编译的image还是用于运行的image都会占用本地的磁盘空间。</p>
+<p>那么，有没有更好的方式？答案就是<code>multi-stage</code>。</p>
+<h2 id="使用multi-stage构建"><a href="#使用multi-stage构建" class="headerlink" title="使用multi-stage构建"></a>使用multi-stage构建</h2><h3 id="编写dockerfile"><a href="#编写dockerfile" class="headerlink" title="编写dockerfile"></a>编写<code>dockerfile</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.7.3</div><div class="line">WORKDIR /go/src/github.com/alexellis/href-counter/</div><div class="line">RUN go get -d -v golang.org/x/net/html  </div><div class="line">COPY app.go .</div><div class="line">RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</div><div class="line"></div><div class="line">FROM alpine:latest  </div><div class="line">RUN apk --no-cache add ca-certificates</div><div class="line">WORKDIR /root/</div><div class="line">COPY --from=0 /go/src/github.com/alexellis/href-counter/app .</div><div class="line">CMD [&quot;./app&quot;]</div></pre></td></tr></table></figure>
+<p>在<code>dockerfile</code>中，使用两次<code>FROM</code>命令，每一个<code>FROM</code>可以使用不同的基础<code>image</code>，它们处于不同的构建阶段。可以从一个<code>stage</code>拷贝文件到另外一个<code>stage</code>，使用<code>COPY</code>命令，<code>--from</code>指定从哪个stage拷贝，不需要的文件可以完全忽略。</p>
+<p>构建命令如下，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t alexellis2/href-counter:latest .</div></pre></td></tr></table></figure>
+<h3 id="给stage命名"><a href="#给stage命名" class="headerlink" title="给stage命名"></a>给stage命名</h3><p>默认情况下，每一个stage是没有命名的，只能通过序号进行引用，第一个<code>FROM</code>的序号是0，后面的依次类推。也可以通过给stage命名，更方便的引用各个stage，并增加可维护性，避免重新排列<code>FROM</code>命令造成混乱。接下来通过修改上面的例子展示了stage命名的用法；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">FROM golang:1.7.3 as builder</div><div class="line">WORKDIR /go/src/github.com/alexellis/href-counter/</div><div class="line">RUN go get -d -v golang.org/x/net/html  </div><div class="line">COPY app.go    .</div><div class="line">RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</div><div class="line"></div><div class="line">FROM alpine:latest  </div><div class="line">RUN apk --no-cache add ca-certificates</div><div class="line">WORKDIR /root/</div><div class="line">COPY --from=builder /go/src/github.com/alexellis/href-counter/app .</div><div class="line">CMD [&quot;./app&quot;]</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>multi-stage模式有效的减少了image的大小，增加了dockerfile，部署的简洁性和可维护性。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2017-10-22-dockerfile-tutorial-1-first-dockerfile-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1412,6 +1536,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2018/04/17/2018-04-17-markdown-toturial-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/04/17/2018-04-17-markdown-toturial-md/" class="title">2018-04-17-markdown-toturial.md</a></p>
+                            <p class="item-date"><time datetime="2018-04-17T03:19:00.000Z" itemprop="datePublished">2018-04-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/11/19/2017-11-19-algorithm-dynamic-programing-buy-stock-limite-times-md/" class="thumbnail">
     
     
@@ -1485,25 +1628,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-3-mounts-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/31/2017-10-31-docker-practice-manage-data-3-mounts-md/" class="title">docker管理数据（三）：mounts</a></p>
-                            <p class="item-date"><time datetime="2017-10-31T13:37:17.000Z" itemprop="datePublished">2017-10-31</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1522,7 +1646,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">16</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">16</span></li></ul>
         </div>
     </div>
 
@@ -1568,7 +1692,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2017 bing<br>
+            &copy; 2018 bing<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
