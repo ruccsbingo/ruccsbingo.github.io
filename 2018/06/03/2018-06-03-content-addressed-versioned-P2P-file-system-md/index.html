@@ -3,17 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Category: algorithm | zhang bing</title>
+    <title>2018-06-03-content-addressed-versioned-P2P-file-system.md | zhang bing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="a common coder love coding.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhang bing">
-<meta property="og:url" content="http://ruccsbingo.github.io/categories/algorithm/index.html">
+    <meta name="description" content="IPFS1 介绍​    在互联网的发展过程中，人们一直试图构建一个全球的分布式文件系统。有成功的，也有失败的。在这几十年的尝试过程中，也就AFS取得了成功，并且今天仍然被使用。在学院派之外，取得巨大成功的是共享大文件的系统，比如，Napster、KaZaA以及BitTorrent。然而，这些系统都不能作为基础设施，在其上构建应用。 ​    到目前为止，HTTP可能是最成功的“分布式的文件系统”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018-06-03-content-addressed-versioned-P2P-file-system.md">
+<meta property="og:url" content="http://ruccsbingo.github.io/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/index.html">
 <meta property="og:site_name" content="zhang bing">
-<meta property="og:description" content="a common coder love coding.">
+<meta property="og:description" content="IPFS1 介绍​    在互联网的发展过程中，人们一直试图构建一个全球的分布式文件系统。有成功的，也有失败的。在这几十年的尝试过程中，也就AFS取得了成功，并且今天仍然被使用。在学院派之外，取得巨大成功的是共享大文件的系统，比如，Napster、KaZaA以及BitTorrent。然而，这些系统都不能作为基础设施，在其上构建应用。 ​    到目前为止，HTTP可能是最成功的“分布式的文件系统”">
+<meta property="og:updated_time" content="2018-06-11T06:37:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhang bing">
-<meta name="twitter:description" content="a common coder love coding.">
+<meta name="twitter:title" content="2018-06-03-content-addressed-versioned-P2P-file-system.md">
+<meta name="twitter:description" content="IPFS1 介绍​    在互联网的发展过程中，人们一直试图构建一个全球的分布式文件系统。有成功的，也有失败的。在这几十年的尝试过程中，也就AFS取得了成功，并且今天仍然被使用。在学院派之外，取得巨大成功的是共享大文件的系统，比如，Napster、KaZaA以及BitTorrent。然而，这些系统都不能作为基础设施，在其上构建应用。 ​    到目前为止，HTTP可能是最成功的“分布式的文件系统”">
     
 
     
@@ -228,50 +229,157 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">algorithm</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-2018-06-03-content-addressed-versioned-P2P-file-system-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/11/19/2017-11-19-algorithm-dynamic-programing-buy-stock-limite-times-md/">Best Time to Buy and Sell Stock IV</a>
+        <h1 class="article-title" itemprop="name">
+            2018-06-03-content-addressed-versioned-P2P-file-system.md
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/11/19/2017-11-19-algorithm-dynamic-programing-buy-stock-limite-times-md/">
-            <time datetime="2017-11-19T02:27:52.000Z" itemprop="datePublished">2017-11-19</time>
+        <a href="/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/">
+            <time datetime="2018-06-03T13:49:08.000Z" itemprop="datePublished">2018-06-03</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/algorithm/">algorithm</a>
-    </div>
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="IPFS"><a href="#IPFS" class="headerlink" title="IPFS"></a>IPFS</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h2><p>​    在互联网的发展过程中，人们一直试图构建一个全球的分布式文件系统。有成功的，也有失败的。在这几十年的尝试过程中，也就AFS取得了成功，并且今天仍然被使用。在学院派之外，取得巨大成功的是共享大文件的系统，比如，Napster、KaZaA以及BitTorrent。然而，这些系统都不能作为基础设施，在其上构建应用。</p>
+<p>​    到目前为止，HTTP可能是最成功的“分布式的文件系统”。HTTP配合浏览器已经成为当前最主流的架构。但是，我们正在进入一个新的数据的时代，将面临如下问题：</p>
+<ol>
+<li>数据将进入PB时代，</li>
+<li>在超大数据集上进行跨组织的计算</li>
+<li>高容量实时或者按需的媒体数据流</li>
+<li>大量数据集的版本化</li>
+<li>保证重要数据安全、不丢失</li>
+</ol>
+<p>总结成一句话就是“海量数据，时时可达”。考虑到这些苛刻的条件以及带宽的因素，我们已经放弃使用HTTP。</p>
+<p>​    Git作为分布式的源码版本控制系统，发明了很多有用的数据建模和操作的方式。Git工具链提供了很多大型分布式文件系统都缺少的版本化的功能。Camlistore、Dat都是受到Git的启发开发出来的分布式文件系统。Git的设计思想已经深深影响了分布式文件系统的设计。Merkle DAG数据模型具有很强的内容变大能力。</p>
+<p>​    在接下来的部分，将介绍一种神奇的P2P版本控制的文件系统IPFS，IPFS汲取过去成功的系统设计思想，试图解决上面提到的问题。IPFS的核心思想是将所有的数据按照Merkle DAG进行建模。</p>
+<h2 id="2-背景知识"><a href="#2-背景知识" class="headerlink" title="2 背景知识"></a>2 背景知识</h2><h3 id="2-1-DHTs"><a href="#2-1-DHTs" class="headerlink" title="2.1 DHTs"></a>2.1 DHTs</h3><p>​    DHTs被用来维护P2P系统中的元数据信息。例如，BitTorrent MainlineDHT记录了P2P网络中的节点信息。</p>
+<h4 id="2-1-1-Kademlia-DHT"><a href="#2-1-1-Kademlia-DHT" class="headerlink" title="2.1.1 Kademlia DHT"></a>2.1.1 Kademlia DHT</h4><p>Kademlia是一种广泛使用的DHT，它有如下特性：</p>
+<ol>
+<li>log(n)的查找时间复杂度</li>
+<li>节点之间协调成本很低</li>
+<li>优先选择长时间在线的节点，能有效的抵御攻击</li>
+<li>经历过大量的系统实践</li>
+</ol>
+<h4 id="2-1-2-Coral-DSHT"><a href="#2-1-2-Coral-DSHT" class="headerlink" title="2.1.2 Coral DSHT"></a>2.1.2 Coral DSHT</h4><p>有很多的P2P系统将数据块直接存储在DHT上，浪费大量的存储空间和带宽。Coral DSHT在如下三个方面扩展了Kademlia：</p>
+<ol>
+<li>Kademlia在value节点中存储最近的N个结点信息。这种方式没有考虑数据的局部性原理，不管远端结点是否已经存储了相关数据，都强制最近的结点存储一些对本结点无用的数据，会浪费存储空间和带宽。与之相对的，Coral存储能提供相关数据的结点信息。</li>
+<li>Coral可以只将部分的数据放到附近的结点中，避免热点。</li>
+<li>Coral将DHT表按照区域、大小分层管理。这样可以优先查询同一个区域内的结点。</li>
+</ol>
+<h3 id="2-2-BitTorrent"><a href="#2-2-BitTorrent" class="headerlink" title="2.2 BitTorrent"></a>2.2 BitTorrent</h3><p>BitTorrent是目前被广泛使用的P2P文件共享系统，它成功的协调成千上万的互相不信任的分布式结点共享文件的片段。IPFS借鉴了BitTorrent如下几个方面：</p>
+<ol>
+<li>BitTorrent的数据交换协议使用tit-for-tat的策略，即对共享数据资源的结点进行奖赏，对只获取资源不共享资源的结点进行惩罚。</li>
+<li>BitTorrent结点记录着可供使用的文件片段信息，优先发送稀有的文件片段。</li>
+</ol>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/dp-algorithm/">dp, algorithm</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
 </div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/06/12/2018-06-12-chat-system-design-md/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    2018-06-12-chat-system-design.md
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol.md</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">

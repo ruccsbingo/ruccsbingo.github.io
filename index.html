@@ -176,11 +176,11 @@ var _hmt = _hmt || [];
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                20
+                23
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                2
+                3
                 <span>tags</span>
             </div>
         </div>
@@ -229,6 +229,369 @@ var _hmt = _hmt || [];
 
             
             <section id="main">
+    <article id="post-2018-06-12-chat-system-design-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/12/2018-06-12-chat-system-design-md/">2018-06-12-chat-system-design.md</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/12/2018-06-12-chat-system-design-md/">
+            <time datetime="2018-06-12T10:23:23.000Z" itemprop="datePublished">2018-06-12</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="聊天产品设计"><a href="#聊天产品设计" class="headerlink" title="聊天产品设计"></a>聊天产品设计</h1><h2 id="产品功能"><a href="#产品功能" class="headerlink" title="产品功能"></a>产品功能</h2><h3 id="会话列表"><a href="#会话列表" class="headerlink" title="会话列表"></a>会话列表</h3><ul>
+<li><p>创建会话</p>
+</li>
+<li><p>删除会话</p>
+</li>
+<li><p>获取会话列表</p>
+</li>
+</ul>
+<h3 id="聊天消息"><a href="#聊天消息" class="headerlink" title="聊天消息"></a>聊天消息</h3><ul>
+<li><p>获取消息列表</p>
+</li>
+<li><p>发消息</p>
+</li>
+<li><p>删除消息</p>
+</li>
+<li><p>撤回消息</p>
+</li>
+<li><p>清空聊天记录</p>
+</li>
+</ul>
+<h3 id="红点"><a href="#红点" class="headerlink" title="红点"></a>红点</h3><ul>
+<li>未读消息数</li>
+</ul>
+<h2 id="API设计"><a href="#API设计" class="headerlink" title="API设计"></a>API设计</h2><h3 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h3><ul>
+<li>获取会话<strong>分页</strong>列表</li>
+</ul>
+<blockquote>
+<p>GET /users/me/conversations?with=users,questions,messages,questions,stickers&amp;since=2018-06-12T09:05:28.501716&amp;limit=20</p>
+</blockquote>
+<h3 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h3><ul>
+<li>获取消息列表</li>
+</ul>
+<blockquote>
+<p>GET /users/me/conversations/3916/messages?limit=60&amp;since=1799981794091663834&amp;with=stickers&amp;questions&amp;users&amp;moments</p>
+</blockquote>
+<ul>
+<li>发消息</li>
+</ul>
+<blockquote>
+<p>POST /users/me/conversations/3916/messages</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;value&quot;: &quot;额呃呃呃&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>撤回消息</li>
+</ul>
+<blockquote>
+<p>PATCH /users/me/conversations/3916/messages/1799987543769416155?method=patch</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&quot;recalled&quot;: true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>清空聊天记录</li>
+</ul>
+<blockquote>
+<p>DELETE /users/me/conversations/3916/messages?method=delete&amp;until=1799987543769416155</p>
+</blockquote>
+<h2 id="DB设计"><a href="#DB设计" class="headerlink" title="DB设计"></a>DB设计</h2><h3 id="conversations"><a href="#conversations" class="headerlink" title="conversations"></a>conversations</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">          Column          |            Type             |                   Modifiers                   </div><div class="line"><span class="comment">--------------------------+-----------------------------+-----------------------------------------------</span></div><div class="line"> id                       | bigint                      | not null default rel_8192_1.next_id()</div><div class="line"> user_id                  | integer                     | not null</div><div class="line"> other_user_id            | integer                     | not null</div><div class="line"> message_count            | integer                     | not null default 0</div><div class="line"> message_ids              | bigint[]                    | </div><div class="line"> read_until_message_id    | bigint                      | </div><div class="line"> latest_message_id        | bigint                      | </div><div class="line"> latest_message_time      | timestamp without time zone | not null</div><div class="line"> cleared_until_message_id | bigint                      | </div><div class="line"> cleared_time             | timestamp without time zone | </div><div class="line"> accept_intimate_question | boolean                     | </div><div class="line"> updated_time             | timestamp without time zone | not null default timezone('UTC'::text, now())</div><div class="line"> created_time             | timestamp without time zone | not null default timezone('UTC'::text, now())</div><div class="line"> status                   | rel_8192_1.status           | not null default 'default'::rel_8192_1.status</div><div class="line"> unread_messages          | integer                     |</div></pre></td></tr></table></figure>
+<h3 id="messages"><a href="#messages" class="headerlink" title="messages"></a>messages</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">    Column     |            Type             |                   Modifiers                   </div><div class="line"><span class="comment">---------------+-----------------------------+-----------------------------------------------</span></div><div class="line"> id            | bigint                      | not null default rel_8192_1.next_id()</div><div class="line"> user_id       | integer                     | not null</div><div class="line"> other_user_id | integer                     | </div><div class="line"> value         | character varying(2000)     | not null</div><div class="line"> created_time  | timestamp without time zone | not null default timezone('UTC'::text, now())</div><div class="line"> updated_time  | timestamp without time zone | not null default timezone('UTC'::text, now())</div><div class="line"> sticker_id    | integer                     | </div><div class="line"> recalled      | boolean                     | not null default false</div><div class="line"> sent_from     | character varying(50)       | </div><div class="line"> question_id   | integer                     | </div><div class="line"> reference_id  | bigint                      | </div><div class="line"> location      | json                        | </div><div class="line"> status        | rel_8192_1.status           | not null default 'default'::rel_8192_1.status</div><div class="line"> moment_id     | bigint                      | not null default 0</div></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2018/06/12/2018-06-12-chat-system-design-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2018-06-03-content-addressed-versioned-P2P-file-system-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/">2018-06-03-content-addressed-versioned-P2P-file-system.md</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/">
+            <time datetime="2018-06-03T13:49:08.000Z" itemprop="datePublished">2018-06-03</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="IPFS"><a href="#IPFS" class="headerlink" title="IPFS"></a>IPFS</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h2><p>​    在互联网的发展过程中，人们一直试图构建一个全球的分布式文件系统。有成功的，也有失败的。在这几十年的尝试过程中，也就AFS取得了成功，并且今天仍然被使用。在学院派之外，取得巨大成功的是共享大文件的系统，比如，Napster、KaZaA以及BitTorrent。然而，这些系统都不能作为基础设施，在其上构建应用。</p>
+<p>​    到目前为止，HTTP可能是最成功的“分布式的文件系统”。HTTP配合浏览器已经成为当前最主流的架构。但是，我们正在进入一个新的数据的时代，将面临如下问题：</p>
+<ol>
+<li>数据将进入PB时代，</li>
+<li>在超大数据集上进行跨组织的计算</li>
+<li>高容量实时或者按需的媒体数据流</li>
+<li>大量数据集的版本化</li>
+<li>保证重要数据安全、不丢失</li>
+</ol>
+<p>总结成一句话就是“海量数据，时时可达”。考虑到这些苛刻的条件以及带宽的因素，我们已经放弃使用HTTP。</p>
+<p>​    Git作为分布式的源码版本控制系统，发明了很多有用的数据建模和操作的方式。Git工具链提供了很多大型分布式文件系统都缺少的版本化的功能。Camlistore、Dat都是受到Git的启发开发出来的分布式文件系统。Git的设计思想已经深深影响了分布式文件系统的设计。Merkle DAG数据模型具有很强的内容变大能力。</p>
+<p>​    在接下来的部分，将介绍一种神奇的P2P版本控制的文件系统IPFS，IPFS汲取过去成功的系统设计思想，试图解决上面提到的问题。IPFS的核心思想是将所有的数据按照Merkle DAG进行建模。</p>
+<h2 id="2-背景知识"><a href="#2-背景知识" class="headerlink" title="2 背景知识"></a>2 背景知识</h2><h3 id="2-1-DHTs"><a href="#2-1-DHTs" class="headerlink" title="2.1 DHTs"></a>2.1 DHTs</h3><p>​    DHTs被用来维护P2P系统中的元数据信息。例如，BitTorrent MainlineDHT记录了P2P网络中的节点信息。</p>
+<h4 id="2-1-1-Kademlia-DHT"><a href="#2-1-1-Kademlia-DHT" class="headerlink" title="2.1.1 Kademlia DHT"></a>2.1.1 Kademlia DHT</h4><p>Kademlia是一种广泛使用的DHT，它有如下特性：</p>
+<ol>
+<li>log(n)的查找时间复杂度</li>
+<li>节点之间协调成本很低</li>
+<li>优先选择长时间在线的节点，能有效的抵御攻击</li>
+<li>经历过大量的系统实践</li>
+</ol>
+<h4 id="2-1-2-Coral-DSHT"><a href="#2-1-2-Coral-DSHT" class="headerlink" title="2.1.2 Coral DSHT"></a>2.1.2 Coral DSHT</h4><p>有很多的P2P系统将数据块直接存储在DHT上，浪费大量的存储空间和带宽。Coral DSHT在如下三个方面扩展了Kademlia：</p>
+<ol>
+<li>Kademlia在value节点中存储最近的N个结点信息。这种方式没有考虑数据的局部性原理，不管远端结点是否已经存储了相关数据，都强制最近的结点存储一些对本结点无用的数据，会浪费存储空间和带宽。与之相对的，Coral存储能提供相关数据的结点信息。</li>
+<li>Coral可以只将部分的数据放到附近的结点中，避免热点。</li>
+<li>Coral将DHT表按照区域、大小分层管理。这样可以优先查询同一个区域内的结点。</li>
+</ol>
+<h3 id="2-2-BitTorrent"><a href="#2-2-BitTorrent" class="headerlink" title="2.2 BitTorrent"></a>2.2 BitTorrent</h3><p>BitTorrent是目前被广泛使用的P2P文件共享系统，它成功的协调成千上万的互相不信任的分布式结点共享文件的片段。IPFS借鉴了BitTorrent如下几个方面：</p>
+<ol>
+<li>BitTorrent的数据交换协议使用tit-for-tat的策略，即对共享数据资源的结点进行奖赏，对只获取资源不共享资源的结点进行惩罚。</li>
+<li>BitTorrent结点记录着可供使用的文件片段信息，优先发送稀有的文件片段。</li>
+</ol>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/">2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol.md</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/">
+            <time datetime="2018-05-27T08:09:12.000Z" itemprop="datePublished">2018-05-27</time>
+        </a>
+    </div>
+
+
+                        
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/block-chain/">block chain</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="Ouroboros-一种安全的POS区块链协议"><a href="#Ouroboros-一种安全的POS区块链协议" class="headerlink" title="Ouroboros: 一种安全的POS区块链协议"></a>Ouroboros: 一种安全的POS区块链协议</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+</div>
+
+            
+    
+        <a href="http://ruccsbingo.github.io/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/#comments" class="article-comment-link">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-2018-04-17-markdown-toturial-md" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -339,7 +702,7 @@ var _hmt = _hmt || [];
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117" target="_blank" rel="external">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号" target="_blank" rel="external">@GGock</a></li>
-<li>邮箱：<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#104;&#117;&#115;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#104;&#117;&#115;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#117;&#115;&#116;&#103;&#x6f;&#x63;&#107;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x68;&#117;&#115;&#116;&#103;&#x6f;&#x63;&#107;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -992,467 +1355,8 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
 
 
-    <article id="post-2017-10-31-docker-practice-manage-data-1-overview-md" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/">docker管理数据（一）：如何管理数据</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/">
-            <time datetime="2017-10-31T13:36:18.000Z" itemprop="datePublished">2017-10-31</time>
-        </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>为什么需要着重讲一讲docker中的数据管理，在实际的运行过程中，经常需要存储一些配置信息，程序运行中产生的信息，这些都是需要持久化的数据。可以将这些数据写入容器的文件层中，这样的方式有很多的缺点：</p>
-<ul>
-<li>当容器生命周期结束之后，这些数据也会同步丢失；对于存储在容器文件层中的数据，从容器外获取非常的不方便。</li>
-<li>容器的可写层和宿主机的耦合非常的严重，很难一致到别的地方执行。</li>
-<li>将数据写入可写层需要<a href="https://docs.docker.com/engine/userguide/storagedriver/" target="_blank" rel="external">storage driver</a>的支持，这种方式和使用<code>volumes</code>相比，会有极大的性能损失。</li>
-</ul>
-<p>Docker提供三种不同的方式将宿主机的文件映射到容器内部，用于读写数据：</p>
-<ul>
-<li><em>volumes</em></li>
-<li><em>bind mounts</em></li>
-<li><em>tmpfs</em></li>
-</ul>
-<p>当你不确定使用那一种方式的时候，<code>volumes</code>总会是一种不错的选择。</p>
-<h2 id="选择合适的存储"><a href="#选择合适的存储" class="headerlink" title="选择合适的存储"></a>选择合适的存储</h2><p>不管选择哪一种数据存储方式，在容器内部，这些数据的使用方式是一致的。要么以文件夹的方式，要么以文件的方式在容器内部展现。</p>
-<p>下面这幅图清楚的展示了三种方式存储数据的不同：</p>
-<p><img src="http://wx2.sinaimg.cn/mw690/6a8f9c5bly1fl1s274te8j20dx073q3a.jpg" alt=""></p>
-<ul>
-<li><strong>Volumes</strong>：数据存储在由Docker管理的宿主机的文件系统上（ <code>/var/lib/docker/volumes/</code>），非Docker进程不能修改这一部分的内容。<code>Volumes</code>是最好的管理数据的方式。</li>
-<li><strong>Bind mounts</strong>：数据存储在宿主机的任何地方，非Docker进程也可以修改这些区域的数据。</li>
-<li><strong>tmpfs</strong>：数据存储在宿主机的内存中，并不会持久化到磁盘上。</li>
-</ul>
-<h2 id="什么时候选择volumes"><a href="#什么时候选择volumes" class="headerlink" title="什么时候选择volumes"></a>什么时候选择volumes</h2><p>Volumes始终是推荐的管理数据的方式，一些典型的应用场景如下：</p>
-<ul>
-<li>在多个运行的容器之间共享数据。如果你没有显示的创建它，volume会在第一次被mounted到一个容器的时候自动创建。当容器停止甚至被删除，volume仍然会被保存。多个容器可以同时mounted到同一个volume，可以分配读写或者只读权限。volume只会被显示的删除。</li>
-<li>当容器的宿主机无法保证一个存在的文件或者文件目录。volumes帮助宿主机的配置和容器运行时的解耦。</li>
-<li>当数据不想保存在本地，需要保存到一个远程机器或者是云上。</li>
-<li>当需要从一台宿主机备份、恢复、迁移数据到另外一台宿主机时，volumes是一个很好的选择。</li>
-</ul>
-<h2 id="什么时候选择bind-mounts"><a href="#什么时候选择bind-mounts" class="headerlink" title="什么时候选择bind mounts"></a>什么时候选择bind mounts</h2><p>一般情况下请选择使用volumes，在如下情况可以选择bind mounts：</p>
-<ul>
-<li>从宿主机共享配置文件到容器。Docker使用这种方式向各个容器共享DNS配置文件<code>/etc/resolv.conf</code>。</li>
-<li>将开发环境的源码以及编译的文件共享给容器。例如，可以将maven的<code>target/</code>目录共享给容器，每一次编译工程之后，容器内部就可以从新构建服务。如果这种开发步骤，<code>production Dockerfile</code>需要直接拷贝<code>production-ready artifacts</code>。</li>
-</ul>
-<h2 id="什么时候选择tmpfs"><a href="#什么时候选择tmpfs" class="headerlink" title="什么时候选择tmpfs"></a>什么时候选择tmpfs</h2><p>当既不想持久化数据到宿主机，也不想持久化到容器内部可以使用tmpfs。例如，当你的应用程序需要输出大量的状态数据，为了性能或者安全性考虑并不想持久化这些数据时，可以使用tmpfs。</p>
-<h2 id="一点小建议"><a href="#一点小建议" class="headerlink" title="一点小建议"></a>一点小建议</h2><p>无论使用volume或者mounts，记住以下几点：</p>
-<ul>
-<li>如果你映射一个空的volume到容器内部某一个已存在的文件或者文件夹，这些文件或者文件夹会被拷贝到volume中。相似的，如果你启动一个容器，指定一个不存在的volume，会为你创建一个空的volume。这是一种很好的为容器初始化数据的方式。</li>
-<li>如果你映射一个非空的volume，或者<strong>bind mount</strong>到容器内部某一个已存在的文件或者文件夹，这些文件或者文件夹会变成暂时不可访问，直到解除mount关系，这些文件或者文件夹是不会被删除的。</li>
-</ul>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
-    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
-    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
-</div>
-<script>
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-<style>
-    .bdshare_popup_box {
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .bdshare-button-style0-16 a,
-    .bdshare-button-style0-16 .bds_more {
-        padding-left: 20px;
-        margin: 6px 10px 6px 0;
-    }
-    .bdshare_dialog_list a,
-    .bdshare_popup_list a,
-    .bdshare_popup_bottom a {
-        font-family: 'Microsoft Yahei';
-    }
-    .bdshare_popup_top {
-        display: none;
-    }
-    .bdshare_popup_bottom {
-        height: auto;
-        padding: 5px;
-    }
-</style>
-
-
-</div>
-
-            
-    
-        <a href="http://ruccsbingo.github.io/2017/10/31/2017-10-31-docker-practice-manage-data-1-overview-md/#comments" class="article-comment-link">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-2017-10-30-docker-practice-network-1-md" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/30/2017-10-30-docker-practice-network-1-md/">docker容器的网络</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/30/2017-10-30-docker-practice-network-1-md/">
-            <time datetime="2017-10-30T13:44:15.000Z" itemprop="datePublished">2017-10-30</time>
-        </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>安装docker</li>
-</ul>
-<h2 id="使用默认的网络启动一个容器"><a href="#使用默认的网络启动一个容器" class="headerlink" title="使用默认的网络启动一个容器"></a>使用默认的网络启动一个容器</h2><p>Docker通过 <strong>network drivers</strong>支持容器的网络环境。默认情况下，Docker支持<code>bridge</code> 和 <code>overlay</code>两种网络驱动。也可以支持自定义的网络驱动。</p>
-<p>每一个Docker Engine都会自动支持三种默认的网络，可以使用<code>docker network ls</code>列出所有的网络驱动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div><div class="line">7b369448dccb        bridge              bridge</div></pre></td></tr></table></figure>
-<p><code>bridge</code>是一个特殊的网络驱动，如果不做特别指定，所有的容器都会在<code>bridge</code>下启动。尝试一下如下的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker run -itd --name=networktest ubuntu</div><div class="line">74695c9cea6d9810718fddadc01a727a5dd3ce6a69d09752239736c030599741</div></pre></td></tr></table></figure>
-<p><img src="http://wx3.sinaimg.cn/mw690/6a8f9c5bly1fl1qddzvppj208c0a7q3h.jpg" alt=""></p>
-<p>通过<code>docker network inspect bridge</code>命令可以查看一下容器的网络信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect bridge</div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;f7ab26d71dbd6f557852c7156ae0574bbf62c42f539b50c8ebde0f728a253b6f&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;EnableIPv6&quot;: false,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Options&quot;: null,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;172.17.0.1/16&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;172.17.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Internal&quot;: false,</div><div class="line">        &quot;Containers&quot;: &#123;</div><div class="line">            &quot;3386a527aa08b37ea9232cbcace2d2458d49f44bb05a6b775fba7ddd40d8f92c&quot;: &#123;</div><div class="line">                &quot;Name&quot;: &quot;networktest&quot;,</div><div class="line">                &quot;EndpointID&quot;: &quot;647c12443e91faf0fd508b6edfe59c30b642abb60dfab890b4bdccee38750bc1&quot;,</div><div class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:11:00:02&quot;,</div><div class="line">                &quot;IPv4Address&quot;: &quot;172.17.0.2/16&quot;,</div><div class="line">                &quot;IPv6Address&quot;: &quot;&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;Options&quot;: &#123;</div><div class="line">            &quot;com.docker.network.bridge.default_bridge&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_icc&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.enable_ip_masquerade&quot;: &quot;true&quot;,</div><div class="line">            &quot;com.docker.network.bridge.host_binding_ipv4&quot;: &quot;0.0.0.0&quot;,</div><div class="line">            &quot;com.docker.network.bridge.name&quot;: &quot;docker0&quot;,</div><div class="line">            &quot;com.docker.network.driver.mtu&quot;: &quot;9001&quot;</div><div class="line">        &#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-<p>从一个网络中移除一个容器，如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network disconnect bridge networktest</div></pre></td></tr></table></figure>
-<p>以上的命令将networktest容器从bridge网络中移除。使用网络可以方便的将容器隔离。</p>
-<h2 id="创建自定义网桥"><a href="#创建自定义网桥" class="headerlink" title="创建自定义网桥"></a>创建自定义网桥</h2><p>Docker Engine支持<code>bridge</code>和<code>overlay</code>模式的网络，<code>bridge</code>模式只能在单机上使用，<code>overlay</code>支持多机使用。接下来，使用<code>bridge</code>创建自定义的网络，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network create -d bridge my_bridge</div></pre></td></tr></table></figure>
-<p><code>-d</code>参数指定网络的模式，如果不加<code>-d</code>参数，默认也使用<code>bridge</code>模式。检查一下是否创建成功，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker network ls</div><div class="line"></div><div class="line">NETWORK ID          NAME                DRIVER</div><div class="line">7b369448dccb        bridge              bridge</div><div class="line">615d565d498c        my_bridge           bridge</div><div class="line">18a2866682b8        none                null</div><div class="line">c288470c46f6        host                host</div></pre></td></tr></table></figure>
-<p>使用<code>inspect</code>命令检查新建网络的信息，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ docker network inspect my_bridge</div><div class="line"></div><div class="line">[</div><div class="line">    &#123;</div><div class="line">        &quot;Name&quot;: &quot;my_bridge&quot;,</div><div class="line">        &quot;Id&quot;: &quot;5a8afc6364bccb199540e133e63adb76a557906dd9ff82b94183fc48c40857ac&quot;,</div><div class="line">        &quot;Scope&quot;: &quot;local&quot;,</div><div class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</div><div class="line">        &quot;IPAM&quot;: &#123;</div><div class="line">            &quot;Driver&quot;: &quot;default&quot;,</div><div class="line">            &quot;Config&quot;: [</div><div class="line">                &#123;</div><div class="line">                    &quot;Subnet&quot;: &quot;10.0.0.0/24&quot;,</div><div class="line">                    &quot;Gateway&quot;: &quot;10.0.0.1&quot;</div><div class="line">                &#125;</div><div class="line">            ]</div><div class="line">        &#125;,</div><div class="line">        &quot;Containers&quot;: &#123;&#125;,</div><div class="line">        &quot;Options&quot;: &#123;&#125;,</div><div class="line">        &quot;Labels&quot;: &#123;&#125;</div><div class="line">    &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-<h2 id="隔离的网络让应用更加安全"><a href="#隔离的网络让应用更加安全" class="headerlink" title="隔离的网络让应用更加安全"></a>隔离的网络让应用更加安全</h2><p>接下来，用一个简单的web应用展示如何安全的使用容器的网络。</p>
-<p>第一步，在自定义的网络上创建数据库容器，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --net=my_bridge --name db training/postgres</div></pre></td></tr></table></figure>
-<p><code>--net</code>参数指定使用的网络，检查是否创建成功，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  db</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;my_bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;10.0.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.254&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
-<p>第二步，在默认的网络下创建web应用，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --name web training/webapp python app.py</div></pre></td></tr></table></figure>
-<p>检查网络信息，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;json .NetworkSettings.Networks&#125;&#125;&apos;  web</div><div class="line"></div><div class="line"></div><div class="line">&#123;&quot;bridge&quot;:&#123;&quot;NetworkID&quot;:&quot;7ea29fc1412292a2d7bba362f9253545fecdfa8ce9a6e37dd10ba8bee7129812&quot;,</div><div class="line">&quot;EndpointID&quot;:&quot;508b170d56b2ac9e4ef86694b0a76a22dd3df1983404f7321da5649645bf7043&quot;,&quot;Gateway&quot;:&quot;172.17.0.1&quot;,&quot;IPAddress&quot;:&quot;10.0.0.2&quot;,&quot;IPPrefixLen&quot;:24,&quot;IPv6Gateway&quot;:&quot;&quot;,&quot;GlobalIPv6Address&quot;:&quot;&quot;,&quot;GlobalIPv6PrefixLen&quot;:0,&quot;MacAddress&quot;:&quot;02:42:ac:11:00:02&quot;&#125;&#125;</div></pre></td></tr></table></figure>
-<p>查看web的地址，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker inspect --format=&apos;&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;&apos; web</div><div class="line"></div><div class="line"></div><div class="line">172.17.0.2</div></pre></td></tr></table></figure>
-<p>当前的网络拓扑图如下，</p>
-<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1qvgdp25j20k00cggm6.jpg" alt=""></p>
-<p>第三步，查看网络的连通性，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping 172.17.0.2</div><div class="line">ping 172.17.0.2</div><div class="line">PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.</div><div class="line">^C</div><div class="line">--- 172.17.0.2 ping statistics ---</div><div class="line">44 packets transmitted, 0 received, 100% packet loss, time 43185ms</div></pre></td></tr></table></figure>
-<p>会发现在db上，无法连通到web上。</p>
-<p>第四步，将web连接到my_bridge上，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker network connect my_bridge web</div></pre></td></tr></table></figure>
-<p>当前的网络拓扑，</p>
-<p><img src="http://wx1.sinaimg.cn/mw690/6a8f9c5bly1fl1r09aaoij20jy0cgjs7.jpg" alt=""></p>
-<p>第五步，再一次验证网络的连通性，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ docker exec -it db bash</div><div class="line"></div><div class="line">root@a205f0dd33b2:/# ping web</div><div class="line">PING web (10.0.0.2) 56(84) bytes of data.</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=1 ttl=64 time=0.095 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=2 ttl=64 time=0.060 ms</div><div class="line">64 bytes from web (10.0.0.2): icmp_seq=3 ttl=64 time=0.066 ms</div><div class="line">^C</div><div class="line">--- web ping statistics ---</div><div class="line">3 packets transmitted, 3 received, 0% packet loss, time 2000ms</div><div class="line">rtt min/avg/max/mdev = 0.060/0.073/0.095/0.018 ms</div></pre></td></tr></table></figure>
-<p>会发现db和web已经能够正常的连通。其它不在my_bridge上的容器不能连接到该网络环境中</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过自定义网络环境，可以将安全性要求较高的服务，放入单独的自定义的网络环境中，以此保证服务的安全行。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
-    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
-    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
-</div>
-<script>
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-<style>
-    .bdshare_popup_box {
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .bdshare-button-style0-16 a,
-    .bdshare-button-style0-16 .bds_more {
-        padding-left: 20px;
-        margin: 6px 10px 6px 0;
-    }
-    .bdshare_dialog_list a,
-    .bdshare_popup_list a,
-    .bdshare_popup_bottom a {
-        font-family: 'Microsoft Yahei';
-    }
-    .bdshare_popup_top {
-        display: none;
-    }
-    .bdshare_popup_bottom {
-        height: auto;
-        padding: 5px;
-    }
-</style>
-
-
-</div>
-
-            
-    
-        <a href="http://ruccsbingo.github.io/2017/10/30/2017-10-30-docker-practice-network-1-md/#comments" class="article-comment-link">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/">学习DOCKERFILE（三）：编写dockerfile的一些建议</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/">
-            <time datetime="2017-10-29T05:42:32.000Z" itemprop="datePublished">2017-10-29</time>
-        </a>
-    </div>
-
-
-                        
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>了解如何<a href="http://ruccsbingo.github.io/2017/10/22/2017-10-22-dockerfile-tutorial-1-first-dockerfile-md/">创建一个基础镜像</a></li>
-<li>了解<a href="http://ruccsbingo.github.io/2017/10/25/2017-10-25-dockerfile-tutorial-2-multi-stage-builds-md/">多阶段构建</a></li>
-</ul>
-<h2 id="常用的原则"><a href="#常用的原则" class="headerlink" title="常用的原则"></a>常用的原则</h2><ul>
-<li>原则一：容器的生命周期越短越好</li>
-</ul>
-<p>所谓的生命周期越短越好，是要强调，通过<code>dockerfile</code>定义的镜像，可以使用最少的步骤和配置，很方便的停止、销毁、构建、部署，达到无状态的模式。</p>
-<ul>
-<li>原则二：使用<code>.dockerignore</code>文件</li>
-</ul>
-<p><code>docker build</code>指令运行的上下文环境有两种，其一，<code>docker build</code>运行的当前目录以及所有的子目录；其二，<code>-f</code>命令指定的目录及所有的子目录。当运行<code>docker build</code>命令时，上下文环境中的所有文件及其目录都会被送到<code>docker deamon</code>中，被认为是编译的上下文环境。上下文中的文件越多越大，编译所需要的时间，以及最终编译出来的image就会越大。也会直接的导致，pull、push以及run这个image的时间会越长。下面的这条信息告知了docker build上下文环境的大小，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sending build context to Docker daemon  187.8MB</div></pre></td></tr></table></figure>
-<p>一些编译环境的文件也不能被删除，为了优化这个问题，docker提供了<code>.dockerginore</code>文件，它如同<code>.gitignore</code>文件一样，支持排除模式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># comment</div><div class="line">*/temp*</div><div class="line">*/*/temp*</div><div class="line">temp?</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>Rule</th>
-<th>Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code># comment</code></td>
-<td>忽略</td>
-</tr>
-<tr>
-<td><code>*/temp*</code></td>
-<td>根目录的二级子目录中，以temp开头的文件或者文件夹，都会被忽略。例如，<code>/somedir/temporary.txt</code> 将会被忽略。</td>
-</tr>
-<tr>
-<td><code>*/*/temp*</code></td>
-<td>根目录的三级子目录中，以temp开头的文件或者文件夹，都会被忽略。例如，<code>/somedir/subdir／temporary.txt</code> 将会被忽略。</td>
-</tr>
-<tr>
-<td><code>temp?</code></td>
-<td>根目录下的以 <code>/tempa</code> 开头的文件或者文件夹，都会被忽略。</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>原则三：使用<code>muitl-stage</code>多阶段构建</li>
-</ul>
-<p>使用<code>muitl-stage</code>多阶段构建，可以有效的减少了image的大小，增加了dockerfile，部署的简洁性和可维护性。</p>
-<ul>
-<li>原则四：避免安装不必要的包</li>
-</ul>
-<p>为了减少复杂性、依赖、文件大小以及构建时间，最好避免安装不必要的包。例如，数据库的image中没有必要安装文件编辑工具。</p>
-<ul>
-<li>原则五：每个容器应该只做一件事情</li>
-</ul>
-<p>将一个大的应用解耦分拆到不同的容器中，使其更好的水平扩展、重用。例如，一个web应用栈可以分为三个独立的容器，一个容器用做web界面，一个用做数据库存储，一个用于in-memory的缓存。</p>
-<p>你可能听说过“一个容器就是一个进程”，这句话虽有夸张的成分，但是很好的解释了，使用容器的范式。尽量让容器功能单一，如果容器之间存在依赖，可以使用docker container networks相互通信。</p>
-<ul>
-<li>原则六：容器的文件层越少越好，减少到不能再少</li>
-</ul>
-<p>docker 17.05以及1.10以前，减少文件层非常的重要。比较高版本的docker优化了这些问题；</p>
-<p>docker 1.10 以及高版本，只有<code>RUN</code>, <code>COPY</code>以及 <code>ADD</code>指令 会增加文件层，其它指令会创建临时的中间镜像，不会增加最终的image的大小。</p>
-<p>Docker 17.05 以及高版本，增加了multi-stage特性，允许只拷贝想要的文件到最终的镜像。</p>
-<ul>
-<li>原则七：将多参数的命令行排序</li>
-</ul>
-<p>只要有可能，将多参数的命令行安装字母顺序排序，保证格式清楚，可阅读性高。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">RUN apt-get update &amp;&amp; apt-get install -y \</div><div class="line">  bzr \</div><div class="line">  cvs \</div><div class="line">  git \</div><div class="line">  mercurial \</div><div class="line">  subversion</div></pre></td></tr></table></figure>
-<ul>
-<li>原则八：使用缓存</li>
-</ul>
-<p>image的构建过程，就是一步一步按照指定的顺序执行dockerfile中的命令。每执行一条命令，docker会先在cache中查找，是否有以及存在可复用的缓存，如果没有，则会创建新的image。如果不想使用缓存功能，可以在运行<code>docker build</code>命令是指定<code>--no-cache=true</code>参数。</p>
-<p>缓存的查找规则如下，</p>
-<ol>
-<li>使用一个已经存在在缓存中的镜像最为父镜像，紧接着的一条命令，将会和此父镜像衍生的子镜像做对比，如果命令不同，则cache失效。</li>
-<li>在大多数情况下，只需要简单的比较dockerfile文件是否相同。在特殊的情况下，需要更复杂的对比。</li>
-<li>对于<code>ADD</code>和<code>COPY</code>命令来说，需要对比文件的内容，并会给每一个文件计算一个hash值，最近修改时间，以及访问次数，不参与hash值的计算。查找的过程，就是对比hash值是否相同，如果不同，则cache失效。</li>
-<li>除去 <code>ADD</code>和<code>COPY</code>命令，其它的命令只会对比命令字符串本身。</li>
-</ol>
-<h2 id="常用的指令"><a href="#常用的指令" class="headerlink" title="常用的指令"></a>常用的指令</h2><h3 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h3><p>尽可能使用官方仓库最为自己的基础镜像，推荐使用<a href="https://hub.docker.com/_/debian/" target="_blank" rel="external">Debian image</a>。</p>
-<h3 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h3><p>仅可能给自己的镜像加上标签，方面管理，添加版权信息等。如下提供了一个标准的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># Set one or more individual labels</div><div class="line">LABEL com.example.version=&quot;0.0.1-beta&quot;</div><div class="line">LABEL vendor=&quot;ACME Incorporated&quot;</div><div class="line">LABEL com.example.release-date=&quot;2015-02-12&quot;</div><div class="line">LABEL com.example.version.is-production=&quot;&quot;</div></pre></td></tr></table></figure>
-<p>在dockr 1.10版本之前，推荐所有的标签写入一行，以便减少镜像的文件层。新版本无需特殊的考虑，以前版本的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># Set multiple labels on one line</div><div class="line">LABEL com.example.version=&quot;0.0.1-beta&quot; com.example.release-date=&quot;2015-02-12&quot;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># Set multiple labels at once, using line-continuation characters to break long lines</div><div class="line">LABEL vendor=ACME\ Incorporated \</div><div class="line">      com.example.is-beta= \</div><div class="line">      com.example.is-production=&quot;&quot; \</div><div class="line">      com.example.version=&quot;0.0.1-beta&quot; \</div><div class="line">      com.example.release-date=&quot;2015-02-12&quot;</div></pre></td></tr></table></figure>
-<h3 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h3><p>尽可能将命令写入一行，对于多行命令，使用<code>/</code>连接成一行。例如，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">RUN apt-get update &amp;&amp; apt-get install -y \</div><div class="line">    aufs-tools \</div><div class="line">    automake \</div><div class="line">    build-essential \</div><div class="line">    curl \</div><div class="line">    dpkg-sig \</div><div class="line">    libcap-dev \</div><div class="line">    libsqlite3-dev \</div><div class="line">    mercurial \</div><div class="line">    reprepro \</div><div class="line">    ruby1.9.1 \</div><div class="line">    ruby1.9.1-dev \</div><div class="line">    s3cmd=1.1.* \</div><div class="line"> &amp;&amp; rm -rf /var/lib/apt/lists/*</div></pre></td></tr></table></figure>
-<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p><code>CMD</code>命令用来启动容器中的应用程序，并且可以传人一些参数。一般的使用格式<code>CMD [“executable”, “param1”, “param2”…]</code>，对于service类型的应用，比如apache和rails，使用方式 <code>CMD [&quot;apache2&quot;,&quot;-DFOREGROUND&quot;]</code>。</p>
-<p>对于其他类型的应用， <code>CMD</code>应该启动一个常用的交互shell，就像bash，python以及perl。例如<code>CMD [&quot;perl&quot;, &quot;-de0&quot;]</code>, <code>CMD [&quot;python&quot;]</code>, 或者 <code>CMD [“php”, “-a”]</code>。这样就能保证，当你运行<code>docker run -it python</code>就能进入一个可用的shell环境。除非你对 <a href="https://docs.docker.com/engine/reference/builder/#entrypoint" target="_blank" rel="external"><code>ENTRYPOINT</code></a>命令非常的熟悉，最好不要用如下的格式<code>CMD [“param”, “param”]</code>配合 <a href="https://docs.docker.com/engine/reference/builder/#entrypoint" target="_blank" rel="external"><code>ENTRYPOINT</code></a>使用。</p>
-<h3 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h3><p><code>EXPOSE</code>命令指定了容器中应用程序监听的端口号，最好使用应用程序常用的端口号，比如 Apache web server一般使用<code>EXPOSE 80</code>，MongoDB使用<code>EXPOSE 27017</code>。</p>
-<p>对于外部访问来说，可以使用<code>docker run -p 8080:80</code>映射到宿主机上的端口，对于容器的互连，docker也提供了环境变量的方式，比如<code>MYSQL_PORT_3306_TCP</code>。</p>
-<h3 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h3><p>为了使新的软件更容易运行，可以使用<code>ENV</code>命令设置容器的环境变量，比如，<code>ENV PATH /usr/local/nginx/bin:$PATH</code> 将nginx设置到环境变量中， <code>CMD [“nginx”]</code> 可以直接运行。</p>
-<p>也可以设置环境变量，给应用程序使用，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ENV PG_MAJOR 9.3</div><div class="line">ENV PG_VERSION 9.3.4</div><div class="line">RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …</div><div class="line">ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH</div></pre></td></tr></table></figure>
-<h3 id="ADD／COPY"><a href="#ADD／COPY" class="headerlink" title="ADD／COPY"></a>ADD／COPY</h3><p>尽管<code>ADD</code>和<code>COPY</code>命令功能基本相同，仍然推荐优先使用<code>COPY</code>命令。<code>COPY</code>命令只支持基本的拷贝功能，<code>ADD</code>有一些隐式的特性，支持打包文件的解压，指定网络路径等等。</p>
-<p>如果你需要拷贝一些文件到容器中，最好单独的拷贝，不要一次性全拷贝，比如下面的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">COPY requirements.txt /tmp/</div><div class="line">RUN pip install --requirement /tmp/requirements.txt</div><div class="line">COPY . /tmp/</div></pre></td></tr></table></figure>
-<p>如果<code>COPY . /tmp/</code>放在<code>run</code>之前，会大大的增加cache失效的可能性。</p>
-<p>从镜像大小的角度考虑，尽量避免使用<code>ADD</code>命令获取远程的资源，可以使用<code>curl</code>或者<code>wget</code>代替。看看下面的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ADD http://example.com/big.tar.xz /usr/src/things/</div><div class="line">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</div><div class="line">RUN make -C /usr/src/things all</div></pre></td></tr></table></figure>
-<p>替换为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">RUN mkdir -p /usr/src/things \</div><div class="line">    &amp;&amp; curl -SL http://example.com/big.tar.xz \</div><div class="line">    | tar -xJC /usr/src/things \</div><div class="line">    &amp;&amp; make -C /usr/src/things all</div></pre></td></tr></table></figure>
-<h3 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h3><h3 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h3><p> <code>VOLUME</code> 指令用来将需要持久化的数据容器暴露到容器外，比如数据库的数据文件，配置文件或者其它的用户创建的文件或者目录。强烈推荐使用 <code>VOLUME</code> 命令保存有状态的数据。</p>
-<h3 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h3><p>如果一个服务并不需要一些root权限，可以使用<code>USER</code>命令切换到非root用户。比如接下来的命令：<code>RUN groupadd -r postgres &amp;&amp; useradd --no-log-init -r -g postgres postgres</code>。</p>
-<p>应该避免使用<code>sudo</code>命令，<code>sudo</code>命令会带来TTY以及信号方面的问题。如果确实需要<code>sudo</code>的功能，推荐使用“gosu”。</p>
-<p>最后一点，为了避免文件层以及复杂性，避免来回切换账号。</p>
-<h3 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h3><p>为了明确和清晰，尽量为工作目录指定绝对路径，不要使用相对路径。</p>
-<h3 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h3><p><code>ONBUILD</code>命令会在当前的 <code>Dockerfile</code>构建完成之后执行。所有的子镜像都会执行父镜像的<code>ONBUILD</code>，然后才会构建自己的 <code>Dockerfile</code>。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
-    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
-    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
-    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
-</div>
-<script>
-window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-<style>
-    .bdshare_popup_box {
-        border-radius: 4px;
-        border: #e1e1e1 solid 1px;
-    }
-    .bdshare-button-style0-16 a,
-    .bdshare-button-style0-16 .bds_more {
-        padding-left: 20px;
-        margin: 6px 10px 6px 0;
-    }
-    .bdshare_dialog_list a,
-    .bdshare_popup_list a,
-    .bdshare_popup_bottom a {
-        font-family: 'Microsoft Yahei';
-    }
-    .bdshare_popup_top {
-        display: none;
-    }
-    .bdshare_popup_bottom {
-        height: auto;
-        padding: 5px;
-    }
-</style>
-
-
-</div>
-
-            
-    
-        <a href="http://ruccsbingo.github.io/2017/10/29/2017-10-29-dockerfile-tutorial-3-best-practices-for-writing-dockerfiles-md/#comments" class="article-comment-link">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
 </section>
             
@@ -1463,6 +1367,63 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/12/2018-06-12-chat-system-design-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/06/12/2018-06-12-chat-system-design-md/" class="title">2018-06-12-chat-system-design.md</a></p>
+                            <p class="item-date"><time datetime="2018-06-12T10:23:23.000Z" itemprop="datePublished">2018-06-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/06/03/2018-06-03-content-addressed-versioned-P2P-file-system-md/" class="title">2018-06-03-content-addressed-versioned-P2P-file-system.md</a></p>
+                            <p class="item-date"><time datetime="2018-06-03T13:49:08.000Z" itemprop="datePublished">2018-06-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2018/05/27/2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol-md/" class="title">2018-05-27-a-provably-secure-proof-of-stake-blockchain-protocol.md</a></p>
+                            <p class="item-date"><time datetime="2018-05-27T08:09:12.000Z" itemprop="datePublished">2018-05-27</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1502,63 +1463,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/11/17/2017-11-17-tools-network-tcpflow-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/11/17/2017-11-17-tools-network-tcpflow-md/" class="title">tcpflow的简单用法</a></p>
-                            <p class="item-date"><time datetime="2017-11-17T09:34:49.000Z" itemprop="datePublished">2017-11-17</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/11/01/2017-11-01-minikube-tutorial-1-hello-minikube-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/11/01/2017-11-01-minikube-tutorial-1-hello-minikube-md/" class="title">minikube系列（一）：hello minikube</a></p>
-                            <p class="item-date"><time datetime="2017-11-01T11:13:55.000Z" itemprop="datePublished">2017-11-01</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/10/31/2017-10-31-docker-practice-manage-data-4-tmpfs-md/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/10/31/2017-10-31-docker-practice-manage-data-4-tmpfs-md/" class="title">2017-10-31-docker-practice-manage-data-4-tmpfs.md</a></p>
-                            <p class="item-date"><time datetime="2017-10-31T13:41:42.000Z" itemprop="datePublished">2017-10-31</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1577,7 +1481,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">16</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">16</span></li></ul>
         </div>
     </div>
 
@@ -1586,7 +1490,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp-algorithm/">dp, algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/block-chain/">block chain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp-algorithm/">dp, algorithm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1595,7 +1499,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/dp-algorithm/" style="font-size: 10px;">dp, algorithm</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a>
+            <a href="/tags/block-chain/" style="font-size: 10px;">block chain</a> <a href="/tags/dp-algorithm/" style="font-size: 10px;">dp, algorithm</a> <a href="/tags/tools/" style="font-size: 10px;">tools</a>
         </div>
     </div>
 
